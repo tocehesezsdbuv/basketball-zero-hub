@@ -80,14 +80,18 @@ a {
 .brand {
   display: flex;
   align-items: center;
+  gap: 12px;
   flex-shrink: 0;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
-.brand img {
-  display: block;
-  width: clamp(156px, 19vw, 220px);
-  height: auto;
-  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
+.brand-ball {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--gold));
+  box-shadow: 0 0 18px rgba(255, 122, 0, 0.5);
 }
 
 .nav-links {

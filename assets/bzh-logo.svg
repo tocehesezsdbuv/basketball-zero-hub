@@ -1,0 +1,46 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="140" y1="70" x2="1060" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172232"/>
+      <stop offset="1" stop-color="#0A111C"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="337" y1="145" x2="864" y2="485" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6EE7F9"/>
+      <stop offset="0.58" stop-color="#E6EEF8"/>
+      <stop offset="1" stop-color="#E0B45C"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="392" y1="224" x2="809" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FBFF"/>
+      <stop offset="1" stop-color="#CBD9E8"/>
+    </linearGradient>
+    <filter id="shadow" x="241" y="89" width="717" height="453" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="18"/>
+      <feGaussianBlur stdDeviation="28"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0235294 0 0 0 0 0.0509804 0 0 0 0 0.0901961 0 0 0 0.5 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_2"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_2" result="shape"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" rx="40" fill="#09111B"/>
+  <rect x="28" y="28" width="1144" height="574" rx="32" fill="url(#bg)" stroke="#223248"/>
+  <circle cx="600" cy="315" r="244" stroke="#132031" stroke-width="2"/>
+  <circle cx="600" cy="315" r="206" stroke="#132031" stroke-width="1.5"/>
+
+  <g filter="url(#shadow)">
+    <rect x="297" y="145" width="606" height="340" rx="170" fill="#0E1826" stroke="url(#ring)" stroke-width="2"/>
+    <path d="M411 225H536C585.706 225 626 265.294 626 315C626 364.706 585.706 405 536 405H411V225ZM510 349C531.539 349 549 333.539 549 312C549 290.461 531.539 273 510 273H480V349H510Z" fill="url(#ink)"/>
+    <path d="M665 225H743L783 281L823 225H901L823 316L902 405H822L783 347L744 405H665L744 315L665 225Z" fill="url(#ink)"/>
+  </g>
+
+  <path d="M411 225H536C585.706 225 626 265.294 626 315C626 364.706 585.706 405 536 405H411V225ZM510 349C531.539 349 549 333.539 549 312C549 290.461 531.539 273 510 273H480V349H510Z" fill="url(#ink)"/>
+  <path d="M665 225H743L783 281L823 225H901L823 316L902 405H822L783 347L744 405H665L744 315L665 225Z" fill="url(#ink)"/>
+  <path d="M532 225H617V405H532V225Z" fill="#0E1826"/>
+  <path d="M531 225H602C650.601 225 690 264.399 690 313V317C690 365.601 650.601 405 602 405H531V347H595C612.673 347 627 332.673 627 315C627 297.327 612.673 283 595 283H531V225Z" fill="url(#ink)"/>
+
+  <rect x="454" y="474" width="292" height="28" rx="14" fill="#0C1623" stroke="#223248"/>
+  <text x="600" y="493" text-anchor="middle" fill="#9FB4CA" font-family="Segoe UI, Arial, sans-serif" font-size="22" letter-spacing="7">BASKETBALL ZERO HUB</text>
+</svg>

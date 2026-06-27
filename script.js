@@ -135,7 +135,7 @@ const playerSpotlights = {
   },
   Astral: {
     description:
-      "Astral is currently placed at No.5 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Astral is currently placed at No.6 in the 1v1 rankings and remains one of the notable names on the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",
@@ -145,7 +145,7 @@ const playerSpotlights = {
   },
   Umbra: {
     description:
-      "Umbra is currently placed at No.6 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Umbra is currently placed at No.5 in the 1v1 rankings and remains one of the notable names on the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",

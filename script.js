@@ -135,7 +135,7 @@ const playerSpotlights = {
   },
   Astral: {
     description:
-      "Astral is currently placed at No.8 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Astral is currently placed at No.9 in the 1v1 rankings and remains one of the notable names on the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",
@@ -175,7 +175,7 @@ const playerSpotlights = {
   },
   Mac: {
     description:
-      "Mac is currently placed at No.9 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Mac is currently placed at No.8 in the 1v1 rankings and remains one of the notable names on the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",

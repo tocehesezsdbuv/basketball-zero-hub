@@ -135,11 +135,21 @@ const playerSpotlights = {
   },
   Astral: {
     description:
-      "Astral is currently placed at No.6 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Astral is currently placed at No.8 in the 1v1 rankings and remains one of the notable names on the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",
         text: "Astral currently holds a place inside the top 10 of the 1v1 rankings.",
+      },
+    ],
+  },
+  Lyric: {
+    description:
+      "Lyric is currently placed at No.6 in the 1v1 rankings and enters the upper ladder as one of the newer names inside the top group.",
+    monuments: [
+      {
+        title: "Top 10 Placement",
+        text: "Lyric currently holds a place inside the top 10 of the 1v1 rankings.",
       },
     ],
   },
@@ -165,7 +175,7 @@ const playerSpotlights = {
   },
   Mac: {
     description:
-      "Mac is currently placed at No.8 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Mac is currently placed at No.9 in the 1v1 rankings and remains one of the notable names on the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",
@@ -175,21 +185,11 @@ const playerSpotlights = {
   },
   Yuji: {
     description:
-      "Yuji is currently placed at No.9 in the 1v1 rankings and remains part of the competitive top 10 group.",
+      "Yuji is currently placed at No.10 in the 1v1 rankings and remains part of the competitive top 10 group.",
     monuments: [
       {
         title: "Top 10 Placement",
         text: "Yuji currently holds a place inside the top 10 of the 1v1 rankings.",
-      },
-    ],
-  },
-  Null: {
-    description:
-      "Null is currently placed at No.10 in the 1v1 rankings and rounds out the visible top 10 ladder.",
-    monuments: [
-      {
-        title: "Top 10 Placement",
-        text: "Null currently holds a place inside the top 10 of the 1v1 rankings.",
       },
     ],
   },

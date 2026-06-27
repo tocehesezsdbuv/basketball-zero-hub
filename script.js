@@ -1,12 +1,16 @@
 const tabButtons = document.querySelectorAll(".tab-button");
 const tabPanels = document.querySelectorAll(".tab-panel");
 const tabLinks = document.querySelectorAll("[data-tab-link]");
-const subtabButtons = document.querySelectorAll(".subtab-button");
-const subtabPanels = document.querySelectorAll(".subtab-panel");
+const switchButtons = document.querySelectorAll("[data-switch-group]");
+const switchPanels = document.querySelectorAll("[data-switch-panel]");
 const rankingRows = document.querySelectorAll(".leaderboard-row");
 const spotlightName = document.getElementById("spotlightName");
 const spotlightDescription = document.getElementById("spotlightDescription");
 const monumentsList = document.getElementById("monumentsList");
+const allTimeRankingRows = document.querySelectorAll("[data-alltime-player]");
+const alltimeSpotlightName = document.getElementById("alltimeSpotlightName");
+const alltimeSpotlightDescription = document.getElementById("alltimeSpotlightDescription");
+const alltimeMonumentsList = document.getElementById("alltimeMonumentsList");
 const legendLinks = document.querySelectorAll(".legend-link");
 const hubSection = document.getElementById("hub");
 
@@ -195,6 +199,135 @@ const playerSpotlights = {
   },
 };
 
+const allTimeSpotlights = {
+  Cheese: {
+    description:
+      "Cheese holds the No.1 all-time 1v1 spot because his prime combined impossible-to-block low ping, elite deception, and offensive pressure that almost no defender could stay calm against.",
+    monuments: [
+      {
+        title: "Prime Rival of Pocoyo",
+        text: "At his best, Cheese stood on equal ground with Pocoyo and helped define the strongest rivalry Basketball Zero has ever had.",
+      },
+      {
+        title: "Ranked 1v2 Demon",
+        text: "Prime Cheese could win 1v2s in ranked, showing a level of control and confidence most top players never reached.",
+      },
+      {
+        title: "Impossible-to-Block Low Ping",
+        text: "His peak releases and timing were so fast that even correct reactions often felt late, making his prime offense terrifying.",
+      },
+      {
+        title: "Pump Fake Gravity",
+        text: "Cheese's prime pump fakes were so convincing that defenders would panic early and hand him easy openings.",
+      },
+      {
+        title: "Elite Offensive Threat",
+        text: "At his peak, Cheese broke defenders down through pressure, deception, and perfect timing rather than wasted movement.",
+      },
+    ],
+  },
+  Pocoyo: {
+    description:
+      "Pocoyo's peak made him one of the clearest all-time greats, dominating across multiple seasons with a style that felt ahead of what the rest of the scene could answer.",
+    monuments: [
+      {
+        title: "Held No.1 From Seasons 2-8",
+        text: "Pocoyo's prime wasn't brief; he stayed on top for an entire era and proved his peak could outlast almost everyone else.",
+      },
+      {
+        title: "Ahead of His Time",
+        text: "At his best, Pocoyo's reads, defense, and movement felt like they belonged to a stronger version of the game than everyone else was playing.",
+      },
+      {
+        title: "Most Dominant of His Era",
+        text: "Prime Pocoyo set the standard of the era, with only Cheese truly close enough to challenge that level.",
+      },
+      {
+        title: "Undefeated Lockdown Demon",
+        text: "His peak defense shut down possessions early and made scoring on him feel like a rare achievement.",
+      },
+      {
+        title: "Untrackable Offense",
+        text: "Pocoyo's prime movement and pace changes were so hard to follow that defenders often ended up guessing instead of reading him.",
+      },
+    ],
+  },
+  Canel: {
+    description:
+      "Canel's prime earned him the No.3 all-time spot through unmatched reaction speed, impossible contests, and an ELO peak that no other 1v1 player has been able to clear.",
+    monuments: [
+      {
+        title: "Highest 1v1 ELO Ever",
+        text: "Prime Canel reached the highest recorded 1v1 ELO, giving his peak one of the clearest measurable cases in all-time talks.",
+      },
+      {
+        title: "Held No.1 for 2 Seasons",
+        text: "He didn't just spike briefly; Canel's peak lasted long enough to keep him on top across two seasons.",
+      },
+      {
+        title: "Wins Over Pocoyo and Cheese",
+        text: "Beating names as respected as Pocoyo and Cheese gave Canel's prime real all-time credibility beyond raw ladder numbers.",
+      },
+      {
+        title: "The Ping Demon Reputation",
+        text: "At his best, Canel's low ping, huge block range, and low hitbox made his prime one of the most oppressive in 1v1 history.",
+      },
+      {
+        title: "Feared in Isolation",
+        text: "Prime Canel turned every possession into a pressure test through flick speed, impossible contests, and constant pace control.",
+      },
+    ],
+  },
+  Shoop: {
+    description:
+      "Shoop lands at No.4 all-time because his prime half-court control, respected wins, and former No.2 reputation made him one of the cleanest elite peaks of his era.",
+    monuments: [
+      {
+        title: "Defeated Pocoyo and Cheese",
+        text: "Prime Shoop proved his ceiling through wins over legendary names, showing he could truly compete with the best of the best.",
+      },
+      {
+        title: "Previous 2nd Best in His Prime",
+        text: "At his highest level, Shoop was treated as the second best player in the scene, which says everything about how dangerous his prime was.",
+      },
+      {
+        title: "Returning From Rust",
+        text: "Even away from prime form, Shoop's legacy still points back to a version of him that was one of the hardest players to handle.",
+      },
+      {
+        title: "Half-Court Specialist",
+        text: "Prime Shoop was deadly in half-court settings where control, reads, and punishing small mistakes mattered the most.",
+      },
+      {
+        title: "Creator of the Basketball Zero Hub Website",
+        text: "Shoop's legacy extends beyond peak gameplay, giving him a visible place in the community's history as well.",
+      },
+    ],
+  },
+  Gary: {
+    description:
+      "Gary sits at No.5 on the all-time 1v1 board, remembered for a prime built on elite hesitations, offensive pressure, and the ability to completely throw defenders off rhythm.",
+    monuments: [
+      {
+        title: "Top Player in His Prime",
+        text: "Gary was considered a top player in his prime, with the skill and confidence to stand as a serious threat whenever he was active and locked in.",
+      },
+      {
+        title: "Hesi Specialist",
+        text: "His hesitations were Gary's signature weapon, freezing defenders and creating easy openings out of simple stop-start movement.",
+      },
+      {
+        title: "Elite at Shaking Up Opponents",
+        text: "Gary's prime was built on throwing defenders off rhythm, baiting reactions, and punishing anyone who started panicking.",
+      },
+      {
+        title: "Prime-Level Offensive Pressure",
+        text: "At his best, Gary's offense used clean hesis, sudden bursts, and smart timing to constantly break defenders down.",
+      },
+    ],
+  },
+};
+
 function activateTab(targetTab) {
   const currentIndex = Array.from(tabButtons).findIndex((button) =>
     button.classList.contains("active")
@@ -240,36 +373,42 @@ tabLinks.forEach((link) => {
   });
 });
 
-function activateSubtab(targetSubtab) {
-  const currentIndex = Array.from(subtabButtons).findIndex((button) =>
+function activateSwitch(groupName, targetValue) {
+  const groupButtons = Array.from(switchButtons).filter(
+    (button) => button.dataset.switchGroup === groupName
+  );
+  const groupPanels = Array.from(switchPanels).filter(
+    (panel) => panel.dataset.switchPanel === groupName
+  );
+  const currentIndex = groupButtons.findIndex((button) =>
     button.classList.contains("active")
   );
-  const targetIndex = Array.from(subtabButtons).findIndex(
-    (button) => button.dataset.subtab === targetSubtab
+  const targetIndex = groupButtons.findIndex(
+    (button) => button.dataset.switchTarget === targetValue
   );
   const motion = targetIndex >= currentIndex ? "left" : "right";
 
-  subtabButtons.forEach((button) => {
-    button.classList.toggle("active", button.dataset.subtab === targetSubtab);
+  groupButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.switchTarget === targetValue);
   });
 
-  subtabPanels.forEach((panel) => {
-    panel.classList.toggle("active", panel.dataset.subpanel === targetSubtab);
-    if (panel.dataset.subpanel === targetSubtab) {
+  groupPanels.forEach((panel) => {
+    panel.classList.toggle("active", panel.dataset.switchValue === targetValue);
+    if (panel.dataset.switchValue === targetValue) {
       panel.dataset.motion = motion;
     }
   });
 
   document.body.classList.add("is-transitioning");
-  window.clearTimeout(activateSubtab.transitionTimer);
-  activateSubtab.transitionTimer = window.setTimeout(() => {
+  window.clearTimeout(activateSwitch.transitionTimer);
+  activateSwitch.transitionTimer = window.setTimeout(() => {
     document.body.classList.remove("is-transitioning");
   }, 340);
 }
 
-subtabButtons.forEach((button) => {
+switchButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    activateSubtab(button.dataset.subtab);
+    activateSwitch(button.dataset.switchGroup, button.dataset.switchTarget);
   });
 });
 
@@ -305,10 +444,51 @@ function renderSpotlight(playerName) {
   }, 180);
 }
 
+function renderAllTimeSpotlight(playerName) {
+  const player = allTimeSpotlights[playerName];
+
+  if (!player || !alltimeSpotlightName || !alltimeSpotlightDescription || !alltimeMonumentsList) {
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  alltimeSpotlightName.textContent = playerName;
+  alltimeSpotlightDescription.textContent = player.description;
+  alltimeMonumentsList.innerHTML = player.monuments
+    .map(
+      (monument) => `
+        <article class="monument-item">
+          <h4>${monument.title}</h4>
+          <p>${monument.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  allTimeRankingRows.forEach((row) => {
+    row.classList.toggle("active", row.dataset.alltimePlayer === playerName);
+  });
+
+  window.clearTimeout(renderAllTimeSpotlight.fadeTimer);
+  renderAllTimeSpotlight.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
 rankingRows.forEach((row) => {
+  if (row.dataset.alltimePlayer) {
+    return;
+  }
   row.dataset.player = row.querySelector("strong")?.textContent || "";
   row.addEventListener("click", () => {
     renderSpotlight(row.dataset.player);
+  });
+});
+
+allTimeRankingRows.forEach((row) => {
+  row.addEventListener("click", () => {
+    renderAllTimeSpotlight(row.dataset.alltimePlayer);
   });
 });
 
@@ -319,3 +499,4 @@ legendLinks.forEach((link) => {
 });
 
 renderSpotlight("Canel");
+renderAllTimeSpotlight("Gary");

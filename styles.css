@@ -423,6 +423,10 @@ a {
   align-items: start;
 }
 
+.timeline-layout-single {
+  grid-template-columns: 1fr;
+}
+
 .leaderboard-card,
 .insight-card,
 .timeline-list,

@@ -431,6 +431,59 @@ a {
   grid-template-columns: 1fr;
 }
 
+.dc-list {
+  display: grid;
+  gap: 12px;
+}
+
+.dc-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 44px 52px 1.6fr 1fr 0.9fr;
+  gap: 12px;
+  align-items: center;
+  padding: 18px 20px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.04));
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: background 220ms ease, transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.dc-card:hover,
+.dc-card.active {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.05));
+  border-color: rgba(255, 216, 107, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 12px 30px rgba(0, 0, 0, 0.22);
+  transform: translateY(-1px);
+}
+
+.dc-card.active {
+  border-color: rgba(255, 216, 107, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 16px 34px rgba(0, 0, 0, 0.24),
+    0 0 0 1px rgba(255, 216, 107, 0.06);
+}
+
+.dc-card-rank {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.dc-card-meta {
+  display: grid;
+  gap: 4px;
+}
+
 .leaderboard-card,
 .insight-card,
 .timeline-list,

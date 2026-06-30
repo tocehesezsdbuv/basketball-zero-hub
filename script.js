@@ -11,6 +11,10 @@ const allTimeRankingRows = document.querySelectorAll("[data-alltime-player]");
 const alltimeSpotlightName = document.getElementById("alltimeSpotlightName");
 const alltimeSpotlightDescription = document.getElementById("alltimeSpotlightDescription");
 const alltimeMonumentsList = document.getElementById("alltimeMonumentsList");
+const dcCards = document.querySelectorAll(".dc-card");
+const dcSpotlightName = document.getElementById("dcSpotlightName");
+const dcSpotlightDescription = document.getElementById("dcSpotlightDescription");
+const dcSpotlightNote = document.getElementById("dcSpotlightNote");
 const legendLinks = document.querySelectorAll(".legend-link");
 const hubSection = document.getElementById("hub");
 
@@ -328,6 +332,29 @@ const allTimeSpotlights = {
   },
 };
 
+const dcSpotlights = {
+  Dinocanpoop: {
+    description:
+      "Dino is the self-proclaimed leader of the Dinos Denn, known for walking around like he owns the game and treating every conversation like a throne room speech. Most of his reputation comes from loud confidence, oversized ego, and acting untouchable even when people are not fully buying it.",
+    note: "Big ego, bigger speeches, and endless self-belief.",
+  },
+  Sanslikeschode: {
+    description:
+      "Sans is the kind of permanently online Discord warrior who turns loyalty into a full-time job. He has a reputation for glazing hard, abusing tiny bits of authority, and acting way tougher with perms than he ever does without them.",
+    note: "Known for glazing, power trips, and Discord warrior energy.",
+  },
+  PedoCheok: {
+    description:
+      "Cheok is one of those names that always ends up in awkward conversations for all the wrong reasons. Between the strange energy, oversharing, and nonstop ability to make things uncomfortable, he has built a reputation that people instantly clown on.",
+    note: "Awkward aura, weird stories, and instant clown material.",
+  },
+  DCAnalBlack: {
+    description:
+      "Canel's entire identity is tied to being No.1 in BBZ, and he carries that title like it is a crown. The skill is real, but so is the ego, and every conversation somehow circles back to why he thinks nobody else belongs in the same tier.",
+    note: "Elite player, elite ego, and never far from a No.1 speech.",
+  },
+};
+
 function activateTab(targetTab) {
   const currentIndex = Array.from(tabButtons).findIndex((button) =>
     button.classList.contains("active")
@@ -476,8 +503,24 @@ function renderAllTimeSpotlight(playerName) {
   }, 180);
 }
 
+function renderDcSpotlight(playerName) {
+  const player = dcSpotlights[playerName];
+
+  if (!player || !dcSpotlightName || !dcSpotlightDescription || !dcSpotlightNote) {
+    return;
+  }
+
+  dcSpotlightName.textContent = playerName;
+  dcSpotlightDescription.textContent = player.description;
+  dcSpotlightNote.textContent = player.note;
+
+  dcCards.forEach((card) => {
+    card.classList.toggle("active", card.dataset.dcPlayer === playerName);
+  });
+}
+
 rankingRows.forEach((row) => {
-  if (row.dataset.alltimePlayer) {
+  if (row.dataset.alltimePlayer || row.dataset.dcPlayer) {
     return;
   }
   row.dataset.player = row.querySelector("strong")?.textContent || "";
@@ -492,6 +535,12 @@ allTimeRankingRows.forEach((row) => {
   });
 });
 
+dcCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    renderDcSpotlight(card.dataset.dcPlayer);
+  });
+});
+
 legendLinks.forEach((link) => {
   link.addEventListener("click", () => {
     document.body.classList.add("is-transitioning");
@@ -500,3 +549,4 @@ legendLinks.forEach((link) => {
 
 renderSpotlight("Canel");
 renderAllTimeSpotlight("Gary");
+renderDcSpotlight("Dinocanpoop");

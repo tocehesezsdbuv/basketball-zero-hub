@@ -58,6 +58,7 @@
             <a href="#hub" data-tab-link="upcoming">Up & Coming</a>
             <a href="#hub" data-tab-link="legends">Legends</a>
             <a href="#hub" data-tab-link="timeline">Timeline</a>
+            <a href="#hub" data-tab-link="dcbums">DC Bums</a>
           </div>
             <a
               class="discord-link"
@@ -125,6 +126,7 @@
               <button class="tab-button" data-tab="upcoming">Up & Coming</button>
               <button class="tab-button" data-tab="legends">Legends</button>
               <button class="tab-button" data-tab="timeline">Timeline</button>
+              <button class="tab-button" data-tab="dcbums">DC Bums</button>
             </div>
           </div>
 
@@ -176,7 +178,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number tied-rank" aria-label="Tied for number 2 rank">T-2</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row active" data-dc-player="Dinocanpoop">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -195,7 +197,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number tied-rank" aria-label="Tied for number 2 rank">T-2</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row" data-dc-player="Sanslikeschode">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -214,7 +216,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number" aria-label="Number 3 rank">3.</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row" data-dc-player="PedoCheok">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -233,7 +235,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number" aria-label="Number 4 rank">4.</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row" data-dc-player="DCAnalBlack">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -252,7 +254,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number" aria-label="Number 5 rank">5.</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row active" data-dc-player="Dinocanpoop">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -271,7 +273,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number" aria-label="Number 6 rank">6.</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row" data-dc-player="Sanslikeschode">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -290,7 +292,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number" aria-label="Number 7 rank">7.</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row" data-dc-player="PedoCheok">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -309,7 +311,7 @@
                   <div class="row-breakline"></div>
                   <div class="rankings-entry-block">
                     <div class="ranking-number" aria-label="Number 8 rank">8.</div>
-                    <article class="leaderboard-row">
+                    <article class="leaderboard-row" data-dc-player="DCAnalBlack">
                       <div class="player-meta">
                         <img
                           class="avatar-slot avatar-image"
@@ -654,6 +656,74 @@
               </div>
             </div>
           </div>
+
+          <div class="tab-panel" data-panel="dcbums">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Side archive</p>
+      <h3>DC Bums</h3>
+    </div>
+  </div>
+
+  <div class="timeline-layout">
+    <div class="leaderboard-card empty-state-card">
+      <div class="leaderboard-head">
+        <span>Name</span>
+        <span>Title</span>
+        <span>Status</span>
+      </div>
+      <div class="dc-list">
+        <button class="dc-card active" type="button" data-dc-player="Dinocanpoop">
+          <span class="dc-card-rank">1.</span>
+          <img class="avatar-slot avatar-image" src="assets/dino.webp" alt="Dinocanpoop avatar" />
+          <div class="dc-card-meta">
+            <strong>Dinocanpoop</strong>
+            <span class="player-username">@bennizucchini</span>
+          </div>
+          <span>Head Bum</span>
+          <span class="rank-tier rank-tier-plain">Certified</span>
+        </button>
+        <button class="dc-card" type="button" data-dc-player="Sanslikeschode">
+          <span class="dc-card-rank">2.</span>
+          <img class="avatar-slot avatar-image" src="assets/sans.webp" alt="Sanslikeschode avatar" />
+          <div class="dc-card-meta">
+            <strong>Sanslikeschode</strong>
+            <span class="player-username">@Enigmaticed</span>
+          </div>
+          <span>Fraud Watch</span>
+          <span class="rank-tier rank-tier-plain">Certified</span>
+        </button>
+        <button class="dc-card" type="button" data-dc-player="PedoCheok">
+          <span class="dc-card-rank">3.</span>
+          <img class="avatar-slot avatar-image" src="assets/cheok.webp" alt="PedoCheok avatar" />
+          <div class="dc-card-meta">
+            <strong>PedoCheok</strong>
+            <span class="player-username">@Cheokhimisthebest</span>
+          </div>
+          <span>Hall of Shame</span>
+          <span class="rank-tier rank-tier-plain">Certified</span>
+        </button>
+        <button class="dc-card" type="button" data-dc-player="DCAnalBlack">
+          <span class="dc-card-rank">4.</span>
+          <img class="avatar-slot avatar-image" src="assets/Canel.webp" alt="DCAnalBlack avatar" />
+          <div class="dc-card-meta">
+            <strong>DCAnalBlack</strong>
+            <span class="player-username">@Crackfed778</span>
+          </div>
+          <span>Wall of Bumness</span>
+          <span class="rank-tier rank-tier-plain">Certified</span>
+        </button>
+      </div>
+    </div>
+
+    <aside class="insight-card empty-state-card">
+      <p class="mini-label">DC Spotlight</p>
+      <h3 id="dcSpotlightName">Dinocanpoop</h3>
+      <p id="dcSpotlightDescription">Dino is the self-proclaimed leader of the Dinos Denn, known for walking around like he owns the game and treating every conversation like a throne room speech. Most of his reputation comes from loud confidence, oversized ego, and acting untouchable even when people are not fully buying it.</p>
+      <p id="dcSpotlightNote">Big ego, bigger speeches, and endless self-belief.</p>
+    </aside>
+  </div>
+</div>
         </section>
       </main>
     </div>
@@ -661,3 +731,4 @@
     <script src="script.js"></script>
   </body>
 </html>
+

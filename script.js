@@ -19,61 +19,9 @@ const legendLinks = document.querySelectorAll(".legend-link");
 const hubSection = document.getElementById("hub");
 
 const playerSpotlights = {
-  Canel: {
-    description:
-      "Canel is widely recognized as the No.1 1v1 player, known for insane reaction speed, low-ping advantage, and unpredictable movement. His block range feels unfair, his low hitbox makes him difficult to punish, and his fast flicks constantly throw defenders off. In isolation, he controls the pace and turns every possession into a pressure test.",
-    monuments: [
-      {
-        title: "Highest 1v1 ELO Ever",
-        text: "Canel reached the highest 1v1 ELO ever recorded, setting a benchmark no one else has passed.",
-      },
-      {
-        title: "Held No.1 for 2 Seasons",
-        text: "He held the No.1 spot across two seasons with consistent dominance.",
-      },
-      {
-        title: "Wins Over Pocoyo and Cheese",
-        text: "Victories over respected names like Pocoyo and Cheese gave real weight to his No.1 status.",
-      },
-      {
-        title: "The Ping Demon Reputation",
-        text: "Low-ping reactions, huge block range, and a low hitbox made him one of the most frustrating 1v1 players to face.",
-      },
-      {
-        title: "Feared in Isolation",
-        text: "Fast flicks, constant pressure, and impossible contests turned every possession against Canel into a mental test.",
-      },
-    ],
-  },
-  Blacky: {
-    description:
-      "Blacky is one of the two players contesting No.2, carrying a Canel-inspired style built around fast pressure, sharp flicks, and constant discomfort for defenders. With a 7k+ peak and a unique movement identity, he stands out as one of the most dangerous rivals in the tier just below Canel.",
-    monuments: [
-      {
-        title: "Student of Canel's Playstyle",
-        text: "Blacky learned from Canel, building a fast, pressure-heavy style while still adding his own rhythm.",
-      },
-      {
-        title: "Prominent Flick Specialist",
-        text: "His flicks and sudden direction changes force defenders to lose their angle and react too late.",
-      },
-      {
-        title: "Elite at Shaking Up Opponents",
-        text: "Blacky constantly changes pace, direction, and timing to make opponents panic and lose control.",
-      },
-      {
-        title: "Creator of the Wall Bounce Method",
-        text: "He is known as the creator of the Wall Bounce Method, giving him a unique place in the scene.",
-      },
-      {
-        title: "Rival-Level Threat",
-        text: "His Canel-inspired pressure, flicks, and wall bounce method make him one of the few players able to challenge elite names like Serenity.",
-      },
-    ],
-  },
   Serenity: {
     description:
-      "Serenity returned from a four-month retirement and immediately re-established themself as one of the hardest 1v1 players to face. Known for full-court control, elite adaptability, and oppressive contests, Serenity remains firmly in the race for No.2.",
+      "Serenity now sits at No.1 on the present 1v1 board, backed by full-court control, elite adaptability, and contests that make every possession feel uncomfortable.",
     monuments: [
       {
         title: "Returned After 4 Months Away",
@@ -141,19 +89,27 @@ const playerSpotlights = {
       },
     ],
   },
-  Astral: {
+  Cheese: {
     description:
-      "Astral is currently placed at No.9 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Cheese now sits at No.2 on the present board, with elite offensive pressure, hard-to-read timing, and the kind of pace changes that still make him feel dangerous in isolation.",
     monuments: [
       {
-        title: "Top 10 Placement",
-        text: "Astral currently holds a place inside the top 10 of the 1v1 rankings.",
+        title: "Current No.2 Placement",
+        text: "Cheese currently holds the second spot on the reset 1v1 leaderboard.",
+      },
+      {
+        title: "Low-Ping Pressure",
+        text: "His speed and timing still make defensive reads feel stressful and rushed.",
+      },
+      {
+        title: "Elite Isolation Threat",
+        text: "Cheese stays dangerous because he can pressure defenders into panicking before the possession is even decided.",
       },
     ],
   },
   Lyric: {
     description:
-      "Lyric is currently placed at No.6 in the 1v1 rankings and enters the upper ladder as one of the newer names inside the top group.",
+      "Lyric currently sits at No.8 in the 1v1 rankings and remains one of the names holding a place inside the reset top 10.",
     monuments: [
       {
         title: "Top 10 Placement",
@@ -161,43 +117,73 @@ const playerSpotlights = {
       },
     ],
   },
-  Umbra: {
+  Literalgod: {
     description:
-      "Umbra is currently placed at No.5 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Literalgod currently sits at No.5 on the present 1v1 board and holds a strong place in the upper half of the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",
-        text: "Umbra currently holds a place inside the top 10 of the 1v1 rankings.",
+        text: "Literalgod currently holds a place inside the top 10 of the 1v1 rankings.",
+      },
+      {
+        title: "Upper Ladder Presence",
+        text: "Their current placement keeps them firmly among the more visible names on the board.",
       },
     ],
   },
-  Goos: {
+  Kol: {
     description:
-      "Goos is currently placed at No.7 in the 1v1 rankings and remains part of the broader upper ladder group.",
+      "Kol currently sits at No.6 on the present 1v1 board and stays in the upper-middle section of the ladder.",
     monuments: [
       {
         title: "Top 10 Placement",
-        text: "Goos currently holds a place inside the top 10 of the 1v1 rankings.",
+        text: "Kol currently holds a place inside the top 10 of the 1v1 rankings.",
+      },
+      {
+        title: "Current Ladder Presence",
+        text: "Kol remains one of the names currently locked into the reset 1v1 top 10.",
       },
     ],
   },
-  Mac: {
+  Gnome: {
     description:
-      "Mac is currently placed at No.8 in the 1v1 rankings and remains one of the notable names on the ladder.",
+      "Gnome currently sits at No.7 on the present 1v1 board and holds a solid spot in the current top 10.",
     monuments: [
       {
         title: "Top 10 Placement",
-        text: "Mac currently holds a place inside the top 10 of the 1v1 rankings.",
+        text: "Gnome currently holds a place inside the top 10 of the 1v1 rankings.",
+      },
+      {
+        title: "Current Ladder Presence",
+        text: "Their spot on the board keeps them in the active present-day conversation.",
       },
     ],
   },
-  Yuji: {
+  Gary: {
     description:
-      "Yuji is currently placed at No.10 in the 1v1 rankings and remains part of the competitive top 10 group.",
+      "Gary currently sits at No.9 on the present 1v1 board, carrying over a known name and a 4k+ peak into the current reset ladder.",
     monuments: [
       {
         title: "Top 10 Placement",
-        text: "Yuji currently holds a place inside the top 10 of the 1v1 rankings.",
+        text: "Gary currently holds a place inside the top 10 of the 1v1 rankings.",
+      },
+      {
+        title: "Known Peak",
+        text: "A 4k+ peak gives Gary one of the clearer tracked marks among the lower half of the present board.",
+      },
+    ],
+  },
+  Tenkyu: {
+    description:
+      "Tenkyu rounds out the present 1v1 top 10 at No.10 and remains one of the tracked names still in the mix.",
+    monuments: [
+      {
+        title: "Top 10 Placement",
+        text: "Tenkyu currently holds a place inside the top 10 of the 1v1 rankings.",
+      },
+      {
+        title: "Tracked Contender",
+        text: "Their current placement keeps them on the board as one of the active names worth watching.",
       },
     ],
   },
@@ -253,32 +239,6 @@ const allTimeSpotlights = {
       {
         title: "Untrackable Offense",
         text: "Pocoyo's prime movement and pace changes were so hard to follow that defenders often ended up guessing instead of reading him.",
-      },
-    ],
-  },
-  Canel: {
-    description:
-      "Canel's prime earned him the No.3 all-time spot through unmatched reaction speed, impossible contests, and an ELO peak that no other 1v1 player has been able to clear.",
-    monuments: [
-      {
-        title: "Highest 1v1 ELO Ever",
-        text: "Prime Canel reached the highest recorded 1v1 ELO, giving his peak one of the clearest measurable cases in all-time talks.",
-      },
-      {
-        title: "Held No.1 for 2 Seasons",
-        text: "He didn't just spike briefly; Canel's peak lasted long enough to keep him on top across two seasons.",
-      },
-      {
-        title: "Wins Over Pocoyo and Cheese",
-        text: "Beating names as respected as Pocoyo and Cheese gave Canel's prime real all-time credibility beyond raw ladder numbers.",
-      },
-      {
-        title: "The Ping Demon Reputation",
-        text: "At his best, Canel's low ping, huge block range, and low hitbox made his prime one of the most oppressive in 1v1 history.",
-      },
-      {
-        title: "Feared in Isolation",
-        text: "Prime Canel turned every possession into a pressure test through flick speed, impossible contests, and constant pace control.",
       },
     ],
   },
@@ -547,6 +507,6 @@ legendLinks.forEach((link) => {
   });
 });
 
-renderSpotlight("Canel");
+renderSpotlight("Serenity");
 renderAllTimeSpotlight("Gary");
 renderDcSpotlight("Dinocanpoop");

@@ -45,11 +45,11 @@ const playerSpotlights = {
       },
       {
         title: "Only Falls to Elite Names",
-        text: "Losses are rare, with Canel and rival Blacky standing out as the only consistent challengers.",
+        text: "Losses are rare, which keeps Serenity firmly in the elite tier of the current scene.",
       },
       {
-        title: "Rivalry With Blacky",
-        text: "Their battles with Blacky are intense, reputation-heavy, and central to Serenity's legacy.",
+        title: "Pressure Matchups",
+        text: "Serenity's biggest matches feel high-pressure because their style forces opponents into uncomfortable decisions all game long.",
       },
       {
         title: "Elite Adaptability",

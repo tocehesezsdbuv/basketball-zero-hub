@@ -574,6 +574,26 @@ a {
   gap: 12px;
 }
 
+.duo-meta {
+  gap: 16px;
+}
+
+.duo-avatars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 8px;
+  width: 112px;
+  height: 52px;
+  flex: 0 0 112px;
+}
+
+.duo-avatar {
+  width: 50px;
+  height: 50px;
+  position: static;
+}
+
 .rank-badge {
   width: 38px;
   height: 38px;

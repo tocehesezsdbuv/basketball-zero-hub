@@ -11,6 +11,14 @@ const allTimeRankingRows = document.querySelectorAll("[data-alltime-player]");
 const alltimeSpotlightName = document.getElementById("alltimeSpotlightName");
 const alltimeSpotlightDescription = document.getElementById("alltimeSpotlightDescription");
 const alltimeMonumentsList = document.getElementById("alltimeMonumentsList");
+const offboardRankingRows = document.querySelectorAll("[data-offboard-player]");
+const offboardSpotlightName = document.getElementById("offboardSpotlightName");
+const offboardSpotlightDescription = document.getElementById("offboardSpotlightDescription");
+const offboardNotesList = document.getElementById("offboardNotesList");
+const twosRankingRows = document.querySelectorAll("[data-twos-player]");
+const twosSpotlightName = document.getElementById("twosSpotlightName");
+const twosSpotlightDescription = document.getElementById("twosSpotlightDescription");
+const twosNotesList = document.getElementById("twosNotesList");
 const dcCards = document.querySelectorAll(".dc-card");
 const dcSpotlightName = document.getElementById("dcSpotlightName");
 const dcSpotlightDescription = document.getElementById("dcSpotlightDescription");
@@ -187,6 +195,34 @@ const playerSpotlights = {
       },
     ],
   },
+  Dio: {
+    description:
+      "Dio is currently being tracked outside the main 1v1 leaderboard and sits in the off-board pool as a C Rank name.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Dio is not on the main top 10 ladder right now and is instead being tracked separately.",
+      },
+      {
+        title: "C Rank Status",
+        text: "Current placement puts Dio in the off-board pool at C Rank.",
+      },
+    ],
+  },
+  Bigmac: {
+    description:
+      "Bigmac is currently being tracked outside the main 1v1 leaderboard and sits at the top of the off-board pool as a B Rank name.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Bigmac is not on the active top 10 right now, but is still being tracked just outside the main ladder.",
+      },
+      {
+        title: "B Rank Status",
+        text: "Current placement puts Bigmac above the rest of the off-board pool at B Rank.",
+      },
+    ],
+  },
 };
 
 const allTimeSpotlights = {
@@ -287,6 +323,37 @@ const allTimeSpotlights = {
       {
         title: "Prime-Level Offensive Pressure",
         text: "At his best, Gary's offense used clean hesis, sudden bursts, and smart timing to constantly break defenders down.",
+      },
+    ],
+  },
+};
+
+const twosSpotlights = {
+  "Dio & Luckifan": {
+    description:
+      "Dio and Luckifan currently sit at No.1 on the 2v2 board and lead the present duo ladder as the team to beat.",
+    notes: [
+      {
+        title: "Current No.1 Duo",
+        text: "They hold the top 2v2 position right now and set the first visible standard for the board.",
+      },
+      {
+        title: "Early Ladder Control",
+        text: "Being placed first gives them the strongest current claim until more duo results are added.",
+      },
+    ],
+  },
+  "Ata & Lechu": {
+    description:
+      "Ata and Lechu currently sit at No.2 on the 2v2 board and stay close behind the top duo as one of the main teams in the current ladder.",
+    notes: [
+      {
+        title: "Current No.2 Duo",
+        text: "They hold the second spot on the duo ladder and remain firmly in the current 2v2 conversation.",
+      },
+      {
+        title: "Primary Chasers",
+        text: "Ata and Lechu are the closest listed team behind the current No.1 pair.",
       },
     ],
   },
@@ -479,6 +546,70 @@ function renderDcSpotlight(playerName) {
   });
 }
 
+function renderTwosSpotlight(teamName) {
+  const team = twosSpotlights[teamName];
+
+  if (!team || !twosSpotlightName || !twosSpotlightDescription || !twosNotesList) {
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  twosSpotlightName.textContent = teamName;
+  twosSpotlightDescription.textContent = team.description;
+  twosNotesList.innerHTML = team.notes
+    .map(
+      (note) => `
+        <article class="monument-item">
+          <h4>${note.title}</h4>
+          <p>${note.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  twosRankingRows.forEach((row) => {
+    row.classList.toggle("active", row.dataset.twosPlayer === teamName);
+  });
+
+  window.clearTimeout(renderTwosSpotlight.fadeTimer);
+  renderTwosSpotlight.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
+function renderOffboardSpotlight(playerName) {
+  const player = playerSpotlights[playerName];
+
+  if (!player || !offboardSpotlightName || !offboardSpotlightDescription || !offboardNotesList) {
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  offboardSpotlightName.textContent = playerName;
+  offboardSpotlightDescription.textContent = player.description;
+  offboardNotesList.innerHTML = player.monuments
+    .map(
+      (note) => `
+        <article class="monument-item">
+          <h4>${note.title}</h4>
+          <p>${note.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  offboardRankingRows.forEach((row) => {
+    row.classList.toggle("active", row.dataset.offboardPlayer === playerName);
+  });
+
+  window.clearTimeout(renderOffboardSpotlight.fadeTimer);
+  renderOffboardSpotlight.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
 rankingRows.forEach((row) => {
   if (row.dataset.alltimePlayer || row.dataset.dcPlayer) {
     return;
@@ -492,6 +623,18 @@ rankingRows.forEach((row) => {
 allTimeRankingRows.forEach((row) => {
   row.addEventListener("click", () => {
     renderAllTimeSpotlight(row.dataset.alltimePlayer);
+  });
+});
+
+offboardRankingRows.forEach((row) => {
+  row.addEventListener("click", () => {
+    renderOffboardSpotlight(row.dataset.offboardPlayer);
+  });
+});
+
+twosRankingRows.forEach((row) => {
+  row.addEventListener("click", () => {
+    renderTwosSpotlight(row.dataset.twosPlayer);
   });
 });
 
@@ -509,4 +652,6 @@ legendLinks.forEach((link) => {
 
 renderSpotlight("Serenity");
 renderAllTimeSpotlight("Gary");
+renderOffboardSpotlight("Bigmac");
+renderTwosSpotlight("Dio & Luckifan");
 renderDcSpotlight("Dinocanpoop");

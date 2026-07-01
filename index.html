@@ -140,6 +140,7 @@
             <div class="subtab-panel active" data-switch-panel="mode" data-switch-value="ones">
               <div class="subtab-switcher nested-switcher">
                 <button class="subtab-button active" data-switch-group="ones-era" data-switch-target="ones-present">Present</button>
+                <button class="subtab-button" data-switch-group="ones-era" data-switch-target="ones-unranked">Off Board</button>
                 <button class="subtab-button" data-switch-group="ones-era" data-switch-target="ones-alltime">All Time</button>
               </div>
 
@@ -357,6 +358,67 @@
                 </aside>
               </div>
 
+              <div class="rankings-layout subtab-panel" data-switch-panel="ones-era" data-switch-value="ones-unranked">
+                <div class="leaderboard-card empty-state-card">
+                  <div class="leaderboard-head">
+                    <span>Player</span>
+                    <span>Top ELO</span>
+                    <span>Rank</span>
+                  </div>
+                  <div class="leaderboard-rows">
+                    <div class="rankings-entry-block">
+                      <div class="ranking-number" aria-label="Off-board player">-</div>
+                      <article class="leaderboard-row active" data-offboard-player="Bigmac">
+                        <div class="player-meta">
+                          <img
+                            class="avatar-slot avatar-image"
+                            src="assets/mac.webp"
+                            alt="Bigmac avatar"
+                          />
+                          <div>
+                            <strong>Bigmac</strong>
+                            <span class="player-username">@bigmacy142</span>
+                          </div>
+                        </div>
+                        <span>N/A</span>
+                        <span class="rank-tier rank-tier-plain">B Rank</span>
+                      </article>
+                    </div>
+                    <div class="row-breakline"></div>
+                    <div class="rankings-entry-block">
+                      <div class="ranking-number" aria-label="Off-board player">-</div>
+                      <article class="leaderboard-row" data-offboard-player="Dio">
+                        <div class="player-meta">
+                          <img
+                            class="avatar-slot avatar-image"
+                            src="assets/dio.webp"
+                            alt="Dio avatar"
+                          />
+                          <div>
+                            <strong>Dio</strong>
+                            <span class="player-username">@bekfestgod7</span>
+                          </div>
+                        </div>
+                        <span>N/A</span>
+                        <span class="rank-tier rank-tier-plain">C Rank</span>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+
+                <aside class="insight-card empty-state-card spotlight-fade">
+                  <p class="mini-label">1v1 off-board spotlight</p>
+                  <h3 id="offboardSpotlightName" class="spotlight-fade">Bigmac</h3>
+                  <p id="offboardSpotlightDescription" class="spotlight-fade">
+                    Bigmac is currently sitting just outside the active top 10 and leads the off-board pool as the higher-ranked name here.
+                  </p>
+                  <div class="avatar-preview monuments-preview spotlight-fade">
+                    <p class="mini-label">Notes</p>
+                    <div id="offboardNotesList" class="monuments-list spotlight-fade"></div>
+                  </div>
+                </aside>
+              </div>
+
               <div class="rankings-layout subtab-panel" data-switch-panel="ones-era" data-switch-value="ones-alltime">
                 <div class="leaderboard-card empty-state-card">
                   <div class="leaderboard-head">
@@ -460,6 +522,7 @@
             <div class="subtab-panel" data-switch-panel="mode" data-switch-value="twos">
               <div class="subtab-switcher nested-switcher">
                 <button class="subtab-button active" data-switch-group="twos-era" data-switch-target="twos-present">Present</button>
+                <button class="subtab-button" data-switch-group="twos-era" data-switch-target="twos-unranked">Off Board</button>
                 <button class="subtab-button" data-switch-group="twos-era" data-switch-target="twos-alltime">All Time</button>
               </div>
 
@@ -470,14 +533,89 @@
                     <span>Highest ELO Achieved</span>
                     <span>Rank</span>
                   </div>
+                  <div class="leaderboard-rows">
+                    <div class="rankings-entry-block">
+                      <div class="ranking-number" aria-label="Number 1 duo rank">1.</div>
+                      <article class="leaderboard-row active" data-twos-player="Dio & Luckifan">
+                        <div class="player-meta duo-meta">
+                          <div class="duo-avatars">
+                            <img
+                              class="avatar-slot avatar-image duo-avatar duo-avatar-front"
+                              src="assets/dio.webp"
+                              alt="Dio avatar"
+                            />
+                            <img
+                              class="avatar-slot avatar-image duo-avatar duo-avatar-back"
+                              src="assets/lucki.webp"
+                              alt="Luckifan avatar"
+                            />
+                          </div>
+                          <div>
+                            <strong>Dio &amp; Luckifan</strong>
+                            <span class="player-username">@bekfestgod7 + @valyn_tine</span>
+                          </div>
+                        </div>
+                        <span>N/A</span>
+                        <span class="rank-tier rank-tier-gold">S Rank</span>
+                      </article>
+                    </div>
+                    <div class="row-breakline"></div>
+                    <div class="rankings-entry-block">
+                      <div class="ranking-number" aria-label="Number 2 duo rank">2.</div>
+                      <article class="leaderboard-row" data-twos-player="Ata & Lechu">
+                        <div class="player-meta duo-meta">
+                          <div class="duo-avatars">
+                            <img
+                              class="avatar-slot avatar-image duo-avatar duo-avatar-front"
+                              src="assets/ata.webp"
+                              alt="Ata avatar"
+                            />
+                            <img
+                              class="avatar-slot avatar-image duo-avatar duo-avatar-back"
+                              src="assets/lechu.webp"
+                              alt="Lechu avatar"
+                            />
+                          </div>
+                          <div>
+                            <strong>Ata &amp; Lechu</strong>
+                            <span class="player-username">@Ata0009 + @LeonRMC0212</span>
+                          </div>
+                        </div>
+                        <span>N/A</span>
+                        <span class="rank-tier rank-tier-silver">A Rank</span>
+                      </article>
+                    </div>
+                  </div>
+                </div>
+
+                <aside class="insight-card empty-state-card spotlight-fade">
+                  <p class="mini-label">2v2 present spotlight</p>
+                  <h3 id="twosSpotlightName" class="spotlight-fade">Dio &amp; Luckifan</h3>
+                  <p id="twosSpotlightDescription" class="spotlight-fade">
+                    Dio and Luckifan currently hold the No.1 2v2 spot, setting the early pace for the duo ladder.
+                  </p>
+                  <div class="avatar-preview monuments-preview spotlight-fade">
+                    <p class="mini-label">Duo Notes</p>
+                    <div id="twosNotesList" class="monuments-list spotlight-fade"></div>
+                  </div>
+                </aside>
+              </div>
+
+              <div class="rankings-layout subtab-panel" data-switch-panel="twos-era" data-switch-value="twos-unranked">
+                <div class="leaderboard-card empty-state-card">
+                  <div class="leaderboard-head">
+                    <span>Team</span>
+                    <span>Top ELO</span>
+                    <span>Notes</span>
+                  </div>
                   <div class="empty-state">
-                    <h4>No present 2v2 rankings yet</h4>
-                    <p>Waiting for duos to be submitted.</p>
+                    <h4>No off-board 2v2 teams yet</h4>
+                    <p>Add duos here if you want to track teams outside the main 2v2 leaderboard.</p>
                   </div>
                 </div>
 
                 <aside class="insight-card empty-state-card">
-                  <p class="mini-label">2v2 present spotlight</p>
+                  <p class="mini-label">2v2 off-board spotlight</p>
                   <h3>Waiting for data</h3>
                 </aside>
               </div>
@@ -501,6 +639,7 @@
                 </aside>
               </div>
             </div>
+
           </div>
 
           <div class="tab-panel" data-panel="upcoming">
@@ -649,4 +788,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-

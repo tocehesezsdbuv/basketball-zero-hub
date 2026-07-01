@@ -19,10 +19,10 @@ const twosRankingRows = document.querySelectorAll("[data-twos-player]");
 const twosSpotlightName = document.getElementById("twosSpotlightName");
 const twosSpotlightDescription = document.getElementById("twosSpotlightDescription");
 const twosNotesList = document.getElementById("twosNotesList");
-const dcCards = document.querySelectorAll(".dc-card");
-const dcSpotlightName = document.getElementById("dcSpotlightName");
-const dcSpotlightDescription = document.getElementById("dcSpotlightDescription");
-const dcSpotlightNote = document.getElementById("dcSpotlightNote");
+const twosAlltimeRankingRows = document.querySelectorAll("[data-twos-alltime-player]");
+const twosAlltimeSpotlightName = document.getElementById("twosAlltimeSpotlightName");
+const twosAlltimeSpotlightDescription = document.getElementById("twosAlltimeSpotlightDescription");
+const twosAlltimeNotesList = document.getElementById("twosAlltimeNotesList");
 const legendLinks = document.querySelectorAll(".legend-link");
 const hubSection = document.getElementById("hub");
 
@@ -223,6 +223,104 @@ const playerSpotlights = {
       },
     ],
   },
+  Astral: {
+    description:
+      "Astral is currently being tracked outside the main 1v1 leaderboard and remains one of the stronger off-board names at B Rank.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Astral is currently outside the active top 10 while still being tracked in the off-board pool.",
+      },
+      {
+        title: "B Rank Status",
+        text: "Their current placement keeps them in the higher half of the off-board group at B Rank.",
+      },
+    ],
+  },
+  Sabre: {
+    description:
+      "Sabre is currently being tracked outside the main 1v1 leaderboard as a B Rank name in the off-board pool.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Sabre is not on the active top 10 right now and is instead being tracked separately.",
+      },
+      {
+        title: "B Rank Status",
+        text: "Current placement keeps Sabre in the upper off-board tier at B Rank.",
+      },
+    ],
+  },
+  Arthur: {
+    description:
+      "Arthur is currently being tracked outside the main 1v1 leaderboard and sits in the off-board pool at B Rank.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Arthur is currently outside the active top 10 while still being kept on the radar in the off-board pool.",
+      },
+      {
+        title: "B Rank Status",
+        text: "Current placement keeps Arthur alongside the stronger names in the off-board group at B Rank.",
+      },
+    ],
+  },
+  Eternos: {
+    description:
+      "Eternos is currently being tracked outside the main 1v1 leaderboard as a B Rank off-board name.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Eternos is being tracked just outside the main ladder rather than inside the active top 10.",
+      },
+      {
+        title: "B Rank Status",
+        text: "Current placement gives Eternos a spot in the higher half of the off-board pool at B Rank.",
+      },
+    ],
+  },
+  Tier: {
+    description:
+      "Tier is currently being tracked outside the main 1v1 leaderboard and remains part of the stronger off-board group at B Rank.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Tier is currently outside the active top 10 while still being kept in the tracked off-board pool.",
+      },
+      {
+        title: "B Rank Status",
+        text: "Current placement keeps Tier among the higher off-board names at B Rank.",
+      },
+    ],
+  },
+  idk: {
+    description:
+      "idk is currently being tracked outside the main 1v1 leaderboard as a C Rank off-board name.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "idk is not on the active top 10 and is instead listed in the off-board pool.",
+      },
+      {
+        title: "C Rank Status",
+        text: "Current placement keeps idk in the lower off-board group at C Rank.",
+      },
+    ],
+  },
+  Tempest: {
+    description:
+      "Tempest is currently being tracked outside the main 1v1 leaderboard and sits at the bottom of the off-board pool as a D Rank name.",
+    monuments: [
+      {
+        title: "Off-Board Placement",
+        text: "Tempest is currently outside the active top 10 and is being tracked separately in the off-board section.",
+      },
+      {
+        title: "D Rank Status",
+        text: "Current placement puts Tempest at D Rank in the off-board pool.",
+      },
+    ],
+  },
 };
 
 const allTimeSpotlights = {
@@ -304,6 +402,20 @@ const allTimeSpotlights = {
       },
     ],
   },
+  Literalgod: {
+    description:
+      "Literalgod lands at No.4 on the all-time 1v1 board, earning a place above Gary as one of the stronger legacy names currently listed outside the GOAT tier.",
+    monuments: [
+      {
+        title: "All-Time Placement",
+        text: "Literalgod currently holds the No.4 spot on the all-time 1v1 board.",
+      },
+      {
+        title: "Legacy Tier Status",
+        text: "Their placement keeps them in Legend Tier and ahead of several other respected names on the historic list.",
+      },
+    ],
+  },
   Gary: {
     description:
       "Gary sits at No.5 on the all-time 1v1 board, remembered for a prime built on elite hesitations, offensive pressure, and the ability to completely throw defenders off rhythm.",
@@ -329,56 +441,64 @@ const allTimeSpotlights = {
 };
 
 const twosSpotlights = {
-  "Dio & Luckifan": {
+  "Moon & Shoop": {
     description:
-      "Dio and Luckifan currently sit at No.1 on the 2v2 board and lead the present duo ladder as the team to beat.",
+      "Moon and Shoop now sit at No.1 on the 2v2 board, taking over the top spot as the current duo to beat.",
     notes: [
       {
         title: "Current No.1 Duo",
-        text: "They hold the top 2v2 position right now and set the first visible standard for the board.",
+        text: "They currently lead the 2v2 ladder and hold the strongest visible position on the board.",
       },
       {
-        title: "Early Ladder Control",
-        text: "Being placed first gives them the strongest current claim until more duo results are added.",
+        title: "Top Seed Control",
+        text: "Being placed first puts Moon and Shoop at the center of the current duo conversation.",
+      },
+    ],
+  },
+  "Dio & Luckifan": {
+    description:
+      "Dio and Luckifan currently sit at No.2 on the 2v2 board and remain one of the strongest duos just behind the top team.",
+    notes: [
+      {
+        title: "Current No.2 Duo",
+        text: "They currently hold second place on the 2v2 ladder and stay within reach of the top spot.",
+      },
+      {
+        title: "Elite Duo Presence",
+        text: "Even after dropping a spot, they remain one of the clearest top-tier pairings on the board.",
       },
     ],
   },
   "Ata & Lechu": {
     description:
-      "Ata and Lechu currently sit at No.2 on the 2v2 board and stay close behind the top duo as one of the main teams in the current ladder.",
+      "Ata and Lechu currently sit at No.3 on the 2v2 board and round out the visible top trio in the current duo ladder.",
     notes: [
       {
-        title: "Current No.2 Duo",
-        text: "They hold the second spot on the duo ladder and remain firmly in the current 2v2 conversation.",
+        title: "Current No.3 Duo",
+        text: "They hold the third spot on the duo ladder and stay locked into the active upper tier.",
       },
       {
-        title: "Primary Chasers",
-        text: "Ata and Lechu are the closest listed team behind the current No.1 pair.",
+        title: "Top Trio Presence",
+        text: "Their placement keeps them right behind the top two teams as part of the current top three.",
       },
     ],
   },
 };
 
-const dcSpotlights = {
-  Dinocanpoop: {
+const twosAlltimeSpotlights = {
+  "Lucki & Umbra": {
     description:
-      "Dino is the self-proclaimed leader of the Dinos Denn, known for walking around like he owns the game and treating every conversation like a throne room speech. Most of his reputation comes from loud confidence, oversized ego, and acting untouchable even when people are not fully buying it.",
-    note: "Big ego, bigger speeches, and endless self-belief.",
-  },
-  Sanslikeschode: {
-    description:
-      "Sans is the kind of permanently online Discord warrior who turns loyalty into a full-time job. He has a reputation for glazing hard, abusing tiny bits of authority, and acting way tougher with perms than he ever does without them.",
-    note: "Known for glazing, power trips, and Discord warrior energy.",
-  },
-  PedoCheok: {
-    description:
-      "Cheok is one of those names that always ends up in awkward conversations for all the wrong reasons. Between the strange energy, oversharing, and nonstop ability to make things uncomfortable, he has built a reputation that people instantly clown on.",
-    note: "Awkward aura, weird stories, and instant clown material.",
-  },
-  DCAnalBlack: {
-    description:
-      "Canel's entire identity is tied to being No.1 in BBZ, and he carries that title like it is a crown. The skill is real, but so is the ego, and every conversation somehow circles back to why he thinks nobody else belongs in the same tier.",
-    note: "Elite player, elite ego, and never far from a No.1 speech.",
+      "Lucki and Umbra hold the No.1 all-time 2v2 spot and open the historic duo board as the current GOAT-tier pairing.",
+    notes: [
+      {
+        title: "First GOAT-Tier Duo",
+        text: "They currently set the top standard for the all-time 2v2 board as the first duo placed in GOAT Tier.",
+      },
+      {
+        title: "Historic No.1 Placement",
+        text: "Being placed first gives Lucki and Umbra the strongest visible all-time 2v2 legacy on the site right now.",
+      },
+    ],
   },
 };
 
@@ -530,22 +650,6 @@ function renderAllTimeSpotlight(playerName) {
   }, 180);
 }
 
-function renderDcSpotlight(playerName) {
-  const player = dcSpotlights[playerName];
-
-  if (!player || !dcSpotlightName || !dcSpotlightDescription || !dcSpotlightNote) {
-    return;
-  }
-
-  dcSpotlightName.textContent = playerName;
-  dcSpotlightDescription.textContent = player.description;
-  dcSpotlightNote.textContent = player.note;
-
-  dcCards.forEach((card) => {
-    card.classList.toggle("active", card.dataset.dcPlayer === playerName);
-  });
-}
-
 function renderTwosSpotlight(teamName) {
   const team = twosSpotlights[teamName];
 
@@ -610,6 +714,43 @@ function renderOffboardSpotlight(playerName) {
   }, 180);
 }
 
+function renderTwosAlltimeSpotlight(teamName) {
+  const team = twosAlltimeSpotlights[teamName];
+
+  if (
+    !team ||
+    !twosAlltimeSpotlightName ||
+    !twosAlltimeSpotlightDescription ||
+    !twosAlltimeNotesList
+  ) {
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  twosAlltimeSpotlightName.textContent = teamName;
+  twosAlltimeSpotlightDescription.textContent = team.description;
+  twosAlltimeNotesList.innerHTML = team.notes
+    .map(
+      (note) => `
+        <article class="monument-item">
+          <h4>${note.title}</h4>
+          <p>${note.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  twosAlltimeRankingRows.forEach((row) => {
+    row.classList.toggle("active", row.dataset.twosAlltimePlayer === teamName);
+  });
+
+  window.clearTimeout(renderTwosAlltimeSpotlight.fadeTimer);
+  renderTwosAlltimeSpotlight.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
 rankingRows.forEach((row) => {
   if (row.dataset.alltimePlayer || row.dataset.dcPlayer) {
     return;
@@ -638,9 +779,9 @@ twosRankingRows.forEach((row) => {
   });
 });
 
-dcCards.forEach((card) => {
-  card.addEventListener("click", () => {
-    renderDcSpotlight(card.dataset.dcPlayer);
+twosAlltimeRankingRows.forEach((row) => {
+  row.addEventListener("click", () => {
+    renderTwosAlltimeSpotlight(row.dataset.twosAlltimePlayer);
   });
 });
 
@@ -653,5 +794,5 @@ legendLinks.forEach((link) => {
 renderSpotlight("Serenity");
 renderAllTimeSpotlight("Gary");
 renderOffboardSpotlight("Bigmac");
-renderTwosSpotlight("Dio & Luckifan");
-renderDcSpotlight("Dinocanpoop");
+renderTwosSpotlight("Moon & Shoop");
+renderTwosAlltimeSpotlight("Lucki & Umbra");

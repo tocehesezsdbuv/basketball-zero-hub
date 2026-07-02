@@ -92,7 +92,7 @@ const scrimPlayerStats = {
   idk: {
     username: "@superstylerockstar",
     avatar: "assets/idk.webp",
-    ovr: 87,
+    ovr: 86,
     points: 18,
     assists: 2,
     blocks: 1,
@@ -101,7 +101,7 @@ const scrimPlayerStats = {
   Kol: {
     username: "@k0lxn",
     avatar: "assets/kol.webp",
-    ovr: 86,
+    ovr: 87,
     points: 15,
     assists: 3,
     blocks: 4,
@@ -110,7 +110,7 @@ const scrimPlayerStats = {
   Moon: {
     username: "@yvavrya",
     avatar: "assets/moon.webp",
-    ovr: 85,
+    ovr: 88,
     points: 9,
     assists: 11,
     blocks: 6,

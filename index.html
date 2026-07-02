@@ -55,6 +55,8 @@
           <div class="topbar-actions">
           <div class="nav-links">
             <a href="#hub" data-tab-link="rankings">Rankings</a>
+            <a href="#hub" data-tab-link="scrims">Sanctioned Scrims</a>
+            <a href="#hub" data-tab-link="history">History</a>
             <a href="#hub" data-tab-link="legends">Legends</a>
           </div>
             <a
@@ -80,7 +82,10 @@
             </p>
             <div class="hero-actions">
               <a class="button primary" href="#hub" data-tab-link="rankings">Explore Rankings</a>
-              <a class="button ghost" href="#hub" data-tab-link="legends">View Legends</a>
+              <a class="button ghost" href="#hub" data-tab-link="history">View History</a>
+            </div>
+            <div class="access-note">
+              To appear on this website, you must be in the Discord server.
             </div>
             <div class="hero-stats">
               <article>
@@ -93,14 +98,15 @@
           <aside class="hero-panel">
             <div class="panel-glow"></div>
             <p class="mini-label">Community Hub</p>
-            <h2>Built for the scene.</h2>
-            <p>
-              Even if you are not on the main board yet, standout players can
-              still earn recognition through the off-board rankings. Join the
-              Discord, prove yourself, and fight your way up the ladder.
+            <h2 id="heroPanelTitle" class="hero-panel-rotating">Built for the scene.</h2>
+            <p id="heroPanelDescription" class="hero-panel-rotating">
+              Track the best 1v1 players, rising names, and standout performers
+              across the Basketball Zero scene in one clean ranking hub.
             </p>
             <div class="hero-panel-pills">
               <span>Top 10 ladder</span>
+              <span>Sanctioned scrims</span>
+              <span>Match history</span>
               <span>Retired GOATs</span>
             </div>
           </aside>
@@ -116,6 +122,8 @@
             </div>
             <div class="tab-switcher">
               <button class="tab-button active" data-tab="rankings">Rankings</button>
+              <button class="tab-button" data-tab="scrims">Sanctioned Scrims</button>
+              <button class="tab-button" data-tab="history">History</button>
               <button class="tab-button" data-tab="legends">Legends</button>
             </div>
           </div>
@@ -339,6 +347,10 @@
                     </div>
                     <div class="row-breakline"></div>
                   </div>
+                  <div class="leaderboard-how">
+                    <p class="mini-label">How it works</p>
+                    <p>The present 1v1 board is driven by players challenging each other through the Discord server and proving who deserves the higher spot.</p>
+                  </div>
               </div>
 
                 <aside class="insight-card empty-state-card spotlight-fade">
@@ -533,6 +545,10 @@
                       </article>
                     </div>
                   </div>
+                  <div class="leaderboard-how">
+                    <p class="mini-label">How it works</p>
+                    <p>The off-board pool tracks Discord players who are close to the main 1v1 leaderboard but have not claimed a top spot yet through challenges.</p>
+                  </div>
                 </div>
 
                 <aside class="insight-card empty-state-card spotlight-fade">
@@ -651,6 +667,10 @@
                       </article>
                     </div>
                   </div>
+                  <div class="leaderboard-how">
+                    <p class="mini-label">How it works</p>
+                    <p>The all-time 1v1 board is a legacy ranking built from peak reputation, major wins, and how strong each player was at their best.</p>
+                  </div>
                 </div>
 
                 <aside class="insight-card empty-state-card spotlight-fade">
@@ -760,6 +780,10 @@
                       </article>
                     </div>
                   </div>
+                  <div class="leaderboard-how">
+                    <p class="mini-label">How it works</p>
+                    <p>The present 2v2 board is about Discord duos challenging other duos for position and proving they belong higher than the teams above them.</p>
+                  </div>
                 </div>
 
                 <aside class="insight-card empty-state-card spotlight-fade">
@@ -784,6 +808,10 @@
                   </div>
                   <div class="empty-state">
                     <h4>No off-board 2v2 teams yet</h4>
+                  </div>
+                  <div class="leaderboard-how">
+                    <p class="mini-label">How it works</p>
+                    <p>This section is for Discord duos that are being tracked just outside the main 2v2 board until they earn a stronger placement.</p>
                   </div>
                 </div>
 
@@ -827,6 +855,10 @@
                       </article>
                     </div>
                   </div>
+                  <div class="leaderboard-how">
+                    <p class="mini-label">How it works</p>
+                    <p>The all-time 2v2 board is a legacy ranking based on peak duo strength, reputation, and how much a pair defined its era.</p>
+                  </div>
                 </div>
 
                 <aside class="insight-card empty-state-card spotlight-fade">
@@ -843,6 +875,140 @@
               </div>
             </div>
 
+          </div>
+
+          <div class="tab-panel" data-panel="scrims">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Verified match tracking</p>
+                <h3>Sanctioned Scrims</h3>
+              </div>
+            </div>
+
+            <div class="rankings-layout">
+              <div class="leaderboard-card empty-state-card">
+                <div class="scrim-metric-switcher">
+                  <button class="subtab-button active" data-scrim-metric="overall">Overall</button>
+                  <button class="subtab-button" data-scrim-metric="defense">Defense</button>
+                  <button class="subtab-button" data-scrim-metric="playmaking">Playmaking</button>
+                  <button class="subtab-button" data-scrim-metric="offense">Offense</button>
+                  <button class="subtab-button" data-scrim-metric="handles">Handles</button>
+                </div>
+                <div class="leaderboard-head">
+                  <span>Player</span>
+                  <span id="scrimMetricLabel">OVR Rating</span>
+                  <span>Rank</span>
+                </div>
+                <div id="scrimLeaderboardRows" class="leaderboard-rows"></div>
+                <div class="leaderboard-how">
+                  <p class="mini-label">How it works</p>
+                  <p>Sanctioned scrim rankings are built from the visible scoreboard stats across every logged scrim on the site. OVR is weighted toward scoring first, then blocks, then assists, then ankle breaks using a 55% points, 20% blocks, 15% assists, and 10% ankle breaks split. The extra tabs break that same pool into single-stat leaderboards so people can see who stood out most in each area.</p>
+                </div>
+              </div>
+
+              <aside class="insight-card empty-state-card spotlight-fade">
+                <p class="mini-label">Sanctioned scrims spotlight</p>
+                <h3 id="scrimSpotlightName" class="spotlight-fade">Shoop</h3>
+                <p id="scrimSpotlightDescription" class="spotlight-fade">
+                  Shoop stayed one of the clearest scorers across the scrims and put up the single biggest point total from the logged games.
+                </p>
+                <div class="avatar-preview monuments-preview spotlight-fade">
+                  <div id="scrimNotesList" class="monuments-list spotlight-fade"></div>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-panel="history">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Archived match records</p>
+                <h3>History</h3>
+              </div>
+            </div>
+
+            <div class="subtab-switcher nested-switcher">
+              <button class="subtab-button active" data-switch-group="history-view" data-switch-target="history-ones">1v1</button>
+              <button class="subtab-button" data-switch-group="history-view" data-switch-target="history-twos">2v2</button>
+              <button class="subtab-button" data-switch-group="history-view" data-switch-target="history-scrims">Scrims</button>
+            </div>
+
+            <div class="rankings-layout subtab-panel active" data-switch-panel="history-view" data-switch-value="history-ones">
+              <div class="leaderboard-card empty-state-card">
+                <div class="leaderboard-head">
+                  <span>1v1 History</span>
+                </div>
+                <div class="empty-state">
+                  <div>
+                    <h4>No 1v1 history yet</h4>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="insight-card empty-state-card">
+                <p class="mini-label">1v1 archive</p>
+                <h3>No featured set selected</h3>
+                <p>
+                  Featured 1v1 sets, rivalry matches, and important duel results can
+                  appear here once they are added to the archive.
+                </p>
+              </aside>
+            </div>
+
+            <div class="rankings-layout subtab-panel" data-switch-panel="history-view" data-switch-value="history-twos">
+              <div class="leaderboard-card empty-state-card">
+                <div class="leaderboard-head">
+                  <span>2v2 History</span>
+                </div>
+                <div class="empty-state">
+                  <div>
+                    <h4>No 2v2 history yet</h4>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="insight-card empty-state-card">
+                <p class="mini-label">2v2 archive</p>
+                <h3>No featured duo set selected</h3>
+                <p>
+                  Featured 2v2 sets, notable pairings, and important duo results can
+                  appear here once they are added to the archive.
+                </p>
+              </aside>
+            </div>
+
+            <div class="rankings-layout history-scrims-layout subtab-panel" data-switch-panel="history-view" data-switch-value="history-scrims">
+              <div class="leaderboard-card empty-state-card">
+                <div class="leaderboard-head">
+                  <span>Scrim Sessions</span>
+                </div>
+                <div class="leaderboard-rows">
+                  <div class="rankings-entry-block history-entry-block">
+                    <article class="leaderboard-row active" data-history-scrim-session="30/06/2026 Sanctioned Scrim #1">
+                      <div class="player-meta">
+                        <div>
+                          <strong>30/06/2026 Sanctioned Scrim #1</strong>
+                          <span class="player-username">June 30 sanctioned scrims</span>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="insight-card empty-state-card spotlight-fade">
+                <p class="mini-label">Scrim history notes</p>
+                <h3 id="historyScrimSessionName" class="spotlight-fade">30/06/2026 Sanctioned Scrim #1</h3>
+                <p id="historyScrimSessionDescription" class="spotlight-fade">
+                  June 30 sanctioned scrims with two logged scoreboards. The strongest visible performances came from Shoop, Cheese, Dio, idk, and Kol.
+                </p>
+                <div class="avatar-preview monuments-preview spotlight-fade">
+                  <div id="historyScrimSessionImages"></div>
+                  <div id="historyScrimSessionNotes" class="monuments-list spotlight-fade"></div>
+                </div>
+              </aside>
+
+            </div>
           </div>
 
           <div class="tab-panel" data-panel="legends">

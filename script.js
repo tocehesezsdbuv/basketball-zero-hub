@@ -23,8 +23,274 @@ const twosAlltimeRankingRows = document.querySelectorAll("[data-twos-alltime-pla
 const twosAlltimeSpotlightName = document.getElementById("twosAlltimeSpotlightName");
 const twosAlltimeSpotlightDescription = document.getElementById("twosAlltimeSpotlightDescription");
 const twosAlltimeNotesList = document.getElementById("twosAlltimeNotesList");
+const scrimMetricButtons = document.querySelectorAll("[data-scrim-metric]");
+const scrimLeaderboardRows = document.getElementById("scrimLeaderboardRows");
+const scrimMetricLabel = document.getElementById("scrimMetricLabel");
+const scrimSpotlightName = document.getElementById("scrimSpotlightName");
+const scrimSpotlightDescription = document.getElementById("scrimSpotlightDescription");
+const scrimNotesList = document.getElementById("scrimNotesList");
+const scrimHistoryRows = document.querySelectorAll("[data-scrim-history]");
+const scrimHistoryName = document.getElementById("scrimHistoryName");
+const scrimHistoryDescription = document.getElementById("scrimHistoryDescription");
+const scrimHistoryNotesList = document.getElementById("scrimHistoryNotesList");
+const historyScrimSessionRows = document.querySelectorAll("[data-history-scrim-session]");
+const historyScrimSessionName = document.getElementById("historyScrimSessionName");
+const historyScrimSessionDescription = document.getElementById("historyScrimSessionDescription");
+const historyScrimSessionImages = document.getElementById("historyScrimSessionImages");
+const historyScrimSessionNotes = document.getElementById("historyScrimSessionNotes");
+const heroPanelTitle = document.getElementById("heroPanelTitle");
+const heroPanelDescription = document.getElementById("heroPanelDescription");
 const legendLinks = document.querySelectorAll(".legend-link");
 const hubSection = document.getElementById("hub");
+
+const heroPanelSlides = [
+  {
+    title: "Built for the scene.",
+    description:
+      "Track the best 1v1 players, rising names, and standout performers across the Basketball Zero scene in one clean ranking hub.",
+  },
+  {
+    title: "More than one leaderboard.",
+    description:
+      "Follow present rankings, off-board contenders, all-time names, and sanctioned scrim standouts without everything feeling scattered.",
+  },
+  {
+    title: "A live record of the meta.",
+    description:
+      "From top ladder placements to archived scrims and legends, the hub is meant to show who stands out and how the scene keeps shifting.",
+  },
+];
+
+const scrimPlayerStats = {
+  Shoop: {
+    username: "@asdfgdfgsdfaasesdf",
+    avatar: "assets/shoop.webp",
+    ovr: 94,
+    points: 29,
+    assists: 7,
+    blocks: 2,
+    ankleBreaks: 2,
+  },
+  Cheese: {
+    username: "@GetALifKid",
+    avatar: "assets/Cheese.webp",
+    ovr: 93,
+    points: 30,
+    assists: 3,
+    blocks: 0,
+    ankleBreaks: 6,
+  },
+  Dio: {
+    username: "@bekfestgod7",
+    avatar: "assets/dio.webp",
+    ovr: 90,
+    points: 23,
+    assists: 3,
+    blocks: 3,
+    ankleBreaks: 0,
+  },
+  idk: {
+    username: "@superstylerockstar",
+    avatar: "assets/idk.webp",
+    ovr: 87,
+    points: 18,
+    assists: 2,
+    blocks: 1,
+    ankleBreaks: 1,
+  },
+  Kol: {
+    username: "@k0lxn",
+    avatar: "assets/kol.webp",
+    ovr: 86,
+    points: 15,
+    assists: 3,
+    blocks: 4,
+    ankleBreaks: 0,
+  },
+  Moon: {
+    username: "@yvavrya",
+    avatar: "assets/moon.webp",
+    ovr: 85,
+    points: 9,
+    assists: 11,
+    blocks: 6,
+    ankleBreaks: 2,
+  },
+  Umbra: {
+    username: "@Endbringerv",
+    avatar: "assets/umbra.webp",
+    ovr: 72,
+    points: 2,
+    assists: 0,
+    blocks: 0,
+    ankleBreaks: 0,
+  },
+  Sabre: {
+    username: "@Xxdj_probroxX",
+    avatar: "assets/sabre.webp",
+    ovr: 70,
+    points: 0,
+    assists: 0,
+    blocks: 1,
+    ankleBreaks: 0,
+  },
+};
+
+function getScrimOverallValue(player) {
+  return player.ovr ?? 70;
+}
+
+const scrimMetricConfig = {
+  overall: {
+    label: "OVR Rating",
+    valueKey: "overall",
+    format: (value, player) => `${getScrimOverallValue(player)} OVR`,
+  },
+  defense: {
+    label: "Blocks",
+    valueKey: "blocks",
+    format: (value) => `${value} BLK`,
+  },
+  playmaking: {
+    label: "Assists",
+    valueKey: "assists",
+    format: (value) => `${value} AST`,
+  },
+  offense: {
+    label: "Points",
+    valueKey: "points",
+    format: (value) => `${value} PTS`,
+  },
+  handles: {
+    label: "Ankle Breaks",
+    valueKey: "ankleBreaks",
+    format: (value) => `${value} AB`,
+  },
+};
+
+function getScrimPlacementRank(index, metricName, value) {
+  if (metricName === "overall") {
+    if (value >= 95) {
+      return { label: "S Rank", className: "rank-tier-gold" };
+    }
+
+    if (value >= 90) {
+      return { label: "A Rank", className: "rank-tier-silver" };
+    }
+
+    if (value >= 85) {
+      return { label: "B Rank", className: "rank-tier-plain" };
+    }
+
+    if (value >= 75) {
+      return { label: "C Rank", className: "rank-tier-plain" };
+    }
+
+    return { label: "D Rank", className: "rank-tier-plain" };
+  }
+
+  if (metricName === "handles") {
+    if (value >= 7) {
+      return { label: "S Rank", className: "rank-tier-gold" };
+    }
+
+    if (value >= 5) {
+      return { label: "A Rank", className: "rank-tier-silver" };
+    }
+
+    if (value >= 3) {
+      return { label: "B Rank", className: "rank-tier-plain" };
+    }
+
+    if (value >= 1) {
+      return { label: "C Rank", className: "rank-tier-plain" };
+    }
+
+    return { label: "D Rank", className: "rank-tier-plain" };
+  }
+
+  if (metricName === "defense") {
+    if (value >= 6) {
+      return { label: "S Rank", className: "rank-tier-gold" };
+    }
+
+    if (value >= 3) {
+      return { label: "A Rank", className: "rank-tier-silver" };
+    }
+
+    if (value >= 2) {
+      return { label: "B Rank", className: "rank-tier-plain" };
+    }
+
+    if (value >= 1) {
+      return { label: "C Rank", className: "rank-tier-plain" };
+    }
+
+    return { label: "D Rank", className: "rank-tier-plain" };
+  }
+
+  if (metricName === "playmaking") {
+    if (value >= 12) {
+      return { label: "S Rank", className: "rank-tier-gold" };
+    }
+
+    if (value >= 9) {
+      return { label: "A Rank", className: "rank-tier-silver" };
+    }
+
+    if (value >= 6) {
+      return { label: "B Rank", className: "rank-tier-plain" };
+    }
+
+    if (value >= 3) {
+      return { label: "C Rank", className: "rank-tier-plain" };
+    }
+
+    return { label: "D Rank", className: "rank-tier-plain" };
+  }
+
+  if (metricName === "offense") {
+    if (value >= 30) {
+      return { label: "S Rank", className: "rank-tier-gold" };
+    }
+
+    if (value >= 20) {
+      return { label: "A Rank", className: "rank-tier-silver" };
+    }
+
+    if (value >= 12) {
+      return { label: "B Rank", className: "rank-tier-plain" };
+    }
+
+    if (value >= 6) {
+      return { label: "C Rank", className: "rank-tier-plain" };
+    }
+
+    return { label: "D Rank", className: "rank-tier-plain" };
+  }
+
+  if (index === 0) {
+    return { label: "S Rank", className: "rank-tier-gold" };
+  }
+
+  if (index === 1) {
+    return { label: "A Rank", className: "rank-tier-silver" };
+  }
+
+  if (index === 2) {
+    return { label: "A Rank", className: "rank-tier-bronze" };
+  }
+
+  if (index <= 5) {
+    return { label: "B Rank", className: "rank-tier-plain" };
+  }
+
+  if (index <= 7) {
+    return { label: "C Rank", className: "rank-tier-plain" };
+  }
+
+  return { label: "D Rank", className: "rank-tier-plain" };
+}
 
 const playerSpotlights = {
   Serenity: {
@@ -502,6 +768,184 @@ const twosAlltimeSpotlights = {
   },
 };
 
+const scrimSpotlights = {
+  Shoop: {
+    description:
+      "Shoop scored heavily in the first scrim and finished with the most eye-catching scoring output of the day.",
+    notes: [
+      {
+        title: "Scoring pop",
+        text: "His 23-point game was the biggest single scoring line across the logged scrims.",
+      },
+      {
+        title: "What stood out",
+        text: "Shoop's offense was the easiest to notice from the scoreboards because of how hard he spiked in game one.",
+      },
+    ],
+  },
+  Cheese: {
+    description:
+      "Cheese was one of the most consistent players across both scrims and kept producing in each scoreboard.",
+    notes: [
+      {
+        title: "Consistency",
+        text: "Cheese showed up well in both matches instead of only peaking in one.",
+      },
+      {
+        title: "What stood out",
+        text: "Balanced production across the full day kept him near the top of the scrim board.",
+      },
+    ],
+  },
+  Dio: {
+    description:
+      "Dio had the biggest jump from the second scrim and turned in one of the strongest late-day stat lines.",
+    notes: [
+      {
+        title: "Big second scrim",
+        text: "The second scoreboard gave Dio one of the strongest performances of the whole day.",
+      },
+      {
+        title: "What stood out",
+        text: "Dio's second match clearly lifted his full-day placement.",
+      },
+    ],
+  },
+  idk: {
+    description:
+      "idk had one of the strongest offensive games from the first scrim and stayed high because of that spike.",
+    notes: [
+      {
+        title: "First scrim impact",
+        text: "The first scoreboard gave idk one of the stronger attacking lines of the day.",
+      },
+      {
+        title: "What stood out",
+        text: "idk's early-game production kept them high even without matching that peak again later.",
+      },
+    ],
+  },
+  Kol: {
+    description:
+      "Kol put up a strong first scrim and stayed in the upper half because that opening line was still one of the better ones logged.",
+    notes: [
+      {
+        title: "Strong opener",
+        text: "Kol's first scoreboard was one of the cleaner individual performances from the day.",
+      },
+      {
+        title: "What stood out",
+        text: "Kol's early production did most of the work for their placement.",
+      },
+    ],
+  },
+  Moon: {
+    description:
+      "Moon stayed solid across the scrims and held a middle placement through steadier overall contribution.",
+    notes: [
+      {
+        title: "Steady output",
+        text: "Moon did not have the loudest stat line, but stayed relevant across the logged games.",
+      },
+      {
+        title: "What stood out",
+        text: "A more even day kept Moon safely on the board.",
+      },
+    ],
+  },
+  Umbra: {
+    description:
+      "Umbra kept a place on the scrim board as a server player who still showed enough to stay tracked from the day.",
+    notes: [
+      {
+        title: "Still tracked",
+        text: "Umbra stayed in the server-player pool and keeps a lower-board slot from the June 30 scrims.",
+      },
+      {
+        title: "What stood out",
+        text: "Not a top-end performance, but enough presence to stay listed.",
+      },
+    ],
+  },
+  Sabre: {
+    description:
+      "Sabre stays on the scrim board as one of the remaining server-player names from the June 30 games.",
+    notes: [
+      {
+        title: "Lower-board hold",
+        text: "Sabre did not have one of the standout stat lines, but remains listed among tracked server players.",
+      },
+      {
+        title: "What stood out",
+        text: "Sabre remains on the board more as a tracked presence than from a standout spike.",
+      },
+    ],
+  },
+};
+
+const scrimHistorySpotlights = {
+  "Sanctioned Scrims Log": {
+    description:
+      "This archive is meant for full sanctioned scrim sessions where we review team games, compare in-game stats, and decide which individuals deserve OVR movement on the live board.",
+    notes: [
+      {
+        title: "Best Use Case",
+        text: "Drop full scrim sets here when several players are being tracked at once.",
+      },
+      {
+        title: "What To Store",
+        text: "Map scorelines, standout stat lines, and who clearly performed best over the session.",
+      },
+    ],
+  },
+  "1v1 Match History": {
+    description:
+      "This section is for tracked 1v1 sets, challenge matches, and isolation performances that matter to the community ladder or player reputation.",
+    notes: [
+      {
+        title: "Best Use Case",
+        text: "Use it for first-to score sets, rivalry matches, and notable 1v1 results worth keeping on record.",
+      },
+      {
+        title: "What To Store",
+        text: "Opponent names, final score, standout clips or stats, and any notes that explain why the result mattered.",
+      },
+    ],
+  },
+  "2v2 Match History": {
+    description:
+      "This section is for recorded duo sets, sanctioned 2v2 runs, and matchups that help build the current and all-time 2v2 picture.",
+    notes: [
+      {
+        title: "Best Use Case",
+        text: "Use it for duo ladder sets, rivalry pairings, and strong sanctioned 2v2 performances.",
+      },
+      {
+        title: "What To Store",
+        text: "Duo names, opponents, set result, and any chemistry or performance notes that affected rankings.",
+      },
+    ],
+  },
+};
+
+const historyScrimSessions = {
+  "30/06/2026 Sanctioned Scrim #1": {
+    description:
+      "June 30 sanctioned scrims with two logged scoreboards. The strongest visible performances came from Shoop, Cheese, Dio, idk, and Kol.",
+    images: [
+      {
+        src: "assets/scrim-2026-06-30-1.png",
+        alt: "30/06/2026 sanctioned scrim #1 scoreboard",
+      },
+      {
+        src: "assets/scrim-2026-06-30-2.png",
+        alt: "30/06/2026 sanctioned scrim #2 scoreboard",
+      },
+    ],
+    notes: [],
+  },
+};
+
 function activateTab(targetTab) {
   const currentIndex = Array.from(tabButtons).findIndex((button) =>
     button.classList.contains("active")
@@ -751,8 +1195,339 @@ function renderTwosAlltimeSpotlight(teamName) {
   }, 180);
 }
 
+function getSortedScrimPlayers(metricName) {
+  const metric = scrimMetricConfig[metricName];
+
+  if (!metric) {
+    return [];
+  }
+
+  const players = Object.entries(scrimPlayerStats);
+
+  if (metricName === "overall") {
+    return players.sort(([, left], [, right]) => getScrimOverallValue(right) - getScrimOverallValue(left));
+  }
+
+  return players.sort(([, left], [, right]) => {
+    const diff = right[metric.valueKey] - left[metric.valueKey];
+    if (diff !== 0) {
+      return diff;
+    }
+    return getScrimOverallValue(right) - getScrimOverallValue(left);
+  });
+}
+
+function getScrimSpotlightCopy(metricName, playerName) {
+  const player = scrimPlayerStats[playerName];
+
+  if (!player) {
+    return null;
+  }
+
+  const notesByMetric = {
+    overall: {
+      description: `${playerName} finished the scrims with ${player.points} total points.`,
+      notes: [
+        {
+          text: `${getScrimOverallValue(player)} OVR`,
+        },
+        {
+          text: `${player.assists} assists`,
+        },
+        {
+          text: `${player.blocks} blocks`,
+        },
+        {
+          text: `${player.ankleBreaks} ankle breaks`,
+        },
+      ],
+    },
+    defense: {
+      description: `${playerName} finished the scrims with ${player.blocks} total blocks.`,
+      notes: [
+        {
+          text: `${player.points} points`,
+        },
+        {
+          text: `${player.assists} assists`,
+        },
+        {
+          text: `${player.ankleBreaks} ankle breaks`,
+        },
+      ],
+    },
+    playmaking: {
+      description: `${playerName} finished the scrims with ${player.assists} total assists.`,
+      notes: [
+        {
+          text: `${player.points} points`,
+        },
+        {
+          text: `${player.blocks} blocks`,
+        },
+        {
+          text: `${player.ankleBreaks} ankle breaks`,
+        },
+      ],
+    },
+    offense: {
+      description: `${playerName} finished the scrims with ${player.points} total points.`,
+      notes: [
+        {
+          text: `${player.assists} assists`,
+        },
+        {
+          text: `${player.blocks} blocks`,
+        },
+        {
+          text: `${player.ankleBreaks} ankle breaks`,
+        },
+      ],
+    },
+    handles: {
+      description: `${playerName} finished the scrims with ${player.ankleBreaks} total ankle breaks.`,
+      notes: [
+        {
+          text: `${player.points} points`,
+        },
+        {
+          text: `${player.assists} assists`,
+        },
+        {
+          text: `${player.blocks} blocks`,
+        },
+      ],
+    },
+  };
+
+  return notesByMetric[metricName] || notesByMetric.overall;
+}
+
+function renderScrimSpotlight(metricName, playerName) {
+  const player = scrimPlayerStats[playerName];
+  const spotlight = getScrimSpotlightCopy(metricName, playerName);
+
+  if (!player || !spotlight || !scrimSpotlightName || !scrimSpotlightDescription || !scrimNotesList) {
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  scrimSpotlightName.textContent = playerName;
+  scrimSpotlightDescription.textContent = spotlight.description;
+  scrimNotesList.innerHTML = spotlight.notes
+    .map(
+      (note) => `
+        <article class="monument-item">
+          ${note.title ? `<h4>${note.title}</h4>` : ""}
+          <p>${note.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  document.querySelectorAll("[data-scrim-player]").forEach((row) => {
+    row.classList.toggle("active", row.dataset.scrimPlayer === playerName);
+  });
+
+  window.clearTimeout(renderScrimSpotlight.fadeTimer);
+  renderScrimSpotlight.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
+function renderScrimBoard(metricName, selectedPlayerName) {
+  const metric = scrimMetricConfig[metricName];
+  const sortedPlayers = getSortedScrimPlayers(metricName);
+  const fallbackPlayer = sortedPlayers[0]?.[0];
+  const activePlayerName = sortedPlayers.some(([name]) => name === selectedPlayerName)
+    ? selectedPlayerName
+    : fallbackPlayer;
+
+  if (!metric || !scrimLeaderboardRows || !scrimMetricLabel || !activePlayerName) {
+    return;
+  }
+
+  scrimMetricButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.scrimMetric === metricName);
+  });
+
+  scrimMetricLabel.textContent = metric.label;
+  scrimLeaderboardRows.innerHTML = sortedPlayers
+    .map(([playerName, player], index) => {
+      const value = metricName === "overall" ? getScrimOverallValue(player) : player[metric.valueKey];
+      const placementRank = getScrimPlacementRank(index, metricName, value);
+      const breakline = index < sortedPlayers.length - 1 ? '<div class="row-breakline"></div>' : "";
+
+      return `
+        <div class="rankings-entry-block">
+          <div class="ranking-number" aria-label="Number ${index + 1} scrims rank">${index + 1}.</div>
+          <article class="leaderboard-row${playerName === activePlayerName ? " active" : ""}" data-scrim-player="${playerName}">
+            <div class="player-meta">
+              <img
+                class="avatar-slot avatar-image"
+                src="${player.avatar}"
+                alt="${playerName} avatar"
+              />
+              <div>
+                <strong>${playerName}</strong>
+                <span class="player-username">${player.username}</span>
+              </div>
+            </div>
+            <span>${metric.format(value, player)}</span>
+            <span class="rank-tier ${placementRank.className}">${placementRank.label}</span>
+          </article>
+        </div>
+        ${breakline}
+      `;
+    })
+    .join("");
+
+  scrimLeaderboardRows.querySelectorAll("[data-scrim-player]").forEach((row) => {
+    row.addEventListener("click", () => {
+      renderScrimBoard(metricName, row.dataset.scrimPlayer);
+    });
+  });
+
+  updateRankingNumberColors();
+  renderScrimSpotlight(metricName, activePlayerName);
+}
+
+function renderScrimHistorySpotlight(historyName) {
+  const history = scrimHistorySpotlights[historyName];
+
+  if (!history || !scrimHistoryName || !scrimHistoryDescription || !scrimHistoryNotesList) {
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  scrimHistoryName.textContent = historyName;
+  scrimHistoryDescription.textContent = history.description;
+  scrimHistoryNotesList.innerHTML = history.notes
+    .map(
+      (note) => `
+        <article class="monument-item">
+          <h4>${note.title}</h4>
+          <p>${note.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  scrimHistoryRows.forEach((row) => {
+    row.classList.toggle("active", row.dataset.scrimHistory === historyName);
+  });
+
+  window.clearTimeout(renderScrimHistorySpotlight.fadeTimer);
+  renderScrimHistorySpotlight.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
+function renderHistoryScrimSession(sessionName) {
+  const session = historyScrimSessions[sessionName];
+
+  if (
+    !session ||
+    !historyScrimSessionName ||
+    !historyScrimSessionDescription ||
+    !historyScrimSessionImages ||
+    !historyScrimSessionNotes
+  ) {
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  historyScrimSessionName.textContent = sessionName;
+  historyScrimSessionDescription.textContent = session.description;
+  historyScrimSessionImages.innerHTML = (session.images || [])
+    .map(
+      (image, index) => `
+        <button
+          class="history-image-link${index === 0 ? " active" : ""}"
+          type="button"
+          data-history-image-src="${image.src}"
+          data-history-image-alt="${image.alt}"
+          aria-label="Show ${image.alt}"
+        >
+          <img
+            class="avatar-preview-image history-thumbnail-image"
+            src="${image.src}"
+            alt="${image.alt}"
+          />
+        </button>
+      `
+    )
+    .join("");
+  historyScrimSessionNotes.innerHTML = (session.notes || [])
+    .map(
+      (note) => `
+        <article class="monument-item">
+          <h4>${note.title}</h4>
+          <p>${note.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  historyScrimSessionRows.forEach((row) => {
+    row.classList.toggle("active", row.dataset.historyScrimSession === sessionName);
+  });
+
+  window.clearTimeout(renderHistoryScrimSession.fadeTimer);
+  renderHistoryScrimSession.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
+function updateRankingNumberColors() {
+  document.querySelectorAll(".ranking-number").forEach((number) => {
+    const value = number.textContent.trim();
+
+    number.classList.remove("rank-number-gold", "rank-number-silver", "rank-number-bronze");
+
+    if (value === "1.") {
+      number.classList.add("rank-number-gold");
+    } else if (value === "2.") {
+      number.classList.add("rank-number-silver");
+    } else if (value === "3.") {
+      number.classList.add("rank-number-bronze");
+    }
+  });
+}
+
+function startHeroPanelRotation() {
+  if (!heroPanelTitle || !heroPanelDescription || heroPanelSlides.length <= 1) {
+    return;
+  }
+
+  let slideIndex = 0;
+
+  window.setInterval(() => {
+    heroPanelTitle.classList.add("is-fading");
+    heroPanelDescription.classList.add("is-fading");
+
+    window.setTimeout(() => {
+      slideIndex = (slideIndex + 1) % heroPanelSlides.length;
+      heroPanelTitle.textContent = heroPanelSlides[slideIndex].title;
+      heroPanelDescription.textContent = heroPanelSlides[slideIndex].description;
+      heroPanelTitle.classList.remove("is-fading");
+      heroPanelDescription.classList.remove("is-fading");
+    }, 260);
+  }, 4200);
+}
+
 rankingRows.forEach((row) => {
-  if (row.dataset.alltimePlayer || row.dataset.dcPlayer) {
+  if (
+    row.dataset.alltimePlayer ||
+    row.dataset.offboardPlayer ||
+    row.dataset.twosPlayer ||
+    row.dataset.twosAlltimePlayer ||
+    row.dataset.scrimPlayer ||
+    row.dataset.dcPlayer
+  ) {
     return;
   }
   row.dataset.player = row.querySelector("strong")?.textContent || "";
@@ -785,6 +1560,27 @@ twosAlltimeRankingRows.forEach((row) => {
   });
 });
 
+scrimMetricButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const activeMetric = button.dataset.scrimMetric || "overall";
+    const currentActiveRow = scrimLeaderboardRows?.querySelector("[data-scrim-player].active");
+    const currentPlayer = currentActiveRow?.dataset.scrimPlayer;
+    renderScrimBoard(activeMetric, currentPlayer);
+  });
+});
+
+scrimHistoryRows.forEach((row) => {
+  row.addEventListener("click", () => {
+    renderScrimHistorySpotlight(row.dataset.scrimHistory);
+  });
+});
+
+historyScrimSessionRows.forEach((row) => {
+  row.addEventListener("click", () => {
+    renderHistoryScrimSession(row.dataset.historyScrimSession);
+  });
+});
+
 legendLinks.forEach((link) => {
   link.addEventListener("click", () => {
     document.body.classList.add("is-transitioning");
@@ -796,3 +1592,7 @@ renderAllTimeSpotlight("Gary");
 renderOffboardSpotlight("Bigmac");
 renderTwosSpotlight("Moon & Shoop");
 renderTwosAlltimeSpotlight("Lucki & Umbra");
+renderScrimBoard("overall", "Shoop");
+renderHistoryScrimSession("30/06/2026 Sanctioned Scrim #1");
+updateRankingNumberColors();
+startHeroPanelRotation();

@@ -110,21 +110,26 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
+  padding: 11px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(135deg, rgba(88, 101, 242, 0.22), rgba(114, 137, 255, 0.12));
+  border: 1px solid rgba(140, 154, 255, 0.22);
+  background: linear-gradient(135deg, rgba(88, 101, 242, 0.28), rgba(114, 137, 255, 0.18));
   color: #eef2ff;
   font-weight: 800;
-  box-shadow: 0 10px 24px rgba(88, 101, 242, 0.14);
+  letter-spacing: 0.01em;
+  box-shadow:
+    0 12px 28px rgba(88, 101, 242, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
 }
 
 .discord-link:hover {
   transform: translateY(-2px);
-  border-color: rgba(140, 154, 255, 0.28);
-  box-shadow: 0 14px 28px rgba(88, 101, 242, 0.22);
-  background: linear-gradient(135deg, rgba(88, 101, 242, 0.3), rgba(114, 137, 255, 0.16));
+  border-color: rgba(170, 182, 255, 0.36);
+  box-shadow:
+    0 16px 32px rgba(88, 101, 242, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(88, 101, 242, 0.36), rgba(114, 137, 255, 0.22));
 }
 
 .nav-links a:hover,
@@ -172,6 +177,19 @@ a {
   display: flex;
   gap: 14px;
   margin: 28px 0;
+}
+
+.access-note {
+  display: inline-flex;
+  align-items: center;
+  margin: -4px 0 20px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 200, 87, 0.2);
+  background: linear-gradient(135deg, rgba(255, 200, 87, 0.08), rgba(255, 122, 0, 0.06));
+  color: #f4d582;
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
 .button {
@@ -278,6 +296,15 @@ a {
   font-weight: 700;
 }
 
+.hero-panel-rotating {
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.hero-panel-rotating.is-fading {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
 .score-card div {
   display: flex;
   justify-content: space-between;
@@ -325,6 +352,13 @@ a {
 
 .nested-switcher {
   margin-top: -4px;
+}
+
+.scrim-metric-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 2px 0 12px 76px;
 }
 
 .tab-button {
@@ -427,6 +461,10 @@ a {
   align-items: start;
 }
 
+.history-scrims-layout {
+  grid-template-columns: 1.2fr 0.8fr;
+}
+
 .timeline-layout-single {
   grid-template-columns: 1fr;
 }
@@ -452,6 +490,18 @@ a {
     radial-gradient(circle at top right, rgba(255, 216, 107, 0.08), transparent 20%),
     linear-gradient(180deg, rgba(20, 28, 40, 0.95), rgba(13, 19, 28, 0.98)),
     var(--panel);
+}
+
+.leaderboard-how {
+  margin: 18px 12px 4px 76px;
+  padding: 16px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+}
+
+.leaderboard-how p:last-child {
+  margin: 0;
+  line-height: 1.6;
 }
 
 .leaderboard-card::before {
@@ -651,6 +701,11 @@ a {
   display: none;
 }
 
+.history-entry-block {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
 .ranking-number {
   color: #f6f7fb;
   font-weight: 800;
@@ -658,6 +713,21 @@ a {
   text-align: center;
   letter-spacing: 0.01em;
   text-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+}
+
+.ranking-number.rank-number-gold {
+  color: #ffd86b;
+  text-shadow: 0 0 18px rgba(255, 200, 87, 0.2);
+}
+
+.ranking-number.rank-number-silver {
+  color: #dbe3ef;
+  text-shadow: 0 0 18px rgba(219, 227, 239, 0.18);
+}
+
+.ranking-number.rank-number-bronze {
+  color: #d89a5a;
+  text-shadow: 0 0 18px rgba(216, 154, 90, 0.16);
 }
 
 .tied-rank {
@@ -775,6 +845,32 @@ a {
   margin-bottom: 12px;
   border: 1px solid rgba(255, 216, 107, 0.14);
   background: rgba(255, 255, 255, 0.04);
+}
+
+.history-image-link {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.history-image-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+.history-image-link.active .history-thumbnail-image {
+  border-color: rgba(255, 216, 107, 0.34);
+  box-shadow: 0 0 0 1px rgba(255, 216, 107, 0.12);
+}
+
+.history-thumbnail-image {
+  min-height: 84px;
+  object-fit: cover;
 }
 
 .avatar-image {

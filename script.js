@@ -41,6 +41,7 @@ const historyScrimSessionName = document.getElementById("historyScrimSessionName
 const historyScrimSessionDescription = document.getElementById("historyScrimSessionDescription");
 const historyScrimSessionImages = document.getElementById("historyScrimSessionImages");
 const historyScrimSessionNotes = document.getElementById("historyScrimSessionNotes");
+const trackedPlayersCount = document.getElementById("trackedPlayersCount");
 const heroPanelTitle = document.getElementById("heroPanelTitle");
 const heroPanelDescription = document.getElementById("heroPanelDescription");
 const legendLinks = document.querySelectorAll(".legend-link");
@@ -213,6 +214,48 @@ function getBestGameStat(player, statKey) {
 
 function getScrimDisplayName(playerKey, player) {
   return player?.displayName || playerKey;
+}
+
+function addTrackedName(name, bucket) {
+  if (!name) {
+    return;
+  }
+
+  name
+    .split("&")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .forEach((part) => {
+      if (
+        part &&
+        part !== "Waiting for data" &&
+        part !== "No featured set selected" &&
+        part !== "No featured duo set selected" &&
+        part !== "Nothing selected"
+      ) {
+        bucket.add(part);
+      }
+    });
+}
+
+function updateTrackedPlayersCount() {
+  if (!trackedPlayersCount) {
+    return;
+  }
+
+  const trackedNames = new Set();
+
+  document.querySelectorAll(".leaderboard-row strong, .legend-card h3").forEach((node) => {
+    addTrackedName(node.textContent?.trim(), trackedNames);
+  });
+
+  Object.values(scrimRegions).forEach((region) => {
+    Object.entries(region.players || {}).forEach(([playerKey, player]) => {
+      addTrackedName(getScrimDisplayName(playerKey, player), trackedNames);
+    });
+  });
+
+  trackedPlayersCount.textContent = `${trackedNames.size}`;
 }
 
 const scrimMetricConfig = {
@@ -1480,6 +1523,7 @@ function renderScrimBoard(metricName, selectedPlayerName) {
   });
 
   updateRankingNumberColors();
+  updateTrackedPlayersCount();
   renderScrimSpotlight(metricName, activePlayerName);
 }
 
@@ -1719,5 +1763,6 @@ renderTwosAlltimeSpotlight("Lucki & Umbra");
 renderScrimBoard("overall");
 renderHistoryScrimSession();
 updateRankingNumberColors();
+updateTrackedPlayersCount();
 startHeroPanelRotation();
 setRegion("OCE");

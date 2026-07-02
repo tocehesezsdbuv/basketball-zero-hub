@@ -1438,6 +1438,14 @@ function renderScrimBoard(metricName, selectedPlayerName) {
     .map(([playerName, player], index) => {
       const value = metricName === "overall" ? getScrimOverallValue(player) : getPerGameStat(player, metric.valueKey);
       const placementRank = getScrimPlacementRank(index, metricName, value);
+      const placementClassName =
+        index === 0
+          ? "rank-tier-gold"
+          : index === 1
+            ? "rank-tier-silver"
+            : index === 2
+              ? "rank-tier-bronze"
+              : placementRank.className;
       const breakline = index < sortedPlayers.length - 1 ? '<div class="row-breakline"></div>' : "";
       const displayName = getScrimDisplayName(playerName, player);
 
@@ -1457,7 +1465,7 @@ function renderScrimBoard(metricName, selectedPlayerName) {
               </div>
             </div>
             <span>${metric.format(value, player)}</span>
-            <span class="rank-tier ${placementRank.className}">${placementRank.label}</span>
+            <span class="rank-tier ${placementClassName}">${placementRank.label}</span>
           </article>
         </div>
         ${breakline}
@@ -1595,13 +1603,21 @@ function updateRankingNumberColors() {
     const value = number.textContent.trim();
 
     number.classList.remove("rank-number-gold", "rank-number-silver", "rank-number-bronze");
+    number.style.color = "";
+    number.style.textShadow = "";
 
     if (value === "1.") {
       number.classList.add("rank-number-gold");
+      number.style.color = "#ffd86b";
+      number.style.textShadow = "0 0 18px rgba(255, 200, 87, 0.2)";
     } else if (value === "2.") {
       number.classList.add("rank-number-silver");
+      number.style.color = "#dbe3ef";
+      number.style.textShadow = "0 0 18px rgba(219, 227, 239, 0.18)";
     } else if (value === "3.") {
       number.classList.add("rank-number-bronze");
+      number.style.color = "#d89a5a";
+      number.style.textShadow = "0 0 18px rgba(216, 154, 90, 0.16)";
     }
   });
 }

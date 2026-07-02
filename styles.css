@@ -688,6 +688,11 @@ body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region
 .insight-card {
   height: fit-content;
   min-height: 0;
+  position: sticky;
+  top: 22px;
+  align-self: start;
+  max-height: calc(100vh - 44px);
+  overflow: auto;
   transition: opacity 220ms ease, transform 220ms ease;
 }
 

@@ -1,6 +1,8 @@
 const tabButtons = document.querySelectorAll(".tab-button");
 const tabPanels = document.querySelectorAll(".tab-panel");
 const tabLinks = document.querySelectorAll("[data-tab-link]");
+const regionButtons = document.querySelectorAll("[data-region-tab]");
+const regionNameNodes = document.querySelectorAll("[data-region-name]");
 const switchButtons = document.querySelectorAll("[data-switch-group]");
 const switchPanels = document.querySelectorAll("[data-switch-panel]");
 const rankingRows = document.querySelectorAll(".leaderboard-row");
@@ -34,6 +36,7 @@ const scrimHistoryName = document.getElementById("scrimHistoryName");
 const scrimHistoryDescription = document.getElementById("scrimHistoryDescription");
 const scrimHistoryNotesList = document.getElementById("scrimHistoryNotesList");
 const historyScrimSessionRows = document.querySelectorAll("[data-history-scrim-session]");
+const historyScrimSessionsList = document.getElementById("historyScrimSessionsList");
 const historyScrimSessionName = document.getElementById("historyScrimSessionName");
 const historyScrimSessionDescription = document.getElementById("historyScrimSessionDescription");
 const historyScrimSessionImages = document.getElementById("historyScrimSessionImages");
@@ -61,83 +64,155 @@ const heroPanelSlides = [
   },
 ];
 
-const scrimPlayerStats = {
-  Shoop: {
-    username: "@asdfgdfgsdfaasesdf",
-    avatar: "assets/shoop.webp",
-    ovr: 94,
-    points: 29,
-    assists: 7,
-    blocks: 2,
-    ankleBreaks: 2,
+function setRegion(regionCode) {
+  document.body.dataset.activeRegion = regionCode;
+
+  regionButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.regionTab === regionCode);
+  });
+
+  regionNameNodes.forEach((node) => {
+    node.textContent = regionCode;
+  });
+
+  if (regionCode === "OCE" || regionCode === "AS") {
+    const activeMetric = document.querySelector("[data-scrim-metric].active")?.dataset.scrimMetric || "overall";
+    renderScrimBoard(activeMetric);
+    renderHistoryScrimSession();
+  }
+}
+
+const scrimRegions = {
+  OCE: {
+    defaultPlayer: "Shoop",
+    players: {
+      Shoop: { username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", games: 2, points: 29, assists: 7, blocks: 4, ankleBreaks: 2, bestPoints: 23, bestAssists: 4, bestBlocks: 2, bestAnkleBreaks: 1 },
+      Cheese: { username: "@GetALifKid", avatar: "assets/Cheese.webp", games: 2, points: 30, assists: 3, blocks: 6, ankleBreaks: 0, bestPoints: 18, bestAssists: 2, bestBlocks: 3, bestAnkleBreaks: 0 },
+      Moon: { username: "@yvavrya", avatar: "assets/moon.webp", games: 2, points: 9, assists: 11, blocks: 2, ankleBreaks: 6, bestPoints: 6, bestAssists: 7, bestBlocks: 2, bestAnkleBreaks: 6 },
+      Kol: { username: "@k0lxn", avatar: "assets/kol.webp", games: 1, points: 15, assists: 3, blocks: 0, ankleBreaks: 4, bestPoints: 15, bestAssists: 3, bestBlocks: 0, bestAnkleBreaks: 4 },
+      idk: { username: "@superstylerockstar", avatar: "assets/idk.webp", games: 2, points: 18, assists: 2, blocks: 1, ankleBreaks: 1, bestPoints: 15, bestAssists: 2, bestBlocks: 1, bestAnkleBreaks: 1 },
+      Dio: { username: "@bekfestgod7", avatar: "assets/dio.webp", games: 2, points: 23, assists: 3, blocks: 0, ankleBreaks: 3, bestPoints: 20, bestAssists: 3, bestBlocks: 0, bestAnkleBreaks: 2 },
+      Sabre: { username: "@Xxdj_probroxX", avatar: "assets/sabre.webp", games: 1, points: 0, assists: 0, blocks: 0, ankleBreaks: 1, bestPoints: 0, bestAssists: 0, bestBlocks: 0, bestAnkleBreaks: 1 },
+      Umbra: { username: "@Endbringerv", avatar: "assets/umbra.webp", games: 1, points: 2, assists: 0, blocks: 0, ankleBreaks: 0, bestPoints: 2, bestAssists: 0, bestBlocks: 0, bestAnkleBreaks: 0 },
+    },
+    sessions: {
+      "30/06/2026 Sanctioned Scrim #1": {
+        description: "June 30 sanctioned scrims with two logged scoreboards. The strongest visible performances came from Shoop, Cheese, Moon, Kol, and idk.",
+        subtitle: "June 30 sanctioned scrims",
+        images: [
+          { src: "assets/scrim-2026-06-30-1.png", alt: "30/06/2026 sanctioned scrim #1 scoreboard" },
+          { src: "assets/scrim-2026-06-30-2.png", alt: "30/06/2026 sanctioned scrim #2 scoreboard" },
+        ],
+        notes: [],
+      },
+    },
   },
-  Cheese: {
-    username: "@GetALifKid",
-    avatar: "assets/Cheese.webp",
-    ovr: 93,
-    points: 30,
-    assists: 3,
-    blocks: 0,
-    ankleBreaks: 6,
-  },
-  Dio: {
-    username: "@bekfestgod7",
-    avatar: "assets/dio.webp",
-    ovr: 90,
-    points: 23,
-    assists: 3,
-    blocks: 3,
-    ankleBreaks: 0,
-  },
-  idk: {
-    username: "@superstylerockstar",
-    avatar: "assets/idk.webp",
-    ovr: 86,
-    points: 18,
-    assists: 2,
-    blocks: 1,
-    ankleBreaks: 1,
-  },
-  Kol: {
-    username: "@k0lxn",
-    avatar: "assets/kol.webp",
-    ovr: 87,
-    points: 15,
-    assists: 3,
-    blocks: 4,
-    ankleBreaks: 0,
-  },
-  Moon: {
-    username: "@yvavrya",
-    avatar: "assets/moon.webp",
-    ovr: 88,
-    points: 9,
-    assists: 11,
-    blocks: 6,
-    ankleBreaks: 2,
-  },
-  Umbra: {
-    username: "@Endbringerv",
-    avatar: "assets/umbra.webp",
-    ovr: 72,
-    points: 2,
-    assists: 0,
-    blocks: 0,
-    ankleBreaks: 0,
-  },
-  Sabre: {
-    username: "@Xxdj_probroxX",
-    avatar: "assets/sabre.webp",
-    ovr: 70,
-    points: 0,
-    assists: 0,
-    blocks: 1,
-    ankleBreaks: 0,
+  AS: {
+    defaultPlayer: "Shoop",
+    players: {
+      Shoop: { displayName: "Shoop", username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", games: 3, points: 53, assists: 1, blocks: 2, ankleBreaks: 12, bestPoints: 21, bestAssists: 1, bestBlocks: 1, bestAnkleBreaks: 5 },
+      Qwertyezeu: { displayName: "Quinn", username: "@Qwertyezeu", avatar: "assets/quinn.webp", games: 2, points: 45, assists: 6, blocks: 2, ankleBreaks: 4, bestPoints: 33, bestAssists: 3, bestBlocks: 2, bestAnkleBreaks: 3 },
+      RSHUD: {
+        displayName: "Rshud",
+        username: "@Rex_breaker",
+        avatar: "assets/Rshud.webp",
+        games: 2,
+        points: 88,
+        assists: 3,
+        blocks: 11,
+        ankleBreaks: 6,
+        bestPoints: 48,
+        bestAssists: 2,
+        bestBlocks: 7,
+        bestAnkleBreaks: 4,
+        ovrAdjustment: -4,
+        contextNote: "High-ping advantage and raw stat inflation were factored into the manual OVR placement, so the final ranking sits lower than the box score alone would suggest.",
+      },
+      "1_43213": { displayName: "Mikaela", username: "@1_43213", avatar: "assets/mikaela.webp", games: 2, points: 26, assists: 9, blocks: 2, ankleBreaks: 4, bestPoints: 18, bestAssists: 6, bestBlocks: 2, bestAnkleBreaks: 3 },
+      Cheokhimisthebest: { displayName: "Cheok", username: "@Cheokhimisthebest", avatar: "assets/cheok.webp", games: 2, points: 24, assists: 8, blocks: 1, ankleBreaks: 2, bestPoints: 15, bestAssists: 6, bestBlocks: 1, bestAnkleBreaks: 1 },
+      Dragon_zuen: { displayName: "Tokumei", username: "@Dragon_zuen", avatar: "assets/Tokumei.webp", games: 3, points: 22, assists: 13, blocks: 3, ankleBreaks: 3, bestPoints: 12, bestAssists: 6, bestBlocks: 2, bestAnkleBreaks: 1 },
+      Clairss_Seupay: { displayName: "Caell", username: "@Clairss_Seupay", avatar: "assets/caell.webp", games: 3, points: 14, assists: 12, blocks: 7, ankleBreaks: 3, bestPoints: 6, bestAssists: 5, bestBlocks: 3, bestAnkleBreaks: 2 },
+      NIGHTMARE88REAPER: { displayName: "Tax", username: "@NIGHTMARE88REAPER", avatar: "assets/Tax.webp", games: 3, points: 24, assists: 9, blocks: 2, ankleBreaks: 5, bestPoints: 13, bestAssists: 3, bestBlocks: 1, bestAnkleBreaks: 2 },
+      bigman222242: { displayName: "Ogre", username: "@bigman222242", avatar: "assets/ogre.webp", games: 2, points: 20, assists: 1, blocks: 8, ankleBreaks: 1, bestPoints: 11, bestAssists: 1, bestBlocks: 5, bestAnkleBreaks: 1 },
+      Sabre: { displayName: "Sabre", username: "@Xxdj_probroxX", avatar: "assets/sabre.webp", games: 2, points: 17, assists: 7, blocks: 0, ankleBreaks: 3, bestPoints: 8, bestAssists: 5, bestBlocks: 0, bestAnkleBreaks: 2 },
+      D34THSC4RX: { displayName: "Near", username: "@D34THSC4RX", avatar: "assets/Near.webp", games: 2, points: 22, assists: 3, blocks: 1, ankleBreaks: 5, bestPoints: 14, bestAssists: 2, bestBlocks: 1, bestAnkleBreaks: 3 },
+      gexnchfesMwzdcf: { displayName: "Renoxis", username: "@gexnchfesMwzdcf", avatar: "assets/renoxis.webp", games: 2, points: 17, assists: 2, blocks: 3, ankleBreaks: 2, bestPoints: 9, bestAssists: 2, bestBlocks: 2, bestAnkleBreaks: 2 },
+      Lynx1lynz: { displayName: "Zayne", username: "@Lynx1lynz", avatar: "assets/Zayne.webp", games: 2, points: 20, assists: 2, blocks: 2, ankleBreaks: 2, bestPoints: 12, bestAssists: 2, bestBlocks: 1, bestAnkleBreaks: 2 },
+      sammm123911: { displayName: "4", username: "@sammm123911", avatar: "assets/4.webp", games: 2, points: 9, assists: 7, blocks: 2, ankleBreaks: 3, bestPoints: 6, bestAssists: 5, bestBlocks: 2, bestAnkleBreaks: 3 },
+      featherlyga: { displayName: "Willow", username: "@featherlyga", avatar: "assets/willow.webp", games: 1, points: 14, assists: 4, blocks: 0, ankleBreaks: 1, bestPoints: 14, bestAssists: 4, bestBlocks: 0, bestAnkleBreaks: 1 },
+    },
+    sessions: {
+      "03/07/2026 Sanctioned Scrim #2": {
+        description: "July 3 sanctioned scrim set two added three more logged scoreboards. Shoop exploded as the biggest scorer, while 1_43213, Dragon_zuen, Clairss_Seupay, and NIGHTMARE88REAPER all stacked strong follow-up statlines across the set.",
+        subtitle: "July 3 sanctioned scrim set two",
+        images: [
+          { src: "assets/scrim-2026-07-03-3.png", alt: "03/07/2026 sanctioned scrim #2 scoreboard one" },
+          { src: "assets/scrim-2026-07-03-4.png", alt: "03/07/2026 sanctioned scrim #2 scoreboard two" },
+          { src: "assets/scrim-2026-07-03-5.png", alt: "03/07/2026 sanctioned scrim #2 scoreboard three" },
+        ],
+        notes: [],
+      },
+      "03/07/2026 Sanctioned Scrim #1": {
+        description: "July 3 sanctioned scrims with two logged scoreboards. The clearest standouts were Qwertyezeu, RSHUD, Cheokhimisthebest, and Sabre, with RSHUD's overall placement adjusted down to account for ping-abuse context.",
+        subtitle: "July 3 sanctioned scrims",
+        images: [
+          { src: "assets/scrim-2026-07-03-1.png", alt: "03/07/2026 sanctioned scrim #1 scoreboard one" },
+          { src: "assets/scrim-2026-07-03-2.png", alt: "03/07/2026 sanctioned scrim #1 scoreboard two" },
+        ],
+        notes: [],
+      },
+    },
   },
 };
 
+function getActiveScrimRegion() {
+  return scrimRegions[document.body.dataset.activeRegion || "OCE"] || null;
+}
+
+function getActiveScrimPlayerStats() {
+  return getActiveScrimRegion()?.players || {};
+}
+
+function clampNumber(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
 function getScrimOverallValue(player) {
-  return player.ovr ?? 70;
+  const weightedScore =
+    Math.min(55, (getPerGameStat(player, "points") / 20) * 55) +
+    Math.min(20, (getPerGameStat(player, "blocks") / 5) * 20) +
+    Math.min(15, (getPerGameStat(player, "assists") / 6) * 15) +
+    Math.min(10, (getPerGameStat(player, "ankleBreaks") / 4) * 10);
+
+  const adjusted = 70 + weightedScore * 0.29 + (player.ovrAdjustment ?? 0);
+  return Math.round(clampNumber(adjusted, 70, 99));
+}
+
+function getScrimGamesPlayed(player) {
+  return Math.max(1, player.games ?? 1);
+}
+
+function getPerGameStat(player, statKey) {
+  return player[statKey] / getScrimGamesPlayed(player);
+}
+
+function formatPerGameStat(value) {
+  return Number.isInteger(value) ? `${value}` : value.toFixed(1);
+}
+
+function getBestGameStat(player, statKey) {
+  const bestKeyMap = {
+    points: "bestPoints",
+    assists: "bestAssists",
+    blocks: "bestBlocks",
+    ankleBreaks: "bestAnkleBreaks",
+  };
+
+  return player[bestKeyMap[statKey]] ?? 0;
+}
+
+function getScrimDisplayName(playerKey, player) {
+  return player?.displayName || playerKey;
 }
 
 const scrimMetricConfig = {
@@ -147,24 +222,24 @@ const scrimMetricConfig = {
     format: (value, player) => `${getScrimOverallValue(player)} OVR`,
   },
   defense: {
-    label: "Blocks",
+    label: "Blocks Per Game",
     valueKey: "blocks",
-    format: (value) => `${value} BLK`,
+    format: (value) => `${formatPerGameStat(value)} BPG`,
   },
   playmaking: {
-    label: "Assists",
+    label: "Assists Per Game",
     valueKey: "assists",
-    format: (value) => `${value} AST`,
+    format: (value) => `${formatPerGameStat(value)} APG`,
   },
   offense: {
-    label: "Points",
+    label: "Points Per Game",
     valueKey: "points",
-    format: (value) => `${value} PTS`,
+    format: (value) => `${formatPerGameStat(value)} PPG`,
   },
   handles: {
-    label: "Ankle Breaks",
+    label: "Ankle Breaks Per Game",
     valueKey: "ankleBreaks",
-    format: (value) => `${value} AB`,
+    format: (value) => `${formatPerGameStat(value)} ABPG`,
   },
 };
 
@@ -928,24 +1003,6 @@ const scrimHistorySpotlights = {
   },
 };
 
-const historyScrimSessions = {
-  "30/06/2026 Sanctioned Scrim #1": {
-    description:
-      "June 30 sanctioned scrims with two logged scoreboards. The strongest visible performances came from Shoop, Cheese, Dio, idk, and Kol.",
-    images: [
-      {
-        src: "assets/scrim-2026-06-30-1.png",
-        alt: "30/06/2026 sanctioned scrim #1 scoreboard",
-      },
-      {
-        src: "assets/scrim-2026-06-30-2.png",
-        alt: "30/06/2026 sanctioned scrim #2 scoreboard",
-      },
-    ],
-    notes: [],
-  },
-};
-
 function activateTab(targetTab) {
   const currentIndex = Array.from(tabButtons).findIndex((button) =>
     button.classList.contains("active")
@@ -988,6 +1045,12 @@ tabButtons.forEach((button) => {
 tabLinks.forEach((link) => {
   link.addEventListener("click", () => {
     activateTab(link.dataset.tabLink);
+  });
+});
+
+regionButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setRegion(button.dataset.regionTab);
   });
 });
 
@@ -1202,14 +1265,14 @@ function getSortedScrimPlayers(metricName) {
     return [];
   }
 
-  const players = Object.entries(scrimPlayerStats);
+  const players = Object.entries(getActiveScrimPlayerStats());
 
   if (metricName === "overall") {
     return players.sort(([, left], [, right]) => getScrimOverallValue(right) - getScrimOverallValue(left));
   }
 
   return players.sort(([, left], [, right]) => {
-    const diff = right[metric.valueKey] - left[metric.valueKey];
+    const diff = getPerGameStat(right, metric.valueKey) - getPerGameStat(left, metric.valueKey);
     if (diff !== 0) {
       return diff;
     }
@@ -1218,7 +1281,8 @@ function getSortedScrimPlayers(metricName) {
 }
 
 function getScrimSpotlightCopy(metricName, playerName) {
-  const player = scrimPlayerStats[playerName];
+  const player = getActiveScrimPlayerStats()[playerName];
+  const displayName = getScrimDisplayName(playerName, player);
 
   if (!player) {
     return null;
@@ -1226,75 +1290,91 @@ function getScrimSpotlightCopy(metricName, playerName) {
 
   const notesByMetric = {
     overall: {
-      description: `${playerName} finished the scrims with ${player.points} total points.`,
+      description: `${displayName} holds a ${getScrimOverallValue(player)} OVR built from per-game production across ${getScrimGamesPlayed(player)} logged scrim games.`,
       notes: [
         {
           text: `${getScrimOverallValue(player)} OVR`,
         },
         {
-          text: `${player.assists} assists`,
+          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
         },
         {
-          text: `${player.blocks} blocks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
         },
         {
-          text: `${player.ankleBreaks} ankle breaks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game`,
+        },
+        {
+          text: `${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game`,
+        },
+        ...(player.contextNote
+          ? [
+              {
+                text: player.contextNote,
+              },
+            ]
+          : []),
+        {
+          text: `${getScrimGamesPlayed(player)} games logged`,
+        },
+        {
+          text: `Best game: ${getBestGameStat(player, "points")} points, ${getBestGameStat(player, "assists")} assists, ${getBestGameStat(player, "blocks")} blocks, ${getBestGameStat(player, "ankleBreaks")} ankle breaks`,
         },
       ],
     },
     defense: {
-      description: `${playerName} finished the scrims with ${player.blocks} total blocks.`,
+      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.points} points`,
+          text: `${player.blocks} total blocks`,
         },
         {
-          text: `${player.assists} assists`,
+          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
         },
         {
-          text: `${player.ankleBreaks} ankle breaks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
         },
       ],
     },
     playmaking: {
-      description: `${playerName} finished the scrims with ${player.assists} total assists.`,
+      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.points} points`,
+          text: `${player.assists} total assists`,
         },
         {
-          text: `${player.blocks} blocks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
         },
         {
-          text: `${player.ankleBreaks} ankle breaks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game`,
         },
       ],
     },
     offense: {
-      description: `${playerName} finished the scrims with ${player.points} total points.`,
+      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "points"))} points per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.assists} assists`,
+          text: `${player.points} total points`,
         },
         {
-          text: `${player.blocks} blocks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
         },
         {
-          text: `${player.ankleBreaks} ankle breaks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game`,
         },
       ],
     },
     handles: {
-      description: `${playerName} finished the scrims with ${player.ankleBreaks} total ankle breaks.`,
+      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.points} points`,
+          text: `${player.ankleBreaks} total ankle breaks`,
         },
         {
-          text: `${player.assists} assists`,
+          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
         },
         {
-          text: `${player.blocks} blocks`,
+          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
         },
       ],
     },
@@ -1304,7 +1384,7 @@ function getScrimSpotlightCopy(metricName, playerName) {
 }
 
 function renderScrimSpotlight(metricName, playerName) {
-  const player = scrimPlayerStats[playerName];
+  const player = getActiveScrimPlayerStats()[playerName];
   const spotlight = getScrimSpotlightCopy(metricName, playerName);
 
   if (!player || !spotlight || !scrimSpotlightName || !scrimSpotlightDescription || !scrimNotesList) {
@@ -1313,7 +1393,7 @@ function renderScrimSpotlight(metricName, playerName) {
 
   document.body.classList.add("is-animating");
 
-  scrimSpotlightName.textContent = playerName;
+  scrimSpotlightName.textContent = getScrimDisplayName(playerName, player);
   scrimSpotlightDescription.textContent = spotlight.description;
   scrimNotesList.innerHTML = spotlight.notes
     .map(
@@ -1339,10 +1419,11 @@ function renderScrimSpotlight(metricName, playerName) {
 function renderScrimBoard(metricName, selectedPlayerName) {
   const metric = scrimMetricConfig[metricName];
   const sortedPlayers = getSortedScrimPlayers(metricName);
-  const fallbackPlayer = sortedPlayers[0]?.[0];
+  const regionData = getActiveScrimRegion();
+  const fallbackPlayer = selectedPlayerName || regionData?.defaultPlayer || sortedPlayers[0]?.[0];
   const activePlayerName = sortedPlayers.some(([name]) => name === selectedPlayerName)
     ? selectedPlayerName
-    : fallbackPlayer;
+    : (sortedPlayers.some(([name]) => name === fallbackPlayer) ? fallbackPlayer : sortedPlayers[0]?.[0]);
 
   if (!metric || !scrimLeaderboardRows || !scrimMetricLabel || !activePlayerName) {
     return;
@@ -1355,9 +1436,10 @@ function renderScrimBoard(metricName, selectedPlayerName) {
   scrimMetricLabel.textContent = metric.label;
   scrimLeaderboardRows.innerHTML = sortedPlayers
     .map(([playerName, player], index) => {
-      const value = metricName === "overall" ? getScrimOverallValue(player) : player[metric.valueKey];
+      const value = metricName === "overall" ? getScrimOverallValue(player) : getPerGameStat(player, metric.valueKey);
       const placementRank = getScrimPlacementRank(index, metricName, value);
       const breakline = index < sortedPlayers.length - 1 ? '<div class="row-breakline"></div>' : "";
+      const displayName = getScrimDisplayName(playerName, player);
 
       return `
         <div class="rankings-entry-block">
@@ -1367,10 +1449,10 @@ function renderScrimBoard(metricName, selectedPlayerName) {
               <img
                 class="avatar-slot avatar-image"
                 src="${player.avatar}"
-                alt="${playerName} avatar"
+                alt="${displayName} avatar"
               />
               <div>
-                <strong>${playerName}</strong>
+                <strong>${displayName}</strong>
                 <span class="player-username">${player.username}</span>
               </div>
             </div>
@@ -1426,10 +1508,15 @@ function renderScrimHistorySpotlight(historyName) {
 }
 
 function renderHistoryScrimSession(sessionName) {
-  const session = historyScrimSessions[sessionName];
+  const regionData = getActiveScrimRegion();
+  const sessions = regionData?.sessions || {};
+  const sessionNames = Object.keys(sessions);
+  const activeSessionName = sessionName && sessions[sessionName] ? sessionName : sessionNames[0];
+  const session = activeSessionName ? sessions[activeSessionName] : null;
 
   if (
     !session ||
+    !historyScrimSessionsList ||
     !historyScrimSessionName ||
     !historyScrimSessionDescription ||
     !historyScrimSessionImages ||
@@ -1440,7 +1527,32 @@ function renderHistoryScrimSession(sessionName) {
 
   document.body.classList.add("is-animating");
 
-  historyScrimSessionName.textContent = sessionName;
+  historyScrimSessionsList.innerHTML = sessionNames
+    .map((name, index) => {
+      const breakline = index < sessionNames.length - 1 ? '<div class="row-breakline"></div>' : "";
+      return `
+        <div class="rankings-entry-block history-entry-block">
+          <article class="leaderboard-row${name === activeSessionName ? " active" : ""}" data-history-scrim-session="${name}">
+            <div class="player-meta">
+              <div>
+                <strong>${name}</strong>
+                <span class="player-username">${sessions[name].subtitle || ""}</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        ${breakline}
+      `;
+    })
+    .join("");
+
+  historyScrimSessionsList.querySelectorAll("[data-history-scrim-session]").forEach((row) => {
+    row.addEventListener("click", () => {
+      renderHistoryScrimSession(row.dataset.historyScrimSession);
+    });
+  });
+
+  historyScrimSessionName.textContent = activeSessionName;
   historyScrimSessionDescription.textContent = session.description;
   historyScrimSessionImages.innerHTML = (session.images || [])
     .map(
@@ -1471,10 +1583,6 @@ function renderHistoryScrimSession(sessionName) {
       `
     )
     .join("");
-
-  historyScrimSessionRows.forEach((row) => {
-    row.classList.toggle("active", row.dataset.historyScrimSession === sessionName);
-  });
 
   window.clearTimeout(renderHistoryScrimSession.fadeTimer);
   renderHistoryScrimSession.fadeTimer = window.setTimeout(() => {
@@ -1592,7 +1700,8 @@ renderAllTimeSpotlight("Gary");
 renderOffboardSpotlight("Bigmac");
 renderTwosSpotlight("Moon & Shoop");
 renderTwosAlltimeSpotlight("Lucki & Umbra");
-renderScrimBoard("overall", "Shoop");
-renderHistoryScrimSession("30/06/2026 Sanctioned Scrim #1");
+renderScrimBoard("overall");
+renderHistoryScrimSession();
 updateRankingNumberColors();
 startHeroPanelRotation();
+setRegion("OCE");

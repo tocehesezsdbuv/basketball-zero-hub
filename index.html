@@ -128,13 +128,26 @@
             </div>
           </div>
 
+          <div class="region-switcher-wrap">
+            <div class="subtab-switcher">
+              <button class="subtab-button active" data-region-tab="OCE">OCE</button>
+              <button class="subtab-button" data-region-tab="AS">AS</button>
+              <button class="subtab-button" data-region-tab="NA">NA</button>
+              <button class="subtab-button" data-region-tab="EU">EU</button>
+            </div>
+            <p class="region-note">
+              Rankings, scrims, history, and legends swap by region. OCE and AS currently have tracked data, while NA and EU stay blank until their own boards are added.
+            </p>
+          </div>
+
           <div class="tab-panel active" data-panel="rankings">
             <div class="panel-header">
               <div>
-                <p class="eyebrow">Power board</p>
-                <h3>Rankings</h3>
+                <p class="eyebrow"><span data-region-name>OCE</span> power board</p>
+                <h3><span data-region-name>OCE</span> Rankings</h3>
               </div>
             </div>
+            <div class="region-oce-content">
 
             <div class="subtab-switcher">
               <button class="subtab-button active" data-switch-group="mode" data-switch-target="ones">1v1 Rankings</button>
@@ -875,15 +888,27 @@
               </div>
             </div>
 
+            </div>
+            <div class="region-empty-panel rankings-region-empty-panel">
+              <div class="leaderboard-card empty-state-card">
+                <div class="empty-state">
+                  <div>
+                    <h4>No <span data-region-name>OCE</span> rankings yet</h4>
+                    <p>1v1, 2v2, off-board, and all-time boards for this region can be added here later.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="tab-panel" data-panel="scrims">
             <div class="panel-header">
               <div>
-                <p class="eyebrow">Verified match tracking</p>
-                <h3>Sanctioned Scrims</h3>
+                <p class="eyebrow"><span data-region-name>OCE</span> verified match tracking</p>
+                <h3><span data-region-name>OCE</span> Sanctioned Scrims</h3>
               </div>
             </div>
+            <div class="region-shared-content">
 
             <div class="rankings-layout">
               <div class="leaderboard-card empty-state-card">
@@ -902,7 +927,7 @@
                 <div id="scrimLeaderboardRows" class="leaderboard-rows"></div>
                 <div class="leaderboard-how">
                   <p class="mini-label">How it works</p>
-                  <p>Sanctioned scrim rankings are built from the visible scoreboard stats across every logged scrim on the site. OVR is weighted toward scoring first, then blocks, then assists, then ankle breaks using a 55% points, 20% blocks, 15% assists, and 10% ankle breaks split. The extra tabs break that same pool into single-stat leaderboards so people can see who stood out most in each area.</p>
+                  <p>Sanctioned scrim rankings are built from the visible scoreboard stats across every logged scrim on the site. OVR now pulls from per-game production too, with scoring weighted the heaviest, then blocks, then assists, then ankle breaks, so the overall board reflects consistency instead of raw volume alone. The extra tabs compare points, blocks, assists, and ankle breaks on a game-by-game basis across the logged scrims for that region.</p>
                 </div>
               </div>
 
@@ -917,15 +942,27 @@
                 </div>
               </aside>
             </div>
+            </div>
+            <div class="region-empty-panel">
+              <div class="leaderboard-card empty-state-card">
+                <div class="empty-state">
+                  <div>
+                    <h4>No <span data-region-name>OCE</span> sanctioned scrims yet</h4>
+                    <p>Scrim leaderboards for this region will appear once region-specific sessions are logged.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="tab-panel" data-panel="history">
             <div class="panel-header">
               <div>
-                <p class="eyebrow">Archived match records</p>
-                <h3>History</h3>
+                <p class="eyebrow"><span data-region-name>OCE</span> archived match records</p>
+                <h3><span data-region-name>OCE</span> History</h3>
               </div>
             </div>
+            <div class="region-shared-content">
 
             <div class="subtab-switcher nested-switcher">
               <button class="subtab-button active" data-switch-group="history-view" data-switch-target="history-ones">1v1</button>
@@ -982,25 +1019,14 @@
                 <div class="leaderboard-head">
                   <span>Scrim Sessions</span>
                 </div>
-                <div class="leaderboard-rows">
-                  <div class="rankings-entry-block history-entry-block">
-                    <article class="leaderboard-row active" data-history-scrim-session="30/06/2026 Sanctioned Scrim #1">
-                      <div class="player-meta">
-                        <div>
-                          <strong>30/06/2026 Sanctioned Scrim #1</strong>
-                          <span class="player-username">June 30 sanctioned scrims</span>
-                        </div>
-                      </div>
-                    </article>
-                  </div>
-                </div>
+                <div id="historyScrimSessionsList" class="leaderboard-rows"></div>
               </div>
 
               <aside class="insight-card empty-state-card spotlight-fade">
                 <p class="mini-label">Scrim history notes</p>
-                <h3 id="historyScrimSessionName" class="spotlight-fade">30/06/2026 Sanctioned Scrim #1</h3>
+                <h3 id="historyScrimSessionName" class="spotlight-fade">Select a scrim session</h3>
                 <p id="historyScrimSessionDescription" class="spotlight-fade">
-                  June 30 sanctioned scrims with two logged scoreboards. The strongest visible performances came from Shoop, Cheese, Dio, idk, and Kol.
+                  Pick a logged scrim session to view the recorded notes and scoreboard images for that region.
                 </p>
                 <div class="avatar-preview monuments-preview spotlight-fade">
                   <div id="historyScrimSessionImages"></div>
@@ -1009,15 +1035,27 @@
               </aside>
 
             </div>
+            </div>
+            <div class="region-empty-panel">
+              <div class="leaderboard-card empty-state-card">
+                <div class="empty-state">
+                  <div>
+                    <h4>No <span data-region-name>OCE</span> history yet</h4>
+                    <p>Archived 1v1s, 2v2s, and scrim records for this region can be added once they exist.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="tab-panel" data-panel="legends">
             <div class="panel-header">
               <div>
-                <p class="eyebrow">Retired greats</p>
-                <h3>Legends</h3>
+                <p class="eyebrow"><span data-region-name>OCE</span> retired greats</p>
+                <h3><span data-region-name>OCE</span> Legends</h3>
               </div>
             </div>
+            <div class="region-oce-content">
             <div class="legend-grid">
               <a class="legend-card legend-link" href="legend-pocoyo.html">
                 <p class="mini-label">GOAT legacy</p>
@@ -1034,6 +1072,17 @@
                   <span>Cheese rival</span>
                 </div>
               </a>
+            </div>
+            </div>
+            <div class="region-empty-panel">
+              <div class="leaderboard-card empty-state-card">
+                <div class="empty-state">
+                  <div>
+                    <h4>No <span data-region-name>OCE</span> legends yet</h4>
+                    <p>Retired GOATs and region-specific legends can be added here once that archive starts growing.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

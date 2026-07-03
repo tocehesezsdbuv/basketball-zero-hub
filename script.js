@@ -41,6 +41,11 @@ const historyScrimSessionName = document.getElementById("historyScrimSessionName
 const historyScrimSessionDescription = document.getElementById("historyScrimSessionDescription");
 const historyScrimSessionImages = document.getElementById("historyScrimSessionImages");
 const historyScrimSessionNotes = document.getElementById("historyScrimSessionNotes");
+const historyOnesSessionsList = document.getElementById("historyOnesSessionsList");
+const historyOnesSessionName = document.getElementById("historyOnesSessionName");
+const historyOnesSessionDescription = document.getElementById("historyOnesSessionDescription");
+const historyOnesSessionImages = document.getElementById("historyOnesSessionImages");
+const historyOnesSessionNotes = document.getElementById("historyOnesSessionNotes");
 const trackedPlayersCount = document.getElementById("trackedPlayersCount");
 const heroPanelTitle = document.getElementById("heroPanelTitle");
 const heroPanelDescription = document.getElementById("heroPanelDescription");
@@ -81,6 +86,8 @@ function setRegion(regionCode) {
     renderScrimBoard(activeMetric);
     renderHistoryScrimSession();
   }
+
+  renderHistoryOnesSession();
 }
 
 const scrimRegions = {
@@ -97,9 +104,9 @@ const scrimRegions = {
       Umbra: { username: "@Endbringerv", avatar: "assets/umbra.webp", games: 1, points: 2, assists: 0, blocks: 0, ankleBreaks: 0, bestPoints: 2, bestAssists: 0, bestBlocks: 0, bestAnkleBreaks: 0 },
     },
     sessions: {
-      "30/06/2026 Sanctioned Scrim #1": {
+      "OCE BBZ 001": {
         description: "June 30 sanctioned scrims with two logged scoreboards. The strongest visible performances came from Shoop, Cheese, Moon, Kol, and idk.",
-        subtitle: "June 30 sanctioned scrims",
+        subtitle: "30/06/2026",
         images: [
           { src: "assets/scrim-2026-06-30-1.png", alt: "30/06/2026 sanctioned scrim #1 scoreboard" },
           { src: "assets/scrim-2026-06-30-2.png", alt: "30/06/2026 sanctioned scrim #2 scoreboard" },
@@ -142,14 +149,14 @@ const scrimRegions = {
       xXBlack_HXx: { displayName: "Nyso", username: "@nyso", avatar: "assets/nyso.webp", games: 3, points: 21, assists: 13, blocks: 1, ankleBreaks: 8, bestPoints: 9, bestAssists: 7, bestBlocks: 1, bestAnkleBreaks: 4 },
       MelsKelvingts: { displayName: "MelsKelvingts", username: "@yur1plisetskyfan123", avatar: "assets/mels.webp", games: 3, points: 24, assists: 8, blocks: 4, ankleBreaks: 2, bestPoints: 13, bestAssists: 4, bestBlocks: 3, bestAnkleBreaks: 2 },
       godusoopmam: { displayName: "Usoop", username: "@usoop", avatar: "assets/usoop.webp", games: 3, points: 20, assists: 15, blocks: 5, ankleBreaks: 4, bestPoints: 9, bestAssists: 6, bestBlocks: 2, bestAnkleBreaks: 2 },
-      m4rnr: { displayName: "Mom", username: "@mom", avatar: "assets/mom.webp", games: 3, points: 38, assists: 7, blocks: 1, ankleBreaks: 3, bestPoints: 18, bestAssists: 3, bestBlocks: 1, bestAnkleBreaks: 1 },
+      m4rnr: { displayName: "Mom", username: "@m4rnr", avatar: "assets/mom.webp", games: 3, points: 38, assists: 7, blocks: 1, ankleBreaks: 3, bestPoints: 18, bestAssists: 3, bestBlocks: 1, bestAnkleBreaks: 1 },
       gamer05095: { displayName: "Spiral", username: "@Spiral", avatar: "assets/spiral.webp", games: 3, points: 32, assists: 9, blocks: 4, ankleBreaks: 3, bestPoints: 18, bestAssists: 4, bestBlocks: 3, bestAnkleBreaks: 2 },
       "80brickz": { username: "@80brickz", avatar: "assets/bzh-logo.png", games: 3, points: 11, assists: 7, blocks: 2, ankleBreaks: 3, bestPoints: 9, bestAssists: 4, bestBlocks: 1, bestAnkleBreaks: 3 },
     },
     sessions: {
-      "03/07/2026 Sanctioned Scrim #3": {
+      "AS BBZ 003": {
         description: "July 3 sanctioned scrim set three now has three logged scoreboards. godusoopmam, gamer05095, and m4rnr stood out again, while xXBlack_HXx, MelsKelvingts, and 80brickz all added another full AS scrim line to the pool.",
-        subtitle: "July 3 sanctioned scrim set three",
+        subtitle: "03/07/2026",
         images: [
           { src: "assets/scrim-2026-07-03-6.png", alt: "03/07/2026 sanctioned scrim #3 scoreboard one" },
           { src: "assets/scrim-2026-07-03-7.png", alt: "03/07/2026 sanctioned scrim #3 scoreboard two" },
@@ -157,9 +164,9 @@ const scrimRegions = {
         ],
         notes: [],
       },
-      "03/07/2026 Sanctioned Scrim #2": {
+      "AS BBZ 002": {
         description: "July 3 sanctioned scrim set two added three more logged scoreboards. Shoop exploded as the biggest scorer, while 1_43213, Dragon_zuen, Clairss_Seupay, and NIGHTMARE88REAPER all stacked strong follow-up statlines across the set.",
-        subtitle: "July 3 sanctioned scrim set two",
+        subtitle: "03/07/2026",
         images: [
           { src: "assets/scrim-2026-07-03-3.png", alt: "03/07/2026 sanctioned scrim #2 scoreboard one" },
           { src: "assets/scrim-2026-07-03-4.png", alt: "03/07/2026 sanctioned scrim #2 scoreboard two" },
@@ -167,9 +174,9 @@ const scrimRegions = {
         ],
         notes: [],
       },
-      "03/07/2026 Sanctioned Scrim #1": {
+      "AS BBZ 001": {
         description: "July 3 sanctioned scrims with two logged scoreboards. The clearest standouts were Qwertyezeu, RSHUD, Cheokhimisthebest, and Sabre, with RSHUD's overall placement adjusted down to account for ping-abuse context.",
-        subtitle: "July 3 sanctioned scrims",
+        subtitle: "03/07/2026",
         images: [
           { src: "assets/scrim-2026-07-03-1.png", alt: "03/07/2026 sanctioned scrim #1 scoreboard one" },
           { src: "assets/scrim-2026-07-03-2.png", alt: "03/07/2026 sanctioned scrim #1 scoreboard two" },
@@ -180,8 +187,73 @@ const scrimRegions = {
   },
 };
 
+const onesHistoryRegions = {
+  OCE: {
+    sessions: {
+      "OCE 1V1 003": {
+        description: "Shoop vs Serenity. Challenging for the No.1 spot. Serenity won and stayed at their spot. Set score: 2 - 0.",
+        subtitle: "03/07/2026",
+        images: [
+          { src: "assets/oce-1v1-003-1.png", alt: "OCE 1V1 003 scoreboard one" },
+          { src: "assets/oce-1v1-003-2.png", alt: "OCE 1V1 003 scoreboard two" },
+        ],
+        notes: [
+          {
+            title: "Average Stats",
+            text: "Serenity: 27.5 points, 10.5 blocks, 1.5 ankle breaks.",
+          },
+          {
+            title: "Opponent Average Stats",
+            text: "Shoop: 10.5 points, 7.0 blocks, 0.0 ankle breaks.",
+          },
+        ],
+      },
+      "OCE 1V1 002": {
+        description: "Kol vs Shoop. Challenging for the No.3 spot. Shoop won and stayed at their spot. Set score: 2 - 1 (Missing 2nd Match)",
+        subtitle: "03/07/2026",
+        images: [
+          { src: "assets/oce-1v1-002-1.png", alt: "OCE 1V1 002 scoreboard one" },
+          { src: "assets/oce-1v1-002-2.png", alt: "OCE 1V1 002 scoreboard two" },
+        ],
+        notes: [
+          {
+            title: "Average Stats",
+            text: "Shoop: 27.0 points, 11.5 blocks, 0.0 ankle breaks.",
+          },
+          {
+            title: "Opponent Average Stats",
+            text: "Kol: 24.0 points, 8.5 blocks, 0.5 ankle breaks.",
+          },
+        ],
+      },
+      "OCE 1V1 001": {
+        description: "Dio vs Lyric. Challenging for the No.8 spot. Lyric won and stayed at their spot. Set score: 1 - 0.",
+        subtitle: "03/07/2026",
+        images: [{ src: "assets/oce-1v1-001.png", alt: "OCE 1V1 001 scoreboard" }],
+        notes: [
+          {
+            title: "Average Stats",
+            text: "Lyric: 35.0 points, 9.0 blocks, 0.0 ankle breaks.",
+          },
+          {
+            title: "Opponent Average Stats",
+            text: "Dio: 14.0 points, 13.0 blocks, 1.0 ankle breaks.",
+          },
+        ],
+      },
+    },
+  },
+  AS: { sessions: {} },
+  NA: { sessions: {} },
+  EU: { sessions: {} },
+};
+
 function getActiveScrimRegion() {
   return scrimRegions[document.body.dataset.activeRegion || "OCE"] || null;
+}
+
+function getActiveOnesHistoryRegion() {
+  return onesHistoryRegions[document.body.dataset.activeRegion || "OCE"] || null;
 }
 
 function getActiveScrimPlayerStats() {
@@ -278,6 +350,11 @@ const scrimMetricConfig = {
     valueKey: "overall",
     format: (value, player) => `${getScrimOverallValue(player)} OVR`,
   },
+  activity: {
+    label: "Games Played",
+    valueKey: "games",
+    format: (value) => `${value} Games Played`,
+  },
   defense: {
     label: "Blocks Per Game",
     valueKey: "blocks",
@@ -335,6 +412,26 @@ function getScrimPlacementRank(index, metricName, value) {
     }
 
     if (value >= 1) {
+      return { label: "C Rank", className: "rank-tier-plain" };
+    }
+
+    return { label: "D Rank", className: "rank-tier-plain" };
+  }
+
+  if (metricName === "activity") {
+    if (value >= 8) {
+      return { label: "S Rank", className: "rank-tier-gold" };
+    }
+
+    if (value >= 6) {
+      return { label: "A Rank", className: "rank-tier-silver" };
+    }
+
+    if (value >= 4) {
+      return { label: "B Rank", className: "rank-tier-plain" };
+    }
+
+    if (value >= 2) {
       return { label: "C Rank", className: "rank-tier-plain" };
     }
 
@@ -1328,6 +1425,16 @@ function getSortedScrimPlayers(metricName) {
     return players.sort(([, left], [, right]) => getScrimOverallValue(right) - getScrimOverallValue(left));
   }
 
+  if (metricName === "activity") {
+    return players.sort(([, left], [, right]) => {
+      const diff = getScrimGamesPlayed(right) - getScrimGamesPlayed(left);
+      if (diff !== 0) {
+        return diff;
+      }
+      return getScrimOverallValue(right) - getScrimOverallValue(left);
+    });
+  }
+
   return players.sort(([, left], [, right]) => {
     const diff = getPerGameStat(right, metric.valueKey) - getPerGameStat(left, metric.valueKey);
     if (diff !== 0) {
@@ -1376,6 +1483,26 @@ function getScrimSpotlightCopy(metricName, playerName) {
         },
         {
           text: `Best game: ${getBestGameStat(player, "points")} points, ${getBestGameStat(player, "assists")} assists, ${getBestGameStat(player, "blocks")} blocks, ${getBestGameStat(player, "ankleBreaks")} ankle breaks`,
+        },
+      ],
+    },
+    activity: {
+      description: `${displayName} has been logged in ${getScrimGamesPlayed(player)} scrim games for this region so far.`,
+      notes: [
+        {
+          text: `${getScrimGamesPlayed(player)} total logged games`,
+        },
+        {
+          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
+        },
+        {
+          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
+        },
+        {
+          text: `${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game`,
+        },
+        {
+          text: `${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game`,
         },
       ],
     },
@@ -1491,9 +1618,22 @@ function renderScrimBoard(metricName, selectedPlayerName) {
   });
 
   scrimMetricLabel.textContent = metric.label;
+  const scrimHeadLabels = scrimLeaderboardRows
+    ?.closest(".leaderboard-card")
+    ?.querySelectorAll(".leaderboard-head span");
+
+  if (scrimHeadLabels?.[2]) {
+    scrimHeadLabels[2].textContent = metricName === "activity" ? "" : "Rank";
+  }
+
   scrimLeaderboardRows.innerHTML = sortedPlayers
     .map(([playerName, player], index) => {
-      const value = metricName === "overall" ? getScrimOverallValue(player) : getPerGameStat(player, metric.valueKey);
+      const value =
+        metricName === "overall"
+          ? getScrimOverallValue(player)
+          : metricName === "activity"
+            ? getScrimGamesPlayed(player)
+            : getPerGameStat(player, metric.valueKey);
       const placementRank = getScrimPlacementRank(index, metricName, value);
       const placementClassName =
         index === 0
@@ -1503,6 +1643,10 @@ function renderScrimBoard(metricName, selectedPlayerName) {
             : index === 2
               ? "rank-tier-bronze"
               : placementRank.className;
+      const rankMarkup =
+        metricName === "activity"
+          ? '<span class="rank-tier rank-tier-plain"></span>'
+          : `<span class="rank-tier ${placementClassName}">${placementRank.label}</span>`;
       const breakline = index < sortedPlayers.length - 1 ? '<div class="row-breakline"></div>' : "";
       const displayName = getScrimDisplayName(playerName, player);
 
@@ -1522,7 +1666,7 @@ function renderScrimBoard(metricName, selectedPlayerName) {
               </div>
             </div>
             <span>${metric.format(value, player)}</span>
-            <span class="rank-tier ${placementClassName}">${placementRank.label}</span>
+            ${rankMarkup}
           </article>
         </div>
         ${breakline}
@@ -1656,6 +1800,102 @@ function renderHistoryScrimSession(sessionName) {
   }, 180);
 }
 
+function renderHistoryOnesSession(sessionName) {
+  const regionData = getActiveOnesHistoryRegion();
+  const sessions = regionData?.sessions || {};
+  const sessionNames = Object.keys(sessions);
+  const activeSessionName = sessionName && sessions[sessionName] ? sessionName : sessionNames[0];
+  const session = activeSessionName ? sessions[activeSessionName] : null;
+
+  if (
+    !historyOnesSessionsList ||
+    !historyOnesSessionName ||
+    !historyOnesSessionDescription ||
+    !historyOnesSessionImages ||
+    !historyOnesSessionNotes
+  ) {
+    return;
+  }
+
+  if (!session) {
+    historyOnesSessionsList.innerHTML = `
+      <div class="empty-state">
+        <div>
+          <h4>No 1v1 history yet</h4>
+        </div>
+      </div>
+    `;
+    historyOnesSessionName.textContent = "No featured set selected";
+    historyOnesSessionDescription.textContent =
+      "Featured 1v1 sets, rivalry matches, and important duel results can appear here once they are added to the archive.";
+    historyOnesSessionImages.innerHTML = "";
+    historyOnesSessionNotes.innerHTML = "";
+    return;
+  }
+
+  document.body.classList.add("is-animating");
+
+  historyOnesSessionsList.innerHTML = sessionNames
+    .map((name, index) => {
+      const breakline = index < sessionNames.length - 1 ? '<div class="row-breakline"></div>' : "";
+      return `
+        <div class="rankings-entry-block history-entry-block">
+          <article class="leaderboard-row${name === activeSessionName ? " active" : ""}" data-history-ones-session="${name}">
+            <div class="player-meta">
+              <div>
+                <strong>${name}</strong>
+                <span class="player-username">${sessions[name].subtitle || ""}</span>
+              </div>
+            </div>
+          </article>
+        </div>
+        ${breakline}
+      `;
+    })
+    .join("");
+
+  historyOnesSessionsList.querySelectorAll("[data-history-ones-session]").forEach((row) => {
+    row.addEventListener("click", () => {
+      renderHistoryOnesSession(row.dataset.historyOnesSession);
+    });
+  });
+
+  historyOnesSessionName.textContent = activeSessionName;
+  historyOnesSessionDescription.textContent = session.description;
+  historyOnesSessionImages.innerHTML = (session.images || [])
+    .map(
+      (image, index) => `
+        <button
+          class="history-image-link${index === 0 ? " active" : ""}"
+          type="button"
+          aria-label="Show ${image.alt}"
+        >
+          <img
+            class="avatar-preview-image history-thumbnail-image"
+            src="${image.src}"
+            alt="${image.alt}"
+          />
+        </button>
+      `
+    )
+    .join("");
+  historyOnesSessionNotes.innerHTML = (session.notes || [])
+    .map(
+      (note) => `
+        <article class="monument-item">
+          <h4>${note.title}</h4>
+          <p>${note.text}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  window.clearTimeout(renderHistoryOnesSession.fadeTimer);
+  renderHistoryOnesSession.fadeTimer = window.setTimeout(() => {
+    document.body.classList.remove("is-animating");
+  }, 180);
+}
+
 function updateRankingNumberColors() {
   document.querySelectorAll(".ranking-number").forEach((number) => {
     const value = number.textContent.trim();
@@ -1775,6 +2015,7 @@ renderOffboardSpotlight("Bigmac");
 renderTwosSpotlight("Moon & Shoop");
 renderTwosAlltimeSpotlight("Lucki & Umbra");
 renderScrimBoard("overall");
+renderHistoryOnesSession();
 renderHistoryScrimSession();
 updateRankingNumberColors();
 updateTrackedPlayersCount();

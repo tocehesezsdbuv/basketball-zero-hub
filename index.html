@@ -85,7 +85,7 @@
               <a class="button ghost" href="#hub" data-tab-link="history">View History</a>
             </div>
             <div class="access-note">
-              To appear on this website, you must be in the Discord server.
+              To appear on the 1s and 2s leaderboards, you must be in the Discord server.
             </div>
             <div class="hero-stats">
               <article>
@@ -914,6 +914,7 @@
               <div class="leaderboard-card empty-state-card">
                 <div class="scrim-metric-switcher">
                   <button class="subtab-button active" data-scrim-metric="overall">Overall</button>
+                  <button class="subtab-button" data-scrim-metric="activity">Games</button>
                   <button class="subtab-button" data-scrim-metric="defense">Defense</button>
                   <button class="subtab-button" data-scrim-metric="playmaking">Playmaking</button>
                   <button class="subtab-button" data-scrim-metric="offense">Offense</button>
@@ -975,20 +976,20 @@
                 <div class="leaderboard-head">
                   <span>1v1 History</span>
                 </div>
-                <div class="empty-state">
-                  <div>
-                    <h4>No 1v1 history yet</h4>
-                  </div>
-                </div>
+                <div id="historyOnesSessionsList" class="leaderboard-rows"></div>
               </div>
 
-              <aside class="insight-card empty-state-card">
+              <aside class="insight-card empty-state-card spotlight-fade">
                 <p class="mini-label">1v1 archive</p>
-                <h3>No featured set selected</h3>
-                <p>
+                <h3 id="historyOnesSessionName" class="spotlight-fade">No featured set selected</h3>
+                <p id="historyOnesSessionDescription" class="spotlight-fade">
                   Featured 1v1 sets, rivalry matches, and important duel results can
                   appear here once they are added to the archive.
                 </p>
+                <div class="avatar-preview monuments-preview spotlight-fade">
+                  <div id="historyOnesSessionImages"></div>
+                  <div id="historyOnesSessionNotes" class="monuments-list spotlight-fade"></div>
+                </div>
               </aside>
             </div>
 

@@ -14,6 +14,8 @@ const twosPresentPanel = document.querySelector('[data-switch-panel="twos-era"][
 const twosUnrankedPanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-unranked"]');
 const twosAlltimePanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-alltime"]');
 const scrimMetricButtons = document.querySelectorAll("[data-scrim-metric]");
+const scrimStatModeButtons = document.querySelectorAll("[data-scrim-stat-mode]");
+const scrimStatModeSwitcher = document.getElementById("scrimStatModeSwitcher");
 const scrimLeaderboardRows = document.getElementById("scrimLeaderboardRows");
 const scrimMetricLabel = document.getElementById("scrimMetricLabel");
 const scrimSpotlightName = document.getElementById("scrimSpotlightName");
@@ -93,6 +95,8 @@ const regionSpecificRankingPanels = {
 const regionSpecificRankingMarkup = Object.fromEntries(
   Object.entries(regionSpecificRankingPanels).map(([key, panel]) => [key, panel?.innerHTML || ""])
 );
+
+let activeScrimStatMode = "avg";
 
 function setRegion(regionCode) {
   document.body.dataset.activeRegion = regionCode;
@@ -410,36 +414,66 @@ function updateTrackedPlayersCount() {
 
 const scrimMetricConfig = {
   overall: {
-    label: "OVR Rating",
+    getLabel: () => "OVR Rating",
     valueKey: "overall",
     format: (value, player) => `${getScrimOverallValue(player)} OVR`,
   },
   activity: {
-    label: "Games Played",
+    getLabel: () => "Games Played",
     valueKey: "games",
     format: (value) => `${value} Games Played`,
   },
   defense: {
-    label: "Blocks Per Game",
+    getLabel: (mode) => mode === "total" ? "Total Blocks" : "Blocks Per Game",
     valueKey: "blocks",
-    format: (value) => `${formatPerGameStat(value)} BPG`,
+    totalSuffix: "Blocks",
+    avgSuffix: "BPG",
+    format: (value, player, mode) => mode === "total" ? `${player.blocks} Total Blocks` : `${formatPerGameStat(value)} BPG`,
   },
   playmaking: {
-    label: "Assists Per Game",
+    getLabel: (mode) => mode === "total" ? "Total Assists" : "Assists Per Game",
     valueKey: "assists",
-    format: (value) => `${formatPerGameStat(value)} APG`,
+    totalSuffix: "Assists",
+    avgSuffix: "APG",
+    format: (value, player, mode) => mode === "total" ? `${player.assists} Total Assists` : `${formatPerGameStat(value)} APG`,
   },
   offense: {
-    label: "Points Per Game",
+    getLabel: (mode) => mode === "total" ? "Total Points" : "Points Per Game",
     valueKey: "points",
-    format: (value) => `${formatPerGameStat(value)} PPG`,
+    totalSuffix: "Points",
+    avgSuffix: "PPG",
+    format: (value, player, mode) => mode === "total" ? `${player.points} Total Points` : `${formatPerGameStat(value)} PPG`,
   },
   handles: {
-    label: "Ankle Breaks Per Game",
+    getLabel: (mode) => mode === "total" ? "Total Ankle Breaks" : "Ankle Breaks Per Game",
     valueKey: "ankleBreaks",
-    format: (value) => `${formatPerGameStat(value)} ABPG`,
+    totalSuffix: "Ankle Breaks",
+    avgSuffix: "ABPG",
+    format: (value, player, mode) => mode === "total" ? `${player.ankleBreaks} Total Ankle Breaks` : `${formatPerGameStat(value)} ABPG`,
   },
 };
+
+function scrimMetricSupportsMode(metricName) {
+  return ["defense", "playmaking", "offense", "handles"].includes(metricName);
+}
+
+function getScrimMetricModeValue(player, metricName, statMode) {
+  const metric = scrimMetricConfig[metricName];
+
+  if (!metric) {
+    return 0;
+  }
+
+  if (metricName === "overall") {
+    return getScrimOverallValue(player);
+  }
+
+  if (metricName === "activity") {
+    return getScrimGamesPlayed(player);
+  }
+
+  return statMode === "total" ? (player[metric.valueKey] || 0) : getPerGameStat(player, metric.valueKey);
+}
 
 function getScrimPlacementRank(index, metricName, value) {
   if (metricName === "overall") {
@@ -1717,7 +1751,7 @@ function renderTwosAlltimeSpotlight(teamName) {
   }, 180);
 }
 
-function getSortedScrimPlayers(metricName) {
+function getSortedScrimPlayers(metricName, statMode = activeScrimStatMode) {
   const metric = scrimMetricConfig[metricName];
 
   if (!metric) {
@@ -1741,7 +1775,7 @@ function getSortedScrimPlayers(metricName) {
   }
 
   return players.sort(([, left], [, right]) => {
-    const diff = getPerGameStat(right, metric.valueKey) - getPerGameStat(left, metric.valueKey);
+    const diff = getScrimMetricModeValue(right, metricName, statMode) - getScrimMetricModeValue(left, metricName, statMode);
     if (diff !== 0) {
       return diff;
     }
@@ -1749,7 +1783,7 @@ function getSortedScrimPlayers(metricName) {
   });
 }
 
-function getScrimSpotlightCopy(metricName, playerName) {
+function getScrimSpotlightCopy(metricName, playerName, statMode = activeScrimStatMode) {
   const player = getActiveScrimPlayerStats()[playerName];
   const displayName = getScrimDisplayName(playerName, player);
 
@@ -1812,58 +1846,82 @@ function getScrimSpotlightCopy(metricName, playerName) {
       ],
     },
     defense: {
-      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game across ${getScrimGamesPlayed(player)} logged games.`,
+      description:
+        statMode === "total"
+          ? `${displayName} finished the logged scrims with ${player.blocks} total blocks across ${getScrimGamesPlayed(player)} games.`
+          : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.blocks} total blocks`,
+          text:
+            statMode === "total"
+              ? `${displayName} finished the scrims with ${player.blocks} total blocks.`
+              : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
+          text: `${displayName}'s best block game was ${getBestGameStat(player, "blocks")} blocks.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
+          text: `${displayName} played ${getScrimGamesPlayed(player)} logged scrim games.`,
         },
       ],
     },
     playmaking: {
-      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game across ${getScrimGamesPlayed(player)} logged games.`,
+      description:
+        statMode === "total"
+          ? `${displayName} finished the logged scrims with ${player.assists} total assists across ${getScrimGamesPlayed(player)} games.`
+          : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.assists} total assists`,
+          text:
+            statMode === "total"
+              ? `${displayName} finished the scrims with ${player.assists} total assists.`
+              : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
+          text: `${displayName}'s best playmaking game was ${getBestGameStat(player, "assists")} assists.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game`,
+          text: `${displayName} played ${getScrimGamesPlayed(player)} logged scrim games.`,
         },
       ],
     },
     offense: {
-      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "points"))} points per game across ${getScrimGamesPlayed(player)} logged games.`,
+      description:
+        statMode === "total"
+          ? `${displayName} finished the logged scrims with ${player.points} total points across ${getScrimGamesPlayed(player)} games.`
+          : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "points"))} points per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.points} total points`,
+          text:
+            statMode === "total"
+              ? `${displayName} finished the scrims with ${player.points} total points.`
+              : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "points"))} points per game.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
+          text: `${displayName}'s best scoring game was ${getBestGameStat(player, "points")} points.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "blocks"))} blocks per game`,
+          text: `${displayName} played ${getScrimGamesPlayed(player)} logged scrim games.`,
         },
       ],
     },
     handles: {
-      description: `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game across ${getScrimGamesPlayed(player)} logged games.`,
+      description:
+        statMode === "total"
+          ? `${displayName} finished the logged scrims with ${player.ankleBreaks} total ankle breaks across ${getScrimGamesPlayed(player)} games.`
+          : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game across ${getScrimGamesPlayed(player)} logged games.`,
       notes: [
         {
-          text: `${player.ankleBreaks} total ankle breaks`,
+          text:
+            statMode === "total"
+              ? `${displayName} finished the scrims with ${player.ankleBreaks} total ankle breaks.`
+              : `${displayName} averaged ${formatPerGameStat(getPerGameStat(player, "ankleBreaks"))} ankle breaks per game.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "points"))} points per game`,
+          text: `${displayName}'s best handles game was ${getBestGameStat(player, "ankleBreaks")} ankle breaks.`,
         },
         {
-          text: `${formatPerGameStat(getPerGameStat(player, "assists"))} assists per game`,
+          text: `${displayName} played ${getScrimGamesPlayed(player)} logged scrim games.`,
         },
       ],
     },
@@ -1874,7 +1932,7 @@ function getScrimSpotlightCopy(metricName, playerName) {
 
 function renderScrimSpotlight(metricName, playerName) {
   const player = getActiveScrimPlayerStats()[playerName];
-  const spotlight = getScrimSpotlightCopy(metricName, playerName);
+  const spotlight = getScrimSpotlightCopy(metricName, playerName, activeScrimStatMode);
 
   if (!player || !spotlight || !scrimSpotlightName || !scrimSpotlightDescription || !scrimNotesList) {
     return;
@@ -1907,7 +1965,9 @@ function renderScrimSpotlight(metricName, playerName) {
 
 function renderScrimBoard(metricName, selectedPlayerName) {
   const metric = scrimMetricConfig[metricName];
-  const sortedPlayers = getSortedScrimPlayers(metricName).slice(0, 20);
+  const usesStatMode = scrimMetricSupportsMode(metricName);
+  const statMode = usesStatMode ? activeScrimStatMode : "avg";
+  const sortedPlayers = getSortedScrimPlayers(metricName, statMode).slice(0, 20);
   const regionData = getActiveScrimRegion();
   const fallbackPlayer = selectedPlayerName || regionData?.defaultPlayer || sortedPlayers[0]?.[0];
   const activePlayerName = sortedPlayers.some(([name]) => name === selectedPlayerName)
@@ -1922,23 +1982,26 @@ function renderScrimBoard(metricName, selectedPlayerName) {
     button.classList.toggle("active", button.dataset.scrimMetric === metricName);
   });
 
-  scrimMetricLabel.textContent = metric.label;
+  if (scrimStatModeSwitcher) {
+    scrimStatModeSwitcher.classList.toggle("is-hidden", !usesStatMode);
+  }
+
+  scrimStatModeButtons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.scrimStatMode === activeScrimStatMode);
+  });
+
+  scrimMetricLabel.textContent = metric.getLabel ? metric.getLabel(statMode) : metric.label;
   const scrimHeadLabels = scrimLeaderboardRows
     ?.closest(".leaderboard-card")
     ?.querySelectorAll(".leaderboard-head span");
 
   if (scrimHeadLabels?.[2]) {
-    scrimHeadLabels[2].textContent = metricName === "activity" ? "" : "Rank";
+    scrimHeadLabels[2].textContent = metricName === "activity" || (usesStatMode && statMode === "total") ? "" : "Rank";
   }
 
   scrimLeaderboardRows.innerHTML = sortedPlayers
     .map(([playerName, player], index) => {
-      const value =
-        metricName === "overall"
-          ? getScrimOverallValue(player)
-          : metricName === "activity"
-            ? getScrimGamesPlayed(player)
-            : getPerGameStat(player, metric.valueKey);
+      const value = getScrimMetricModeValue(player, metricName, statMode);
       const placementRank = getScrimPlacementRank(index, metricName, value);
       const placementClassName =
         index === 0
@@ -1949,7 +2012,7 @@ function renderScrimBoard(metricName, selectedPlayerName) {
               ? "rank-tier-bronze"
               : placementRank.className;
       const rankMarkup =
-        metricName === "activity"
+        metricName === "activity" || (usesStatMode && statMode === "total")
           ? '<span class="rank-tier rank-tier-plain"></span>'
           : `<span class="rank-tier ${placementClassName}">${placementRank.label}</span>`;
       const breakline = index < sortedPlayers.length - 1 ? '<div class="row-breakline"></div>' : "";
@@ -1970,7 +2033,7 @@ function renderScrimBoard(metricName, selectedPlayerName) {
                 <span class="player-username">${player.username}</span>
               </div>
             </div>
-            <span>${metric.format(value, player)}</span>
+            <span>${metric.format(value, player, statMode)}</span>
             ${rankMarkup}
           </article>
         </div>
@@ -2249,6 +2312,16 @@ function startHeroPanelRotation() {
 scrimMetricButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const activeMetric = button.dataset.scrimMetric || "overall";
+    const currentActiveRow = scrimLeaderboardRows?.querySelector("[data-scrim-player].active");
+    const currentPlayer = currentActiveRow?.dataset.scrimPlayer;
+    renderScrimBoard(activeMetric, currentPlayer);
+  });
+});
+
+scrimStatModeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    activeScrimStatMode = button.dataset.scrimStatMode || "avg";
+    const activeMetric = document.querySelector("[data-scrim-metric].active")?.dataset.scrimMetric || "overall";
     const currentActiveRow = scrimLeaderboardRows?.querySelector("[data-scrim-player].active");
     const currentPlayer = currentActiveRow?.dataset.scrimPlayer;
     renderScrimBoard(activeMetric, currentPlayer);

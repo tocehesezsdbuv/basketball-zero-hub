@@ -401,6 +401,16 @@ body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region
   margin: 2px 0 12px 76px;
 }
 
+.scrim-stat-mode-switcher {
+  display: flex;
+  gap: 10px;
+  margin: -2px 0 12px 76px;
+}
+
+.scrim-stat-mode-switcher.is-hidden {
+  display: none;
+}
+
 .tab-button {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.04);

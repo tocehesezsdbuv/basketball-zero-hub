@@ -377,10 +377,6 @@ body[data-active-region]:not([data-active-region="OCE"]) .region-oce-content {
   display: none;
 }
 
-body[data-active-region="AS"] .rankings-region-empty-panel {
-  display: block;
-}
-
 body[data-active-region="OCE"] .region-shared-content,
 body[data-active-region="AS"] .region-shared-content {
   display: block;

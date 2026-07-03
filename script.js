@@ -9,6 +9,14 @@ const rankingRows = document.querySelectorAll(".leaderboard-row");
 const spotlightName = document.getElementById("spotlightName");
 const spotlightDescription = document.getElementById("spotlightDescription");
 const monumentsList = document.getElementById("monumentsList");
+const onesPresentRows = document.querySelector(
+  '[data-switch-panel="ones-era"][data-switch-value="ones-present"] .leaderboard-rows'
+);
+const onesUnrankedPanel = document.querySelector('[data-switch-panel="ones-era"][data-switch-value="ones-unranked"]');
+const onesAlltimePanel = document.querySelector('[data-switch-panel="ones-era"][data-switch-value="ones-alltime"]');
+const twosPresentPanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-present"]');
+const twosUnrankedPanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-unranked"]');
+const twosAlltimePanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-alltime"]');
 const allTimeRankingRows = document.querySelectorAll("[data-alltime-player]");
 const alltimeSpotlightName = document.getElementById("alltimeSpotlightName");
 const alltimeSpotlightDescription = document.getElementById("alltimeSpotlightDescription");
@@ -70,6 +78,42 @@ const heroPanelSlides = [
   },
 ];
 
+const onesPresentRegionBoards = {
+  OCE: [
+    { rank: 1, player: "Serenity", username: "@EmasHubbyX", avatar: "assets/serenity.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
+    { rank: 2, player: "Cheese", username: "@GetALifKid", avatar: "assets/Cheese.webp", elo: "7k+", tier: "S Rank", tierClass: "rank-tier-silver" },
+    { rank: 3, player: "Shoop", username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", elo: "10k+", tier: "S Rank", tierClass: "rank-tier-bronze" },
+    { rank: 4, player: "Moon", username: "@awmmoony", avatar: "assets/moon.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
+    { rank: 5, player: "Literalgod", username: "@otyuehfgvbcdsewxazqo", avatar: "assets/literal.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
+    { rank: 6, player: "Kol", username: "@k0lxn", avatar: "assets/kol.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
+    { rank: 7, player: "Gnome", username: "@X2Get_Gnomed", avatar: "assets/gnome.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 8, player: "Lyric", username: "@miserified", avatar: "assets/lyric.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 9, player: "Gary", username: "@IDoFloss", avatar: "assets/gary.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 10, player: "Tenkyu", username: "@T3nkyuuu", avatar: "assets/Tenkyu.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+  ],
+  AS: [
+    { rank: 1, player: "Rshud", username: "@Rex_breaker", avatar: "assets/Rshud.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
+    { rank: 2, player: "Mom", username: "@m4rnr", avatar: "assets/mom.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-silver" },
+  ],
+};
+
+const onesPresentRegionSpotlights = {
+  OCE: "Serenity",
+  AS: "Rshud",
+};
+
+const regionSpecificRankingPanels = {
+  onesUnranked: onesUnrankedPanel,
+  onesAlltime: onesAlltimePanel,
+  twosPresent: twosPresentPanel,
+  twosUnranked: twosUnrankedPanel,
+  twosAlltime: twosAlltimePanel,
+};
+
+const regionSpecificRankingMarkup = Object.fromEntries(
+  Object.entries(regionSpecificRankingPanels).map(([key, panel]) => [key, panel?.innerHTML || ""])
+);
+
 function setRegion(regionCode) {
   document.body.dataset.activeRegion = regionCode;
 
@@ -82,6 +126,8 @@ function setRegion(regionCode) {
   });
 
   if (regionCode === "OCE" || regionCode === "AS") {
+    renderPresentBoard(regionCode);
+    renderRegionSpecificRankingPanels(regionCode);
     const activeMetric = document.querySelector("[data-scrim-metric].active")?.dataset.scrimMetric || "overall";
     renderScrimBoard(activeMetric);
     renderHistoryScrimSession();
@@ -347,7 +393,29 @@ function updateTrackedPlayersCount() {
 
   const trackedNames = new Set();
 
-  document.querySelectorAll(".leaderboard-row strong, .legend-card h3").forEach((node) => {
+  Object.values(onesPresentRegionBoards).forEach((board) => {
+    board.forEach((entry) => {
+      addTrackedName(entry.player, trackedNames);
+    });
+  });
+
+  Object.keys(playerSpotlights).forEach((name) => {
+    addTrackedName(name, trackedNames);
+  });
+
+  Object.keys(allTimeSpotlights).forEach((name) => {
+    addTrackedName(name, trackedNames);
+  });
+
+  Object.keys(twosSpotlights).forEach((name) => {
+    addTrackedName(name, trackedNames);
+  });
+
+  Object.keys(twosAlltimeSpotlights).forEach((name) => {
+    addTrackedName(name, trackedNames);
+  });
+
+  document.querySelectorAll(".legend-card h3").forEach((node) => {
     addTrackedName(node.textContent?.trim(), trackedNames);
   });
 
@@ -538,6 +606,84 @@ function getScrimPlacementRank(index, metricName, value) {
 }
 
 const playerSpotlights = {
+  Rshud: {
+    description:
+      "Rshud currently leads the AS 1v1 board at No.1, holding the top spot on the Asia side of the ladder as one of the clearest names in the region right now.",
+    monuments: [
+      {
+        title: "Current AS No.1",
+        text: "Rshud currently sits at the top of the AS 1v1 leaderboard.",
+      },
+      {
+        title: "Top Ladder Presence",
+        text: "Holding first place keeps Rshud at the center of the current AS 1v1 conversation.",
+      },
+    ],
+  },
+  Mom: {
+    description:
+      "Mom currently sits at No.2 on the AS 1v1 board, placing just behind the current regional leader and firmly inside the top end of the ladder.",
+    monuments: [
+      {
+        title: "Current AS No.2",
+        text: "Mom currently holds second place on the AS 1v1 leaderboard.",
+      },
+      {
+        title: "High Ladder Placement",
+        text: "This placement keeps Mom right in the mix near the very top of the region.",
+      },
+    ],
+  },
+  Quinn: {
+    description:
+      "Quinn currently sits inside the upper AS 1v1 board and remains one of the more visible names on the regional ladder.",
+    monuments: [
+      {
+        title: "AS Top 10 Placement",
+        text: "Quinn currently holds a place on the AS 1v1 leaderboard.",
+      },
+    ],
+  },
+  Mikaela: {
+    description:
+      "Mikaela currently holds a spot on the AS 1v1 board and remains part of the active upper ladder in the region.",
+    monuments: [
+      {
+        title: "AS Top 10 Placement",
+        text: "Mikaela currently holds a place on the AS 1v1 leaderboard.",
+      },
+    ],
+  },
+  Willow: {
+    description:
+      "Willow currently holds a place on the AS 1v1 board as one of the tracked names inside the regional ladder.",
+    monuments: [
+      {
+        title: "AS Top 10 Placement",
+        text: "Willow currently holds a place on the AS 1v1 leaderboard.",
+      },
+    ],
+  },
+  Tokumei: {
+    description:
+      "Tokumei currently sits on the AS 1v1 board and remains one of the active tracked names in the region.",
+    monuments: [
+      {
+        title: "AS Top 10 Placement",
+        text: "Tokumei currently holds a place on the AS 1v1 leaderboard.",
+      },
+    ],
+  },
+  Tax: {
+    description:
+      "Tax rounds out the current AS 1v1 board and stays tracked as one of the visible names on the regional ladder.",
+    monuments: [
+      {
+        title: "AS Top 10 Placement",
+        text: "Tax currently holds a place on the AS 1v1 leaderboard.",
+      },
+    ],
+  },
   Serenity: {
     description:
       "Serenity now sits at No.1 on the present 1v1 board, backed by full-court control, elite adaptability, and contests that make every possession feel uncomfortable.",
@@ -1295,6 +1441,147 @@ function renderSpotlight(playerName) {
   }, 180);
 }
 
+function renderPresentBoard(regionCode) {
+  if (!onesPresentRows) {
+    return;
+  }
+
+  const rows = onesPresentRegionBoards[regionCode] || onesPresentRegionBoards.OCE;
+
+  onesPresentRows.innerHTML = rows
+    .map(
+      (entry) => `
+        <div class="rankings-entry-block">
+          <div class="ranking-number" aria-label="Number ${entry.rank} rank">${entry.rank}.</div>
+          <article class="leaderboard-row${entry.rank === 1 ? " active" : ""}" data-present-player="${entry.player}">
+            <div class="player-meta">
+              <img
+                class="avatar-slot avatar-image"
+                src="${entry.avatar}"
+                alt="${entry.player} avatar"
+              />
+              <div>
+                <strong>${entry.player}</strong>
+                <span class="player-username">${entry.username}</span>
+              </div>
+            </div>
+            <span>${entry.elo}</span>
+            <span class="rank-tier ${entry.tierClass}">${entry.tier}</span>
+          </article>
+        </div>
+        <div class="row-breakline"></div>
+      `
+    )
+    .join("");
+
+  onesPresentRows.querySelectorAll("[data-present-player]").forEach((row) => {
+    row.addEventListener("click", () => {
+      onesPresentRows.querySelectorAll("[data-present-player]").forEach((otherRow) => {
+        otherRow.classList.remove("active");
+      });
+      row.classList.add("active");
+      renderSpotlight(row.dataset.presentPlayer);
+    });
+  });
+
+  renderSpotlight(onesPresentRegionSpotlights[regionCode] || rows[0]?.player || "Serenity");
+  updateRankingNumberColors();
+  updateTrackedPlayersCount();
+}
+
+function buildRegionEmptyRankingCard(title, body) {
+  return `
+    <div class="leaderboard-card empty-state-card">
+      <div class="empty-state">
+        <div>
+          <h4>${title}</h4>
+          <p>${body}</p>
+        </div>
+      </div>
+    </div>
+    <aside class="insight-card empty-state-card">
+      <p class="mini-label">Waiting for data</p>
+      <h3>Nothing tracked yet</h3>
+    </aside>
+  `;
+}
+
+function renderRegionSpecificRankingPanels(regionCode) {
+  if (regionCode === "AS") {
+    if (onesUnrankedPanel) {
+      onesUnrankedPanel.innerHTML = buildRegionEmptyRankingCard(
+        "No AS off-board 1v1 players yet",
+        "Only the AS present 1v1 board is tracked right now."
+      );
+    }
+
+    if (onesAlltimePanel) {
+      onesAlltimePanel.innerHTML = buildRegionEmptyRankingCard(
+        "No AS all-time 1v1 board yet",
+        "All-time AS 1v1 placements can be added once that region has a legacy board."
+      );
+    }
+
+    if (twosPresentPanel) {
+      twosPresentPanel.innerHTML = buildRegionEmptyRankingCard(
+        "No AS 2v2 rankings yet",
+        "AS 2v2 teams have not been placed on the rankings board yet."
+      );
+    }
+
+    if (twosUnrankedPanel) {
+      twosUnrankedPanel.innerHTML = buildRegionEmptyRankingCard(
+        "No AS off-board 2v2 teams yet",
+        "There are no AS off-board duo placements on the site right now."
+      );
+    }
+
+    if (twosAlltimePanel) {
+      twosAlltimePanel.innerHTML = buildRegionEmptyRankingCard(
+        "No AS all-time 2v2 board yet",
+        "Historic AS duo placements can be added here later."
+      );
+    }
+
+    bindRankingPanelInteractions();
+    return;
+  }
+
+  Object.entries(regionSpecificRankingPanels).forEach(([key, panel]) => {
+    if (panel && regionSpecificRankingMarkup[key]) {
+      panel.innerHTML = regionSpecificRankingMarkup[key];
+    }
+  });
+
+  bindRankingPanelInteractions();
+}
+
+function bindRankingPanelInteractions() {
+  document.querySelectorAll("[data-alltime-player]").forEach((row) => {
+    row.onclick = () => {
+      renderAllTimeSpotlight(row.dataset.alltimePlayer);
+    };
+  });
+
+  document.querySelectorAll("[data-offboard-player]").forEach((row) => {
+    row.onclick = () => {
+      renderOffboardSpotlight(row.dataset.offboardPlayer);
+    };
+  });
+
+  document.querySelectorAll("[data-twos-player]").forEach((row) => {
+    row.onclick = () => {
+      renderTwosSpotlight(row.dataset.twosPlayer);
+    };
+  });
+
+  document.querySelectorAll("[data-twos-alltime-player]").forEach((row) => {
+    row.onclick = () => {
+      renderTwosAlltimeSpotlight(row.dataset.twosAlltimePlayer);
+    };
+  });
+}
+
 function renderAllTimeSpotlight(playerName) {
   const player = allTimeSpotlights[playerName];
 
@@ -1317,7 +1604,7 @@ function renderAllTimeSpotlight(playerName) {
     )
     .join("");
 
-  allTimeRankingRows.forEach((row) => {
+  document.querySelectorAll("[data-alltime-player]").forEach((row) => {
     row.classList.toggle("active", row.dataset.alltimePlayer === playerName);
   });
 
@@ -1349,7 +1636,7 @@ function renderTwosSpotlight(teamName) {
     )
     .join("");
 
-  twosRankingRows.forEach((row) => {
+  document.querySelectorAll("[data-twos-player]").forEach((row) => {
     row.classList.toggle("active", row.dataset.twosPlayer === teamName);
   });
 
@@ -1381,7 +1668,7 @@ function renderOffboardSpotlight(playerName) {
     )
     .join("");
 
-  offboardRankingRows.forEach((row) => {
+  document.querySelectorAll("[data-offboard-player]").forEach((row) => {
     row.classList.toggle("active", row.dataset.offboardPlayer === playerName);
   });
 
@@ -1418,7 +1705,7 @@ function renderTwosAlltimeSpotlight(teamName) {
     )
     .join("");
 
-  twosAlltimeRankingRows.forEach((row) => {
+  document.querySelectorAll("[data-twos-alltime-player]").forEach((row) => {
     row.classList.toggle("active", row.dataset.twosAlltimePlayer === teamName);
   });
 

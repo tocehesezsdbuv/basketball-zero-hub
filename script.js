@@ -5,10 +5,6 @@ const regionButtons = document.querySelectorAll("[data-region-tab]");
 const regionNameNodes = document.querySelectorAll("[data-region-name]");
 const switchButtons = document.querySelectorAll("[data-switch-group]");
 const switchPanels = document.querySelectorAll("[data-switch-panel]");
-const rankingRows = document.querySelectorAll(".leaderboard-row");
-const spotlightName = document.getElementById("spotlightName");
-const spotlightDescription = document.getElementById("spotlightDescription");
-const monumentsList = document.getElementById("monumentsList");
 const onesPresentRows = document.querySelector(
   '[data-switch-panel="ones-era"][data-switch-value="ones-present"] .leaderboard-rows'
 );
@@ -17,22 +13,6 @@ const onesAlltimePanel = document.querySelector('[data-switch-panel="ones-era"][
 const twosPresentPanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-present"]');
 const twosUnrankedPanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-unranked"]');
 const twosAlltimePanel = document.querySelector('[data-switch-panel="twos-era"][data-switch-value="twos-alltime"]');
-const allTimeRankingRows = document.querySelectorAll("[data-alltime-player]");
-const alltimeSpotlightName = document.getElementById("alltimeSpotlightName");
-const alltimeSpotlightDescription = document.getElementById("alltimeSpotlightDescription");
-const alltimeMonumentsList = document.getElementById("alltimeMonumentsList");
-const offboardRankingRows = document.querySelectorAll("[data-offboard-player]");
-const offboardSpotlightName = document.getElementById("offboardSpotlightName");
-const offboardSpotlightDescription = document.getElementById("offboardSpotlightDescription");
-const offboardNotesList = document.getElementById("offboardNotesList");
-const twosRankingRows = document.querySelectorAll("[data-twos-player]");
-const twosSpotlightName = document.getElementById("twosSpotlightName");
-const twosSpotlightDescription = document.getElementById("twosSpotlightDescription");
-const twosNotesList = document.getElementById("twosNotesList");
-const twosAlltimeRankingRows = document.querySelectorAll("[data-twos-alltime-player]");
-const twosAlltimeSpotlightName = document.getElementById("twosAlltimeSpotlightName");
-const twosAlltimeSpotlightDescription = document.getElementById("twosAlltimeSpotlightDescription");
-const twosAlltimeNotesList = document.getElementById("twosAlltimeNotesList");
 const scrimMetricButtons = document.querySelectorAll("[data-scrim-metric]");
 const scrimLeaderboardRows = document.getElementById("scrimLeaderboardRows");
 const scrimMetricLabel = document.getElementById("scrimMetricLabel");
@@ -81,7 +61,7 @@ const heroPanelSlides = [
 const onesPresentRegionBoards = {
   OCE: [
     { rank: 1, player: "Serenity", username: "@EmasHubbyX", avatar: "assets/serenity.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
-    { rank: 2, player: "Cheese", username: "@GetALifKid", avatar: "assets/Cheese.webp", elo: "7k+", tier: "S Rank", tierClass: "rank-tier-silver" },
+    { rank: 2, player: "Cheese", username: "@GetALifKid", avatar: "assets/Cheese.webp", elo: "9k", tier: "S Rank", tierClass: "rank-tier-silver" },
     { rank: 3, player: "Shoop", username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", elo: "10k+", tier: "S Rank", tierClass: "rank-tier-bronze" },
     { rank: 4, player: "Moon", username: "@awmmoony", avatar: "assets/moon.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
     { rank: 5, player: "Literalgod", username: "@otyuehfgvbcdsewxazqo", avatar: "assets/literal.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
@@ -1411,16 +1391,19 @@ switchButtons.forEach((button) => {
 
 function renderSpotlight(playerName) {
   const player = playerSpotlights[playerName];
+  const liveSpotlightName = document.getElementById("spotlightName");
+  const liveSpotlightDescription = document.getElementById("spotlightDescription");
+  const liveMonumentsList = document.getElementById("monumentsList");
 
-  if (!player) {
+  if (!player || !liveSpotlightName || !liveSpotlightDescription || !liveMonumentsList) {
     return;
   }
 
   document.body.classList.add("is-animating");
 
-  spotlightName.textContent = playerName;
-  spotlightDescription.textContent = player.description;
-  monumentsList.innerHTML = player.monuments
+  liveSpotlightName.textContent = playerName;
+  liveSpotlightDescription.textContent = player.description;
+  liveMonumentsList.innerHTML = player.monuments
     .map(
       (monument) => `
         <article class="monument-item">
@@ -1431,8 +1414,8 @@ function renderSpotlight(playerName) {
     )
     .join("");
 
-  rankingRows.forEach((row) => {
-    row.classList.toggle("active", row.dataset.player === playerName);
+  document.querySelectorAll("[data-present-player]").forEach((row) => {
+    row.classList.toggle("active", row.dataset.presentPlayer === playerName);
   });
 
   window.clearTimeout(renderSpotlight.fadeTimer);
@@ -1557,43 +1540,53 @@ function renderRegionSpecificRankingPanels(regionCode) {
 }
 
 function bindRankingPanelInteractions() {
-  document.querySelectorAll("[data-alltime-player]").forEach((row) => {
-    row.onclick = () => {
-      renderAllTimeSpotlight(row.dataset.alltimePlayer);
-    };
+  if (document.body.dataset.rankingDelegationBound) {
+    return;
+  }
+
+  document.addEventListener("click", (event) => {
+    const alltimeRow = event.target.closest("[data-alltime-player]");
+    if (alltimeRow) {
+      renderAllTimeSpotlight(alltimeRow.dataset.alltimePlayer);
+      return;
+    }
+
+    const offboardRow = event.target.closest("[data-offboard-player]");
+    if (offboardRow) {
+      renderOffboardSpotlight(offboardRow.dataset.offboardPlayer);
+      return;
+    }
+
+    const twosRow = event.target.closest("[data-twos-player]");
+    if (twosRow) {
+      renderTwosSpotlight(twosRow.dataset.twosPlayer);
+      return;
+    }
+
+    const twosAlltimeRow = event.target.closest("[data-twos-alltime-player]");
+    if (twosAlltimeRow) {
+      renderTwosAlltimeSpotlight(twosAlltimeRow.dataset.twosAlltimePlayer);
+    }
   });
 
-  document.querySelectorAll("[data-offboard-player]").forEach((row) => {
-    row.onclick = () => {
-      renderOffboardSpotlight(row.dataset.offboardPlayer);
-    };
-  });
-
-  document.querySelectorAll("[data-twos-player]").forEach((row) => {
-    row.onclick = () => {
-      renderTwosSpotlight(row.dataset.twosPlayer);
-    };
-  });
-
-  document.querySelectorAll("[data-twos-alltime-player]").forEach((row) => {
-    row.onclick = () => {
-      renderTwosAlltimeSpotlight(row.dataset.twosAlltimePlayer);
-    };
-  });
+  document.body.dataset.rankingDelegationBound = "true";
 }
 
 function renderAllTimeSpotlight(playerName) {
   const player = allTimeSpotlights[playerName];
+  const liveAlltimeSpotlightName = document.getElementById("alltimeSpotlightName");
+  const liveAlltimeSpotlightDescription = document.getElementById("alltimeSpotlightDescription");
+  const liveAlltimeMonumentsList = document.getElementById("alltimeMonumentsList");
 
-  if (!player || !alltimeSpotlightName || !alltimeSpotlightDescription || !alltimeMonumentsList) {
+  if (!player || !liveAlltimeSpotlightName || !liveAlltimeSpotlightDescription || !liveAlltimeMonumentsList) {
     return;
   }
 
   document.body.classList.add("is-animating");
 
-  alltimeSpotlightName.textContent = playerName;
-  alltimeSpotlightDescription.textContent = player.description;
-  alltimeMonumentsList.innerHTML = player.monuments
+  liveAlltimeSpotlightName.textContent = playerName;
+  liveAlltimeSpotlightDescription.textContent = player.description;
+  liveAlltimeMonumentsList.innerHTML = player.monuments
     .map(
       (monument) => `
         <article class="monument-item">
@@ -1616,16 +1609,19 @@ function renderAllTimeSpotlight(playerName) {
 
 function renderTwosSpotlight(teamName) {
   const team = twosSpotlights[teamName];
+  const liveTwosSpotlightName = document.getElementById("twosSpotlightName");
+  const liveTwosSpotlightDescription = document.getElementById("twosSpotlightDescription");
+  const liveTwosNotesList = document.getElementById("twosNotesList");
 
-  if (!team || !twosSpotlightName || !twosSpotlightDescription || !twosNotesList) {
+  if (!team || !liveTwosSpotlightName || !liveTwosSpotlightDescription || !liveTwosNotesList) {
     return;
   }
 
   document.body.classList.add("is-animating");
 
-  twosSpotlightName.textContent = teamName;
-  twosSpotlightDescription.textContent = team.description;
-  twosNotesList.innerHTML = team.notes
+  liveTwosSpotlightName.textContent = teamName;
+  liveTwosSpotlightDescription.textContent = team.description;
+  liveTwosNotesList.innerHTML = team.notes
     .map(
       (note) => `
         <article class="monument-item">
@@ -1648,16 +1644,19 @@ function renderTwosSpotlight(teamName) {
 
 function renderOffboardSpotlight(playerName) {
   const player = playerSpotlights[playerName];
+  const liveOffboardSpotlightName = document.getElementById("offboardSpotlightName");
+  const liveOffboardSpotlightDescription = document.getElementById("offboardSpotlightDescription");
+  const liveOffboardNotesList = document.getElementById("offboardNotesList");
 
-  if (!player || !offboardSpotlightName || !offboardSpotlightDescription || !offboardNotesList) {
+  if (!player || !liveOffboardSpotlightName || !liveOffboardSpotlightDescription || !liveOffboardNotesList) {
     return;
   }
 
   document.body.classList.add("is-animating");
 
-  offboardSpotlightName.textContent = playerName;
-  offboardSpotlightDescription.textContent = player.description;
-  offboardNotesList.innerHTML = player.monuments
+  liveOffboardSpotlightName.textContent = playerName;
+  liveOffboardSpotlightDescription.textContent = player.description;
+  liveOffboardNotesList.innerHTML = player.monuments
     .map(
       (note) => `
         <article class="monument-item">
@@ -1680,21 +1679,24 @@ function renderOffboardSpotlight(playerName) {
 
 function renderTwosAlltimeSpotlight(teamName) {
   const team = twosAlltimeSpotlights[teamName];
+  const liveTwosAlltimeSpotlightName = document.getElementById("twosAlltimeSpotlightName");
+  const liveTwosAlltimeSpotlightDescription = document.getElementById("twosAlltimeSpotlightDescription");
+  const liveTwosAlltimeNotesList = document.getElementById("twosAlltimeNotesList");
 
   if (
     !team ||
-    !twosAlltimeSpotlightName ||
-    !twosAlltimeSpotlightDescription ||
-    !twosAlltimeNotesList
+    !liveTwosAlltimeSpotlightName ||
+    !liveTwosAlltimeSpotlightDescription ||
+    !liveTwosAlltimeNotesList
   ) {
     return;
   }
 
   document.body.classList.add("is-animating");
 
-  twosAlltimeSpotlightName.textContent = teamName;
-  twosAlltimeSpotlightDescription.textContent = team.description;
-  twosAlltimeNotesList.innerHTML = team.notes
+  liveTwosAlltimeSpotlightName.textContent = teamName;
+  liveTwosAlltimeSpotlightDescription.textContent = team.description;
+  liveTwosAlltimeNotesList.innerHTML = team.notes
     .map(
       (note) => `
         <article class="monument-item">
@@ -2243,47 +2245,6 @@ function startHeroPanelRotation() {
     }, 260);
   }, 4200);
 }
-
-rankingRows.forEach((row) => {
-  if (
-    row.dataset.alltimePlayer ||
-    row.dataset.offboardPlayer ||
-    row.dataset.twosPlayer ||
-    row.dataset.twosAlltimePlayer ||
-    row.dataset.scrimPlayer ||
-    row.dataset.dcPlayer
-  ) {
-    return;
-  }
-  row.dataset.player = row.querySelector("strong")?.textContent || "";
-  row.addEventListener("click", () => {
-    renderSpotlight(row.dataset.player);
-  });
-});
-
-allTimeRankingRows.forEach((row) => {
-  row.addEventListener("click", () => {
-    renderAllTimeSpotlight(row.dataset.alltimePlayer);
-  });
-});
-
-offboardRankingRows.forEach((row) => {
-  row.addEventListener("click", () => {
-    renderOffboardSpotlight(row.dataset.offboardPlayer);
-  });
-});
-
-twosRankingRows.forEach((row) => {
-  row.addEventListener("click", () => {
-    renderTwosSpotlight(row.dataset.twosPlayer);
-  });
-});
-
-twosAlltimeRankingRows.forEach((row) => {
-  row.addEventListener("click", () => {
-    renderTwosAlltimeSpotlight(row.dataset.twosAlltimePlayer);
-  });
-});
 
 scrimMetricButtons.forEach((button) => {
   button.addEventListener("click", () => {

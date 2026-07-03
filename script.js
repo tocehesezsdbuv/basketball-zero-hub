@@ -117,17 +117,15 @@ const scrimRegions = {
         displayName: "Rshud",
         username: "@Rex_breaker",
         avatar: "assets/Rshud.webp",
-        games: 2,
-        points: 88,
-        assists: 3,
-        blocks: 11,
-        ankleBreaks: 6,
+        games: 4,
+        points: 133,
+        assists: 6,
+        blocks: 14,
+        ankleBreaks: 10,
         bestPoints: 48,
-        bestAssists: 2,
+        bestAssists: 3,
         bestBlocks: 7,
         bestAnkleBreaks: 4,
-        ovrAdjustment: -4,
-        contextNote: "High-ping advantage and raw stat inflation were factored into the manual OVR placement, so the final ranking sits lower than the box score alone would suggest.",
       },
       "1_43213": { displayName: "Mikaela", username: "@1_43213", avatar: "assets/mikaela.webp", games: 2, points: 26, assists: 9, blocks: 2, ankleBreaks: 4, bestPoints: 18, bestAssists: 6, bestBlocks: 2, bestAnkleBreaks: 3 },
       Cheokhimisthebest: { displayName: "Cheok", username: "@Cheokhimisthebest", avatar: "assets/cheok.webp", games: 2, points: 24, assists: 8, blocks: 1, ankleBreaks: 2, bestPoints: 15, bestAssists: 6, bestBlocks: 1, bestAnkleBreaks: 1 },
@@ -138,11 +136,27 @@ const scrimRegions = {
       Sabre: { displayName: "Sabre", username: "@Xxdj_probroxX", avatar: "assets/sabre.webp", games: 2, points: 17, assists: 7, blocks: 0, ankleBreaks: 3, bestPoints: 8, bestAssists: 5, bestBlocks: 0, bestAnkleBreaks: 2 },
       D34THSC4RX: { displayName: "Near", username: "@D34THSC4RX", avatar: "assets/Near.webp", games: 2, points: 22, assists: 3, blocks: 1, ankleBreaks: 5, bestPoints: 14, bestAssists: 2, bestBlocks: 1, bestAnkleBreaks: 3 },
       gexnchfesMwzdcf: { displayName: "Renoxis", username: "@gexnchfesMwzdcf", avatar: "assets/renoxis.webp", games: 2, points: 17, assists: 2, blocks: 3, ankleBreaks: 2, bestPoints: 9, bestAssists: 2, bestBlocks: 2, bestAnkleBreaks: 2 },
-      Lynx1lynz: { displayName: "Zayne", username: "@Lynx1lynz", avatar: "assets/Zayne.webp", games: 2, points: 20, assists: 2, blocks: 2, ankleBreaks: 2, bestPoints: 12, bestAssists: 2, bestBlocks: 1, bestAnkleBreaks: 2 },
+      Lynx1lynz: { displayName: "Zayne", username: "@Lynx1lynz", avatar: "assets/Zayne.webp", games: 4, points: 49, assists: 7, blocks: 4, ankleBreaks: 6, bestPoints: 17, bestAssists: 3, bestBlocks: 1, bestAnkleBreaks: 3 },
       sammm123911: { displayName: "4", username: "@sammm123911", avatar: "assets/4.webp", games: 2, points: 9, assists: 7, blocks: 2, ankleBreaks: 3, bestPoints: 6, bestAssists: 5, bestBlocks: 2, bestAnkleBreaks: 3 },
       featherlyga: { displayName: "Willow", username: "@featherlyga", avatar: "assets/willow.webp", games: 1, points: 14, assists: 4, blocks: 0, ankleBreaks: 1, bestPoints: 14, bestAssists: 4, bestBlocks: 0, bestAnkleBreaks: 1 },
+      xXBlack_HXx: { displayName: "Nyso", username: "@nyso", avatar: "assets/nyso.webp", games: 3, points: 21, assists: 13, blocks: 1, ankleBreaks: 8, bestPoints: 9, bestAssists: 7, bestBlocks: 1, bestAnkleBreaks: 4 },
+      MelsKelvingts: { displayName: "MelsKelvingts", username: "@yur1plisetskyfan123", avatar: "assets/mels.webp", games: 3, points: 24, assists: 8, blocks: 4, ankleBreaks: 2, bestPoints: 13, bestAssists: 4, bestBlocks: 3, bestAnkleBreaks: 2 },
+      godusoopmam: { displayName: "Usoop", username: "@usoop", avatar: "assets/usoop.webp", games: 3, points: 20, assists: 15, blocks: 5, ankleBreaks: 4, bestPoints: 9, bestAssists: 6, bestBlocks: 2, bestAnkleBreaks: 2 },
+      m4rnr: { displayName: "Mom", username: "@mom", avatar: "assets/mom.webp", games: 3, points: 38, assists: 7, blocks: 1, ankleBreaks: 3, bestPoints: 18, bestAssists: 3, bestBlocks: 1, bestAnkleBreaks: 1 },
+      gamer05095: { displayName: "Spiral", username: "@Spiral", avatar: "assets/spiral.webp", games: 3, points: 32, assists: 9, blocks: 4, ankleBreaks: 3, bestPoints: 18, bestAssists: 4, bestBlocks: 3, bestAnkleBreaks: 2 },
+      "80brickz": { username: "@80brickz", avatar: "assets/bzh-logo.png", games: 3, points: 11, assists: 7, blocks: 2, ankleBreaks: 3, bestPoints: 9, bestAssists: 4, bestBlocks: 1, bestAnkleBreaks: 3 },
     },
     sessions: {
+      "03/07/2026 Sanctioned Scrim #3": {
+        description: "July 3 sanctioned scrim set three now has three logged scoreboards. godusoopmam, gamer05095, and m4rnr stood out again, while xXBlack_HXx, MelsKelvingts, and 80brickz all added another full AS scrim line to the pool.",
+        subtitle: "July 3 sanctioned scrim set three",
+        images: [
+          { src: "assets/scrim-2026-07-03-6.png", alt: "03/07/2026 sanctioned scrim #3 scoreboard one" },
+          { src: "assets/scrim-2026-07-03-7.png", alt: "03/07/2026 sanctioned scrim #3 scoreboard two" },
+          { src: "assets/scrim-2026-07-03-8.png", alt: "03/07/2026 sanctioned scrim #3 scoreboard three" },
+        ],
+        notes: [],
+      },
       "03/07/2026 Sanctioned Scrim #2": {
         description: "July 3 sanctioned scrim set two added three more logged scoreboards. Shoop exploded as the biggest scorer, while 1_43213, Dragon_zuen, Clairss_Seupay, and NIGHTMARE88REAPER all stacked strong follow-up statlines across the set.",
         subtitle: "July 3 sanctioned scrim set two",
@@ -1461,7 +1475,7 @@ function renderScrimSpotlight(metricName, playerName) {
 
 function renderScrimBoard(metricName, selectedPlayerName) {
   const metric = scrimMetricConfig[metricName];
-  const sortedPlayers = getSortedScrimPlayers(metricName);
+  const sortedPlayers = getSortedScrimPlayers(metricName).slice(0, 20);
   const regionData = getActiveScrimRegion();
   const fallbackPlayer = selectedPlayerName || regionData?.defaultPlayer || sortedPlayers[0]?.[0];
   const activePlayerName = sortedPlayers.some(([name]) => name === selectedPlayerName)

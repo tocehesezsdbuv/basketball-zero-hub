@@ -148,7 +148,7 @@ const scrimRegions = {
   AS: {
     defaultPlayer: "Shoop",
     players: {
-      Shoop: { displayName: "Shoop", username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", games: 6, points: 74, assists: 8, blocks: 5, ankleBreaks: 15, bestPoints: 21, bestAssists: 5, bestBlocks: 2, bestAnkleBreaks: 5 },
+      Shoop: { displayName: "Shoop", username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", games: 7, points: 92, assists: 8, blocks: 6, ankleBreaks: 16, bestPoints: 21, bestAssists: 5, bestBlocks: 2, bestAnkleBreaks: 5 },
       Qwertyezeu: { displayName: "Quinn", username: "@Qwertyezeu", avatar: "assets/quinn.webp", games: 2, points: 45, assists: 6, blocks: 2, ankleBreaks: 4, bestPoints: 33, bestAssists: 3, bestBlocks: 2, bestAnkleBreaks: 3 },
       RSHUD: {
         displayName: "Rshud",
@@ -170,7 +170,7 @@ const scrimRegions = {
       Clairss_Seupay: { displayName: "Caell", username: "@Clairss_Seupay", avatar: "assets/caell.webp", games: 3, points: 14, assists: 12, blocks: 7, ankleBreaks: 3, bestPoints: 6, bestAssists: 5, bestBlocks: 3, bestAnkleBreaks: 2 },
       NIGHTMARE88REAPER: { displayName: "Tax", username: "@NIGHTMARE88REAPER", avatar: "assets/Tax.webp", games: 6, points: 36, assists: 19, blocks: 11, ankleBreaks: 13, bestPoints: 13, bestAssists: 5, bestBlocks: 6, bestAnkleBreaks: 4 },
       bigman222242: { displayName: "Ogre", username: "@bigman222242", avatar: "assets/ogre.webp", games: 2, points: 20, assists: 1, blocks: 8, ankleBreaks: 1, bestPoints: 11, bestAssists: 1, bestBlocks: 5, bestAnkleBreaks: 1 },
-      Sabre: { displayName: "Sabre", username: "@Xxdj_probroxX", avatar: "assets/sabre.webp", games: 2, points: 17, assists: 7, blocks: 0, ankleBreaks: 3, bestPoints: 8, bestAssists: 5, bestBlocks: 0, bestAnkleBreaks: 2 },
+      Sabre: { displayName: "Sabre", username: "@Xxdj_probroxX", avatar: "assets/sabre.webp", games: 3, points: 17, assists: 8, blocks: 0, ankleBreaks: 4, bestPoints: 8, bestAssists: 5, bestBlocks: 0, bestAnkleBreaks: 2 },
       D34THSC4RX: { displayName: "Near", username: "@D34THSC4RX", avatar: "assets/Near.webp", games: 2, points: 22, assists: 3, blocks: 1, ankleBreaks: 5, bestPoints: 14, bestAssists: 2, bestBlocks: 1, bestAnkleBreaks: 3 },
       gexnchfesMwzdcf: { displayName: "Renoxis", username: "@gexnchfesMwzdcf", avatar: "assets/renoxis.webp", games: 2, points: 17, assists: 2, blocks: 3, ankleBreaks: 2, bestPoints: 9, bestAssists: 2, bestBlocks: 2, bestAnkleBreaks: 2 },
       Lynx1lynz: { displayName: "Zayne", username: "@Lynx1lynz", avatar: "assets/Zayne.webp", games: 7, points: 79, assists: 18, blocks: 10, ankleBreaks: 9, bestPoints: 17, bestAssists: 5, bestBlocks: 3, bestAnkleBreaks: 3 },
@@ -183,13 +183,24 @@ const scrimRegions = {
       gamer05095: { displayName: "Spiral", username: "@Spiral", avatar: "assets/spiral.webp", games: 3, points: 32, assists: 9, blocks: 4, ankleBreaks: 3, bestPoints: 18, bestAssists: 4, bestBlocks: 3, bestAnkleBreaks: 2 },
       "80brickz": { displayName: "Brickz", username: "@80brickz", avatar: "assets/brickz.webp", games: 3, points: 11, assists: 7, blocks: 2, ankleBreaks: 3, bestPoints: 9, bestAssists: 4, bestBlocks: 1, bestAnkleBreaks: 3 },
       bigmacy142: { displayName: "Bigmac", username: "@bigmacy142", avatar: "assets/mac.webp", games: 1, points: 6, assists: 4, blocks: 1, ankleBreaks: 1, bestPoints: 6, bestAssists: 4, bestBlocks: 1, bestAnkleBreaks: 1 },
-      K0lxn: { displayName: "Kol", username: "@k0lxn", avatar: "assets/kol.webp", games: 3, points: 53, assists: 4, blocks: 1, ankleBreaks: 5, bestPoints: 21, bestAssists: 3, bestBlocks: 1, bestAnkleBreaks: 3 },
+      K0lxn: { displayName: "Kol", username: "@k0lxn", avatar: "assets/kol.webp", games: 4, points: 56, assists: 9, blocks: 2, ankleBreaks: 8, bestPoints: 21, bestAssists: 5, bestBlocks: 1, bestAnkleBreaks: 3 },
       meblack0609: { displayName: "Babi", username: "@meblack0609", avatar: "assets/babi.webp", games: 3, points: 55, assists: 11, blocks: 2, ankleBreaks: 6, bestPoints: 23, bestAssists: 4, bestBlocks: 1, bestAnkleBreaks: 2 },
       awmmoony: { displayName: "Moon", username: "@awmmoony", avatar: "assets/moon.webp", games: 1, points: 0, assists: 1, blocks: 5, ankleBreaks: 0, bestPoints: 0, bestAssists: 1, bestBlocks: 5, bestAnkleBreaks: 0 },
-      robloxxD0610s: { displayName: "Dyberki", username: "@robloxxD0610s", avatar: "assets/dyberki.webp", games: 2, points: 3, assists: 6, blocks: 3, ankleBreaks: 5, bestPoints: 3, bestAssists: 4, bestBlocks: 2, bestAnkleBreaks: 3 },
+      robloxxD0610s: { displayName: "Dyberki", username: "@robloxxD0610s", avatar: "assets/dyberki.webp", games: 3, points: 16, assists: 7, blocks: 5, ankleBreaks: 7, bestPoints: 13, bestAssists: 4, bestBlocks: 2, bestAnkleBreaks: 3 },
+      JENOS_ONEPUNCH: { displayName: "1975", username: "@JENOS_ONEPUNCH", avatar: "assets/1975.webp", games: 1, points: 11, assists: 3, blocks: 2, ankleBreaks: 0, bestPoints: 11, bestAssists: 3, bestBlocks: 2, bestAnkleBreaks: 0 },
+      specter_108: { displayName: "Spec", username: "@specter_108", avatar: "assets/Spec.webp", games: 1, points: 18, assists: 2, blocks: 1, ankleBreaks: 0, bestPoints: 18, bestAssists: 2, bestBlocks: 1, bestAnkleBreaks: 0 },
+      Mxlvora: { displayName: "Mxl", username: "@Mxlvora", avatar: "assets/Mxl.webp", games: 1, points: 20, assists: 4, blocks: 0, ankleBreaks: 2, bestPoints: 20, bestAssists: 4, bestBlocks: 0, bestAnkleBreaks: 2 },
       Enrique_cheeks: { displayName: "Homeless", username: "@Enrique_cheeks", avatar: "assets/homeless.webp", games: 2, points: 17, assists: 4, blocks: 3, ankleBreaks: 2, bestPoints: 12, bestAssists: 3, bestBlocks: 3, bestAnkleBreaks: 2 },
     },
     sessions: {
+      "AS BBZ 005": {
+        description: "July 4 added another logged AS scrim. Mxlvora and specter_108 were the top scorers in this one, while Dyberki, Kol, and JENOS_ONEPUNCH all added useful all-around lines to the board.",
+        subtitle: "04/07/2026",
+        images: [
+          { src: "assets/scrim-2026-07-04-5.png", alt: "04/07/2026 sanctioned scrim scoreboard five" },
+        ],
+        notes: [],
+      },
       "AS BBZ 004": {
         description: "July 4 sanctioned scrims added three more AS scoreboards. Kol, meblack0609, Zayne, Tax, and Shoop all stacked meaningful volume, while Willow, Bigmac, Moon, robloxxD0610s, and Enrique_cheeks entered or extended the tracked pool.",
         subtitle: "04/07/2026",

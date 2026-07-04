@@ -66,7 +66,7 @@ const onesPresentRegionBoards = {
     { rank: 2, player: "Cheese", username: "@GetALifKid", avatar: "assets/Cheese.webp", elo: "9k", tier: "S Rank", tierClass: "rank-tier-silver" },
     { rank: 3, player: "Shoop", username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", elo: "10k+", tier: "S Rank", tierClass: "rank-tier-bronze" },
     { rank: 4, player: "Moon", username: "@awmmoony", avatar: "assets/moon.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
-    { rank: 5, player: "Literalgod", username: "@otyuehfgvbcdsewxazqo", avatar: "assets/literal.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
+    { rank: 5, player: "Literalgod", username: "@otyuehfgvbcdsewxazqo", avatar: "assets/literal.webp", elo: "5k", tier: "A Rank", tierClass: "rank-tier-plain" },
     { rank: 6, player: "Kol", username: "@k0lxn", avatar: "assets/kol.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
     { rank: 7, player: "Gnome", username: "@X2Get_Gnomed", avatar: "assets/gnome.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
     { rank: 8, player: "Lyric", username: "@miserified", avatar: "assets/lyric.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
@@ -1179,6 +1179,20 @@ const twosAlltimeSpotlights = {
       {
         title: "Historic No.1 Placement",
         text: "Being placed first gives Lucki and Umbra the strongest visible all-time 2v2 legacy on the site right now.",
+      },
+    ],
+  },
+  "Literalgod & Pocoyo": {
+    description:
+      "Literalgod and Pocoyo now sit at No.2 on the OCE all-time 2v2 board and stand as another GOAT-tier pairing just behind the top duo.",
+    notes: [
+      {
+        title: "No.2 All-Time Duo",
+        text: "They currently hold second place on the all-time 2v2 board as one of the strongest historic OCE pairings listed on the site.",
+      },
+      {
+        title: "GOAT-Tier Placement",
+        text: "Their placement keeps them inside GOAT Tier and right behind Lucki and Umbra on the current all-time duo ladder.",
       },
     ],
   },

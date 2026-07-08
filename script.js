@@ -69,9 +69,9 @@ const onesPresentRegionBoards = {
     { rank: 5, player: "Literalgod", username: "@otyuehfgvbcdsewxazqo", avatar: "assets/literal.webp", elo: "5k", tier: "A Rank", tierClass: "rank-tier-plain" },
     { rank: 6, player: "Kol", username: "@k0lxn", avatar: "assets/kol.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
     { rank: 7, player: "Gnome", username: "@X2Get_Gnomed", avatar: "assets/gnome.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
-    { rank: 8, player: "Lyric", username: "@miserified", avatar: "assets/lyric.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
-    { rank: 9, player: "Gary", username: "@IDoFloss", avatar: "assets/gary.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
-    { rank: 10, player: "Tenkyu", username: "@T3nkyuuu", avatar: "assets/Tenkyu.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 8, player: "Gary", username: "@IDoFloss", avatar: "assets/gary.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 9, player: "Tenkyu", username: "@T3nkyuuu", avatar: "assets/Tenkyu.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 10, player: "Arthur", username: "@xXlxckyXxyt", avatar: "assets/arthur.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
   ],
   AS: [
     { rank: 1, player: "Rshud", username: "@Rex_breaker", avatar: "assets/Rshud.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
@@ -809,16 +809,6 @@ const playerSpotlights = {
       },
     ],
   },
-  Lyric: {
-    description:
-      "Lyric currently sits at No.8 in the 1v1 rankings and remains one of the names holding a place inside the reset top 10.",
-    monuments: [
-      {
-        title: "Top 10 Placement",
-        text: "Lyric currently holds a place inside the top 10 of the 1v1 rankings.",
-      },
-    ],
-  },
   Literalgod: {
     description:
       "Literalgod currently sits at No.5 on the present 1v1 board and holds a strong place in the upper half of the ladder.",
@@ -903,20 +893,6 @@ const playerSpotlights = {
       },
     ],
   },
-  Bigmac: {
-    description:
-      "Bigmac is currently being tracked outside the main 1v1 leaderboard and sits at the top of the off-board pool as a B Rank name.",
-    monuments: [
-      {
-        title: "Off-Board Placement",
-        text: "Bigmac is not on the active top 10 right now, but is still being tracked just outside the main ladder.",
-      },
-      {
-        title: "B Rank Status",
-        text: "Current placement puts Bigmac above the rest of the off-board pool at B Rank.",
-      },
-    ],
-  },
   Astral: {
     description:
       "Astral is currently being tracked outside the main 1v1 leaderboard and remains one of the stronger off-board names at B Rank.",
@@ -947,15 +923,15 @@ const playerSpotlights = {
   },
   Arthur: {
     description:
-      "Arthur is currently being tracked outside the main 1v1 leaderboard and sits in the off-board pool at B Rank.",
+      "Arthur now rounds out the present 1v1 top 10 at No.10 and stays on the board as one of the active tracked names in the current ladder.",
     monuments: [
       {
-        title: "Off-Board Placement",
-        text: "Arthur is currently outside the active top 10 while still being kept on the radar in the off-board pool.",
+        title: "Top 10 Placement",
+        text: "Arthur currently holds the No.10 spot on the present 1v1 leaderboard.",
       },
       {
-        title: "B Rank Status",
-        text: "Current placement keeps Arthur alongside the stronger names in the off-board group at B Rank.",
+        title: "Tracked Contender",
+        text: "Current placement keeps Arthur on the active board as one of the names still in the mix.",
       },
     ],
   },
@@ -2385,7 +2361,7 @@ legendLinks.forEach((link) => {
 
 renderSpotlight("Serenity");
 renderAllTimeSpotlight("Gary");
-renderOffboardSpotlight("Bigmac");
+renderOffboardSpotlight("Astral");
 renderTwosSpotlight("Moon & Shoop");
 renderTwosAlltimeSpotlight("Lucki & Umbra");
 renderScrimBoard("overall");

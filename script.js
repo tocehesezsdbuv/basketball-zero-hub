@@ -67,11 +67,11 @@ const onesPresentRegionBoards = {
     { rank: 3, player: "Shoop", username: "@asdfgdfgsdfaasesdf", avatar: "assets/shoop.webp", elo: "10k+", tier: "S Rank", tierClass: "rank-tier-bronze" },
     { rank: 4, player: "Moon", username: "@awmmoony", avatar: "assets/moon.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
     { rank: 5, player: "Literalgod", username: "@otyuehfgvbcdsewxazqo", avatar: "assets/literal.webp", elo: "5k", tier: "A Rank", tierClass: "rank-tier-plain" },
-    { rank: 6, player: "Kol", username: "@k0lxn", avatar: "assets/kol.webp", elo: "N/A", tier: "A Rank", tierClass: "rank-tier-plain" },
-    { rank: 7, player: "Gnome", username: "@X2Get_Gnomed", avatar: "assets/gnome.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
-    { rank: 8, player: "Gary", username: "@IDoFloss", avatar: "assets/gary.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
-    { rank: 9, player: "Tenkyu", username: "@T3nkyuuu", avatar: "assets/Tenkyu.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
-    { rank: 10, player: "Arthur", username: "@xXlxckyXxyt", avatar: "assets/arthur.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 6, player: "Gnome", username: "@X2Get_Gnomed", avatar: "assets/gnome.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 7, player: "Gary", username: "@IDoFloss", avatar: "assets/gary.webp", elo: "4k+", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 8, player: "Tenkyu", username: "@T3nkyuuu", avatar: "assets/Tenkyu.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 9, player: "Arthur", username: "@xXlxckyXxyt", avatar: "assets/arthur.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
+    { rank: 10, player: "Astral", username: "@sprytral", avatar: "assets/astral.webp", elo: "N/A", tier: "B Rank", tierClass: "rank-tier-plain" },
   ],
   AS: [
     { rank: 1, player: "Rshud", username: "@Rex_breaker", avatar: "assets/Rshud.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
@@ -823,20 +823,6 @@ const playerSpotlights = {
       },
     ],
   },
-  Kol: {
-    description:
-      "Kol currently sits at No.6 on the present 1v1 board and stays in the upper-middle section of the ladder.",
-    monuments: [
-      {
-        title: "Top 10 Placement",
-        text: "Kol currently holds a place inside the top 10 of the 1v1 rankings.",
-      },
-      {
-        title: "Current Ladder Presence",
-        text: "Kol remains one of the names currently locked into the reset 1v1 top 10.",
-      },
-    ],
-  },
   Gnome: {
     description:
       "Gnome currently sits at No.7 on the present 1v1 board and holds a solid spot in the current top 10.",
@@ -895,15 +881,15 @@ const playerSpotlights = {
   },
   Astral: {
     description:
-      "Astral is currently being tracked outside the main 1v1 leaderboard and remains one of the stronger off-board names at B Rank.",
+      "Astral now holds the No.10 spot on the present 1v1 board and stays on the ladder as one of the active tracked names in the current top 10.",
     monuments: [
       {
-        title: "Off-Board Placement",
-        text: "Astral is currently outside the active top 10 while still being tracked in the off-board pool.",
+        title: "Top 10 Placement",
+        text: "Astral currently holds the No.10 spot on the present 1v1 leaderboard.",
       },
       {
-        title: "B Rank Status",
-        text: "Their current placement keeps them in the higher half of the off-board group at B Rank.",
+        title: "Tracked Contender",
+        text: "Current placement keeps Astral on the active board as one of the names still in the mix.",
       },
     ],
   },
@@ -923,11 +909,11 @@ const playerSpotlights = {
   },
   Arthur: {
     description:
-      "Arthur now rounds out the present 1v1 top 10 at No.10 and stays on the board as one of the active tracked names in the current ladder.",
+      "Arthur currently sits at No.9 on the present 1v1 board and stays on the ladder as one of the active tracked names in the current mix.",
     monuments: [
       {
         title: "Top 10 Placement",
-        text: "Arthur currently holds the No.10 spot on the present 1v1 leaderboard.",
+        text: "Arthur currently holds the No.9 spot on the present 1v1 leaderboard.",
       },
       {
         title: "Tracked Contender",
@@ -2361,7 +2347,7 @@ legendLinks.forEach((link) => {
 
 renderSpotlight("Serenity");
 renderAllTimeSpotlight("Gary");
-renderOffboardSpotlight("Astral");
+renderOffboardSpotlight("Sabre");
 renderTwosSpotlight("Moon & Shoop");
 renderTwosAlltimeSpotlight("Lucki & Umbra");
 renderScrimBoard("overall");

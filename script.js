@@ -82,6 +82,7 @@ const onesPresentRegionBoards = {
   ],
   EU: [
     { rank: 1, player: "yznx", username: "@theblackgamerital", avatar: "assets/yznx.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
+    { rank: 2, player: "Kevin", username: "@noel_veroleone", avatar: "assets/kevin.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-silver" },
   ],
 };
 
@@ -662,6 +663,20 @@ const playerSpotlights = {
       {
         title: "First NA Placement",
         text: "Being the first tracked NA 1v1 name gives Juju the lead spot for the region right now.",
+      },
+    ],
+  },
+  Kevin: {
+    description:
+      "Kevin currently sits at No.2 on the EU 1v1 board, giving the region a second tracked name behind yznx.",
+    monuments: [
+      {
+        title: "Current EU No.2",
+        text: "Kevin holds the second spot on the EU 1v1 leaderboard right now.",
+      },
+      {
+        title: "EU Board Presence",
+        text: "Being placed directly under the No.1 spot puts Kevin near the top of the region's current 1v1 picture.",
       },
     ],
   },

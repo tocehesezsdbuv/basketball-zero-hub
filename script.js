@@ -77,6 +77,9 @@ const onesPresentRegionBoards = {
     { rank: 1, player: "Rshud", username: "@Rex_breaker", avatar: "assets/Rshud.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
     { rank: 2, player: "Mom", username: "@m4rnr", avatar: "assets/mom.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-silver" },
   ],
+  NA: [
+    { rank: 1, player: "Juju", username: "@Thebeast17264", avatar: "assets/juju.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
+  ],
   EU: [
     { rank: 1, player: "yznx", username: "@theblackgamerital", avatar: "assets/yznx.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
   ],
@@ -85,6 +88,7 @@ const onesPresentRegionBoards = {
 const onesPresentRegionSpotlights = {
   OCE: "Serenity",
   AS: "Rshud",
+  NA: "Juju",
   EU: "yznx",
 };
 
@@ -113,7 +117,7 @@ function setRegion(regionCode) {
     node.textContent = regionCode;
   });
 
-  if (regionCode === "OCE" || regionCode === "AS" || regionCode === "EU") {
+  if (regionCode === "OCE" || regionCode === "AS" || regionCode === "NA" || regionCode === "EU") {
     renderPresentBoard(regionCode);
     renderRegionSpecificRankingPanels(regionCode);
     const activeMetric = document.querySelector("[data-scrim-metric].active")?.dataset.scrimMetric || "overall";
@@ -647,6 +651,20 @@ function getScrimPlacementRank(index, metricName, value) {
 }
 
 const playerSpotlights = {
+  Juju: {
+    description:
+      "Juju currently opens the NA 1v1 board at No.1, standing as the first tracked North America player on the present leaderboard.",
+    monuments: [
+      {
+        title: "Current NA No.1",
+        text: "Juju currently sits at the top of the NA 1v1 leaderboard.",
+      },
+      {
+        title: "First NA Placement",
+        text: "Being the first tracked NA 1v1 name gives Juju the lead spot for the region right now.",
+      },
+    ],
+  },
   yznx: {
     monumentsLabel: "FLAGS & SKILLS",
     description:
@@ -1552,7 +1570,7 @@ function buildRegionEmptyRankingCard(title, body) {
 }
 
 function renderRegionSpecificRankingPanels(regionCode) {
-  if (regionCode === "AS" || regionCode === "EU") {
+  if (regionCode === "AS" || regionCode === "NA" || regionCode === "EU") {
     const regionLabel = regionCode;
 
     if (onesUnrankedPanel) {

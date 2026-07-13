@@ -77,11 +77,15 @@ const onesPresentRegionBoards = {
     { rank: 1, player: "Rshud", username: "@Rex_breaker", avatar: "assets/Rshud.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
     { rank: 2, player: "Mom", username: "@m4rnr", avatar: "assets/mom.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-silver" },
   ],
+  EU: [
+    { rank: 1, player: "yznx", username: "@theblackgamerital", avatar: "assets/yznx.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
+  ],
 };
 
 const onesPresentRegionSpotlights = {
   OCE: "Serenity",
   AS: "Rshud",
+  EU: "yznx",
 };
 
 const regionSpecificRankingPanels = {
@@ -109,7 +113,7 @@ function setRegion(regionCode) {
     node.textContent = regionCode;
   });
 
-  if (regionCode === "OCE" || regionCode === "AS") {
+  if (regionCode === "OCE" || regionCode === "AS" || regionCode === "EU") {
     renderPresentBoard(regionCode);
     renderRegionSpecificRankingPanels(regionCode);
     const activeMetric = document.querySelector("[data-scrim-metric].active")?.dataset.scrimMetric || "overall";
@@ -643,6 +647,25 @@ function getScrimPlacementRank(index, metricName, value) {
 }
 
 const playerSpotlights = {
+  yznx: {
+    monumentsLabel: "FLAGS & SKILLS",
+    description:
+      "Ex-Top 5 Star EU and a known name across the BBZ scene. Maining both Jackpot and Flash, he's got the raw mechanics and the FastFlags to back it up.",
+    monuments: [
+      {
+        title: "The Perfect Balance",
+        text: "In his left hand he has his offensive skills, and in his right hand his \"DFIntS2PhysicsSenderRate\": \"38760\".",
+      },
+      {
+        title: "Fast Flags Abuser",
+        text: "He doesn't just play on default. His custom Fast Flags setup is so dialed that his shot is a nuke, his blocks are Wemby like and his reach is half court.",
+      },
+      {
+        title: "EU Demon",
+        text: "Retired from Star he chose to main Flash and Jackpot. Never really bothered with Ranked, usually plays Friendly and League matches.",
+      },
+    ],
+  },
   Rshud: {
     description:
       "Rshud currently leads the AS 1v1 board at No.1, holding the top spot on the Asia side of the ladder as one of the clearest names in the region right now.",
@@ -1427,6 +1450,9 @@ function renderSpotlight(playerName) {
   const liveSpotlightName = document.getElementById("spotlightName");
   const liveSpotlightDescription = document.getElementById("spotlightDescription");
   const liveMonumentsList = document.getElementById("monumentsList");
+  const liveMonumentsLabel = liveMonumentsList
+    ?.closest(".monuments-preview")
+    ?.querySelector(".mini-label");
 
   if (!player || !liveSpotlightName || !liveSpotlightDescription || !liveMonumentsList) {
     return;
@@ -1436,6 +1462,9 @@ function renderSpotlight(playerName) {
 
   liveSpotlightName.textContent = playerName;
   liveSpotlightDescription.textContent = player.description;
+  if (liveMonumentsLabel) {
+    liveMonumentsLabel.textContent = player.monumentsLabel || "Monuments";
+  }
   liveMonumentsList.innerHTML = player.monuments
     .map(
       (monument) => `
@@ -1523,39 +1552,41 @@ function buildRegionEmptyRankingCard(title, body) {
 }
 
 function renderRegionSpecificRankingPanels(regionCode) {
-  if (regionCode === "AS") {
+  if (regionCode === "AS" || regionCode === "EU") {
+    const regionLabel = regionCode;
+
     if (onesUnrankedPanel) {
       onesUnrankedPanel.innerHTML = buildRegionEmptyRankingCard(
-        "No AS off-board 1v1 players yet",
-        "Only the AS present 1v1 board is tracked right now."
+        `No ${regionLabel} off-board 1v1 players yet`,
+        `Only the ${regionLabel} present 1v1 board is tracked right now.`
       );
     }
 
     if (onesAlltimePanel) {
       onesAlltimePanel.innerHTML = buildRegionEmptyRankingCard(
-        "No AS all-time 1v1 board yet",
-        "All-time AS 1v1 placements can be added once that region has a legacy board."
+        `No ${regionLabel} all-time 1v1 board yet`,
+        `All-time ${regionLabel} 1v1 placements can be added once that region has a legacy board.`
       );
     }
 
     if (twosPresentPanel) {
       twosPresentPanel.innerHTML = buildRegionEmptyRankingCard(
-        "No AS 2v2 rankings yet",
-        "AS 2v2 teams have not been placed on the rankings board yet."
+        `No ${regionLabel} 2v2 rankings yet`,
+        `${regionLabel} 2v2 teams have not been placed on the rankings board yet.`
       );
     }
 
     if (twosUnrankedPanel) {
       twosUnrankedPanel.innerHTML = buildRegionEmptyRankingCard(
-        "No AS off-board 2v2 teams yet",
-        "There are no AS off-board duo placements on the site right now."
+        `No ${regionLabel} off-board 2v2 teams yet`,
+        `There are no ${regionLabel} off-board duo placements on the site right now.`
       );
     }
 
     if (twosAlltimePanel) {
       twosAlltimePanel.innerHTML = buildRegionEmptyRankingCard(
-        "No AS all-time 2v2 board yet",
-        "Historic AS duo placements can be added here later."
+        `No ${regionLabel} all-time 2v2 board yet`,
+        `Historic ${regionLabel} duo placements can be added here later.`
       );
     }
 

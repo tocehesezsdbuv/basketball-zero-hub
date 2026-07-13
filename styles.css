@@ -377,16 +377,26 @@ body[data-active-region]:not([data-active-region="OCE"]) .region-oce-content {
   display: none;
 }
 
-body[data-active-region="OCE"] .region-shared-content,
-body[data-active-region="AS"] .region-shared-content {
+body[data-active-region="OCE"] [data-panel="rankings"] .region-shared-content,
+body[data-active-region="AS"] [data-panel="rankings"] .region-shared-content,
+body[data-active-region="EU"] [data-panel="rankings"] .region-shared-content,
+body[data-active-region="OCE"] [data-panel="scrims"] .region-shared-content,
+body[data-active-region="AS"] [data-panel="scrims"] .region-shared-content,
+body[data-active-region="OCE"] [data-panel="history"] .region-shared-content,
+body[data-active-region="AS"] [data-panel="history"] .region-shared-content {
   display: block;
 }
 
-body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]) .region-shared-content {
+body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]):not([data-active-region="EU"]) [data-panel="rankings"] .region-shared-content,
+body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]) [data-panel="scrims"] .region-shared-content,
+body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]) [data-panel="history"] .region-shared-content {
   display: none;
 }
 
-body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]) .region-empty-panel {
+body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]):not([data-active-region="EU"]) [data-panel="rankings"] .region-empty-panel,
+body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]) [data-panel="scrims"] .region-empty-panel,
+body[data-active-region]:not([data-active-region="OCE"]):not([data-active-region="AS"]) [data-panel="history"] .region-empty-panel,
+body[data-active-region]:not([data-active-region="OCE"]) [data-panel="legends"] .region-empty-panel {
   display: block;
 }
 

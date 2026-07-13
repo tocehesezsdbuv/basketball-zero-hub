@@ -121,6 +121,7 @@ function setRegion(regionCode) {
   if (regionCode === "OCE" || regionCode === "AS" || regionCode === "NA" || regionCode === "EU") {
     renderPresentBoard(regionCode);
     renderRegionSpecificRankingPanels(regionCode);
+    updateRankingRecords(regionCode);
     const activeMetric = document.querySelector("[data-scrim-metric].active")?.dataset.scrimMetric || "overall";
     renderScrimBoard(activeMetric);
     renderHistoryScrimSession();
@@ -326,12 +327,127 @@ const onesHistoryRegions = {
   EU: { sessions: {} },
 };
 
+const twosHistoryRegions = {
+  OCE: { sessions: {} },
+  AS: { sessions: {} },
+  NA: { sessions: {} },
+  EU: { sessions: {} },
+};
+
 function getActiveScrimRegion() {
   return scrimRegions[document.body.dataset.activeRegion || "OCE"] || null;
 }
 
 function getActiveOnesHistoryRegion() {
   return onesHistoryRegions[document.body.dataset.activeRegion || "OCE"] || null;
+}
+
+function getHistoryRegion(regionCode, boardType) {
+  const regions = boardType === "twos" ? twosHistoryRegions : onesHistoryRegions;
+  return regions[regionCode || "OCE"] || { sessions: {} };
+}
+
+function getCleanName(value) {
+  return (value || "").replace(/\s+/g, " ").trim();
+}
+
+function getRecordKey(value) {
+  return getCleanName(value).toLowerCase();
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getBlankRecord() {
+  return { wins: 0, losses: 0 };
+}
+
+function getHistoryResultFromDescription(description) {
+  const matchupText = getCleanName(description?.split(".")[0]);
+  const competitors = matchupText
+    .split(/\s+vs\s+/i)
+    .map(getCleanName)
+    .filter(Boolean);
+
+  if (competitors.length !== 2) {
+    return null;
+  }
+
+  const winner = competitors.find((competitor) =>
+    new RegExp(`\\b${escapeRegExp(competitor)}\\s+won\\b`, "i").test(description)
+  );
+
+  if (!winner) {
+    return null;
+  }
+
+  const loser = competitors.find((competitor) => competitor !== winner);
+  return loser ? { winner, loser } : null;
+}
+
+function getHistoryRecords(regionCode, boardType) {
+  const records = new Map();
+  const sessions = getHistoryRegion(regionCode, boardType).sessions || {};
+
+  Object.values(sessions).forEach((session) => {
+    const result = session.result || getHistoryResultFromDescription(session.description || "");
+
+    if (!result?.winner || !result?.loser) {
+      return;
+    }
+
+    const winnerKey = getRecordKey(result.winner);
+    const loserKey = getRecordKey(result.loser);
+
+    if (!records.has(winnerKey)) {
+      records.set(winnerKey, getBlankRecord());
+    }
+
+    if (!records.has(loserKey)) {
+      records.set(loserKey, getBlankRecord());
+    }
+
+    records.get(winnerKey).wins += 1;
+    records.get(loserKey).losses += 1;
+  });
+
+  return records;
+}
+
+function getHistoryRecordLabel(regionCode, boardType, competitorName) {
+  const record = getHistoryRecords(regionCode, boardType).get(getRecordKey(competitorName)) || getBlankRecord();
+  return `${record.wins}-${record.losses}`;
+}
+
+function setRowRecord(row, recordLabel) {
+  const valueCell = Array.from(row?.children || []).find((child) => child.tagName === "SPAN");
+
+  if (valueCell) {
+    valueCell.textContent = recordLabel;
+  }
+}
+
+function updateRankingRecords(regionCode) {
+  document.querySelectorAll("[data-present-player]").forEach((row) => {
+    setRowRecord(row, getHistoryRecordLabel(regionCode, "ones", row.dataset.presentPlayer));
+  });
+
+  document.querySelectorAll("[data-offboard-player]").forEach((row) => {
+    setRowRecord(row, getHistoryRecordLabel(regionCode, "ones", row.dataset.offboardPlayer));
+  });
+
+  document.querySelectorAll("[data-alltime-player]").forEach((row) => {
+    setRowRecord(row, getHistoryRecordLabel(regionCode, "ones", row.dataset.alltimePlayer));
+  });
+
+  document.querySelectorAll("[data-twos-player]").forEach((row) => {
+    setRowRecord(row, getHistoryRecordLabel(regionCode, "twos", row.dataset.twosPlayer));
+  });
+
+  document.querySelectorAll("[data-twos-alltime-player]").forEach((row) => {
+    setRowRecord(row, getHistoryRecordLabel(regionCode, "twos", row.dataset.twosAlltimePlayer));
+  });
 }
 
 function getActiveScrimPlayerStats() {
@@ -1543,7 +1659,7 @@ function renderPresentBoard(regionCode) {
                 <span class="player-username">${entry.username}</span>
               </div>
             </div>
-            <span>${entry.elo}</span>
+            <span>${getHistoryRecordLabel(regionCode, "ones", entry.player)}</span>
             <span class="rank-tier ${entry.tierClass}">${entry.tier}</span>
           </article>
         </div>

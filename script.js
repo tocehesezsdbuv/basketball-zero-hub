@@ -83,6 +83,7 @@ const onesPresentRegionBoards = {
   EU: [
     { rank: 1, player: "yznx", username: "@theblackgamerital", avatar: "assets/yznx.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-gold" },
     { rank: 2, player: "Kevin", username: "@noel_veroleone", avatar: "assets/kevin.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-silver" },
+    { rank: 3, player: "Z", username: "@1sssaaa1z", avatar: "assets/Z.webp", elo: "N/A", tier: "S Rank", tierClass: "rank-tier-bronze" },
   ],
 };
 
@@ -793,6 +794,20 @@ const playerSpotlights = {
       {
         title: "EU Board Presence",
         text: "Being placed directly under the No.1 spot puts Kevin near the top of the region's current 1v1 picture.",
+      },
+    ],
+  },
+  Z: {
+    description:
+      "Z currently sits at No.3 on the EU 1v1 board, adding another tracked name to the region's active ladder.",
+    monuments: [
+      {
+        title: "Current EU No.3",
+        text: "Z holds the third spot on the EU 1v1 leaderboard right now.",
+      },
+      {
+        title: "Top Three Placement",
+        text: "Being placed inside the EU top three keeps Z near the front of the region's current 1v1 board.",
       },
     ],
   },
